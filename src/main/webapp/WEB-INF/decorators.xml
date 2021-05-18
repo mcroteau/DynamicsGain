@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<decorators defaultdir="/layouts">
+<decorators defaultdir="/designs">
     <decorator name="guest" page="guest.jsp">
         <pattern>*/</pattern>
         <pattern>*/signin</pattern>
@@ -9,8 +9,6 @@
         <pattern>*/users/confirm</pattern>
     </decorator>
     <decorator name="auth" page="auth.jsp">
-        <pattern>*/prospects</pattern>
         <pattern>*/users/edit*</pattern>
-        <pattern>*/prospects*</pattern>
     </decorator>
 </decorators>
