@@ -1,0 +1,34 @@
+### AWS Settings ###
+aws.bucket=go.une
+
+### Twilio Settings ###
+twilio.phone=+1
+twilio.sid=
+twilio.token=
+
+### Plivo Settings ###
+plivo.api.phone=+1
+plivo.notification.phone=+1
+plivo.api.key=
+plivo.secret.key=
+
+### Business Settings ###
+business=
+mailbox=croteau.mike@gmail.com
+
+### Db Settings ###
+db.name=db
+db.url=jdbc:h2:tcp://localhost:9092/~/.Akki/db
+db.driver=org.h2.Driver
+db.user=sa
+db.pass=
+
+### Mail Settings ###
+smtp.host=mail.smtp2go.com
+smtp.auth=true
+smtp.port=2525
+smtp.username=
+smtp.password=
+smtp.supportEmail=
+smtp.starttls.enabled=true
+
