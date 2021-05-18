@@ -33,7 +33,7 @@ build/
 ### VS Code ###
 .vscode/
 
-### Mac ###
+### Project ###
 *dev.props
 *prod.props
 *checklist.md
