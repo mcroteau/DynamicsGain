@@ -1,3 +1,3 @@
-﻿# Go+ Spirit
+﻿![](http://goioc.xyz/gospirit.png)
 
 Go or Got.. let's end suffering? If we can...
