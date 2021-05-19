@@ -152,7 +152,12 @@ public class UserService {
             user.setUsername(username);
             user.setPassword(passwordHashed);
             user.setDateCreated(Spirit.getDate());
-            userRepo.save(user);
+            User savedUser = userRepo.save(user);
+
+            userRepo.saveUserRole(savedUser.getId(), Spirit.DONOR_ROLE);
+
+            String permission = Spirit.USER_MAINTENANCE + savedUser.getId();
+            userRepo.savePermission(savedUser.getId(), permission);
 
             User savedUser = userRepo.getByUsername(user.getUsername());
             Role defaultRole = roleRepo.find(Spirit.DONOR_ROLE);

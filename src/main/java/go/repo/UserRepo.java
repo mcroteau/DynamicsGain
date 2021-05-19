@@ -73,9 +73,6 @@ public class UserRepo {
 		String savedSql = "select * from users order by id desc limit 1 ";
 		User savedUser = (User) q.get(savedSql, new Object[]{}, User.class);
 
-		checkSaveDefaultUserRole(savedUser.getId());
-		checkSaveDefaultUserPermission(savedUser.getId());
-
 		return savedUser;
 	}
 
@@ -149,7 +146,7 @@ public class UserRepo {
 	}
 
 	public boolean checkSaveDefaultUserRole(long userId){
-		Role role = roleRepo.find(Spirit.USER_ROLE);
+		Role role = roleRepo.find(Spirit.DONOR_ROLE);
 		UserRole existing = getUserRole(userId, role.getId());
 		if(existing == null){
 			saveUserRole(userId, role.getId());
@@ -183,6 +180,13 @@ public class UserRepo {
 			userPermission = (UserPermission) q.get(sql, new Object[]{ userId, permission}, UserPermission.class);
 		}catch(Exception ex){ }
 		return userPermission;
+	}
+
+	public boolean saveUserRole(long userId, String roleName){
+		Role role = roleRepo.find(roleName);
+		String sql = "insert into user_roles (role_id, user_id) values ({}, {})";
+		q.save(sql, new Object[]{role.getId(), userId});
+		return true;
 	}
 
 	public boolean saveUserRole(long userId, long roleId){
