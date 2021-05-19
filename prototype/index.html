@@ -1,0 +1,173 @@
+<html>
+<head>
+
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.9/topojson.min.js"></script>
+    <script src="datamaps.js"></script>
+<style>
+    body{
+        margin:30px 300px;
+    }
+    h1{
+        font-size:73px;
+        font-weight: 900;
+        font-style: italic;
+        font-family: Roboto;
+        margin:0px;
+        line-height: 1.0em;
+    }
+    h1 .spirit{
+        background: rgb(255,75,176);
+        background: linear-gradient(101deg, rgba(255,75,176,1) 0%, rgba(255,75,176,1) 19%, rgba(253,254,3,1) 26%, rgba(44,244,0,1) 28%, rgba(44,244,0,1) 49%, rgba(84,175,255,1) 54%, rgba(84,175,255,1) 72%, rgba(0,0,0,1) 72%);
+        -webkit-background-clip: text;
+        -moz-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        -moz-text-fill-color: transparent;
+    }
+    .signature{
+        background: rgb(255,75,176);
+        background: linear-gradient(101deg, rgba(255,75,176,1) 0%, rgba(255,75,176,1) 19%, rgba(253,254,3,1) 26%, rgba(44,244,0,1) 28%, rgba(44,244,0,1) 49%, rgba(84,175,255,1) 54%, rgba(84,175,255,1) 72%, rgba(0,0,0,1) 72%);
+    }
+    p{
+        font-family: Roboto;
+        margin:0px;
+    }
+    #map{
+        cursor: pointer;
+        cursor: hand;
+    }
+    #guest-navigation a{
+        text-decoration: none;
+        display:block;
+        clear:both;
+        color:#000;
+        font-family: Roboto;
+        font-weight:700;
+    }
+</style>
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,900&display=swap');
+</style>
+
+</head>
+<body>
+
+<div style="float:left">
+    <h1>Go<span class="plus">+</span><br/>
+        <span class="spirit">Spirit</span></h1>
+    <p>A Movement to End Pain.</p>
+</div>
+<div style="float:right; text-align: right" id="guest-navigation">
+    <a href="#">Home</a>
+    <a href="#">Give</a>
+    <a href="#">About</a>
+</div>
+
+<br style="clear:both"/>
+
+<div id="usa-count">
+    Total : 2,500,000<br/>
+    Homelessness = Pain
+</div>
+
+<div style="position:relative">
+    <div id="map" style="position: relative; width: 700px; height: 370px;"></div>
+</div>
+
+<script>
+    var USdata = {
+        'AK': '1K',
+        'AL': '123',
+        'AR': '7576',
+        'AZ': '345',
+        'CA': '501K',
+        'CO': '453',
+        'CT': '765',
+        'DC': '234',
+        'DE': '354K',
+        //'FL': 'Florida', Simulate a missing value defaults to 2 letter abbr
+        'GA': '5K',
+        'HI': '234',
+        'IA': '234',
+        'ID': 'Idaho',
+        'IL': '234',
+        'IN': '234',
+        'KS': '234',
+        'KY': '234',
+        'LA': '234',
+        'MA': '234',
+        'MD': '7566',
+        'ME': '567',
+        'MI': '567',
+        'MN': '46',
+        'MO': '456',
+        'MS': '567',
+        'MT': '345',
+        'NC': '456',
+        'ND': '345',
+        'NE': '65',
+        'NH': '356',
+        'NJ': '54',
+        'NM': '4356',
+        'NV': '5463',
+        'NY': '3456',
+        'OH': '2345',
+        'OK': '2345',
+        'OR': '564',
+        'PA': '456',
+        'RI': '234',
+        'SC': '234',
+        'SD': '5467',
+        'TN': '5467',
+        'TX': '2345',
+        'UT': '345',
+        'VA': '432',
+        'VT': '654',
+        'WA': '456',
+        'WI': '543',
+        'WV': '345',
+        'WY': '1234'};
+
+    var map = new Datamap({
+        element: document.getElementById('map'),
+        scope: 'usa',
+        fills: {
+            defaultFill: 'rgba(249,251,255,1.0)',
+        },
+        data : USdata,
+        geographyConfig: {
+            //highlightFillColor: 'rgba(84, 175, 255, 1)',
+            highlightFillColor: 'rgba(161, 210, 255, 1)',
+            highlightFillColor: 'rgba(249,251,255,1.0)',
+            highlightFillColor: 'rgba(255,251,117,1.0)',
+            borderColor : 'rgba(84,175,255,1)',
+            borderColor : 'rgba(0,0,0,1)',
+            borderWidth: '3px',
+            highlightBorderWidth: '3px',
+            highlightBorderColor : 'rgba(0,0,0,1)',
+            highlightBorderColor : 'rgba(84,175,255,1)',
+            popupTemplate: function(geo, data) {
+                return ['<div class="hoverinfo"><strong>',
+                    ' ' + geo.properties.name + ' tallied',
+                    ': ' + data,
+                    '</strong></div>'].join('');
+            }
+        },
+        done: function(datamap) {
+            datamap.svg.selectAll('.datamaps-subunit').on('click', function(geography) {
+                console.log(geography.properties);
+            });
+        }
+    });
+
+    map.labels({'customLabelText': USdata});
+
+</script>
+
+
+
+<div style="position:fixed;bottom:0px;left:0px;right:0px;height:7px;" class="signature"></div>
+</body>
+</html>
