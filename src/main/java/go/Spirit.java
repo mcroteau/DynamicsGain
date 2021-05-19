@@ -18,6 +18,8 @@ import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -26,30 +28,15 @@ public class Spirit {
 
 	public static final String USER_MAINTENANCE = "users:";
 
-	public static final String SUPER_ROLE  = "SUPER_ROLE";
-	public static final String USER_ROLE   = "USER_ROLE";
+	public static final String SUPER_ROLE   = "SUPER_ROLE";
+	public static final String DONOR_ROLE   = "DONOR_ROLE";
+	public static final String CHARITY_ROLE = "CHARITY_ROLE";
 
 	public static final String SUPER_USERNAME = "croteau.mike@gmail.com";
 	public static final String SUPER_PASSWORD = "password";
 
-	public static final String PROSPECT_STATUS = "Prospect";
-	public static final String WORKING_STATUS  = "Working";
-	public static final String CUSTOMER_STATUS = "Customer";
-	public static final String IDLE_STATUS     = "Idle";
-
-	public static final String DATE_TIME  = "yyyyMMddHHmm";
-	public static final String ZERO_TIME_FORMAT  = "yyyyMMdd";
 	public static final String DATE_FORMAT  = "yyyyMMddHHmm";
 	public static final String DATE_PRETTY  = "HH:mmaa dd MMM";
-
-	public static final int    NOTIFICATION_JOB_DURATION = 60;
-	public static final String NOTIFICATION_GROUP = "Spirit";
-	public static final String NOTIFICATION_JOB = "Notification Job";
-	public static final String NOTIFICATION_TRIGGER = "Trigger1";
-
-	public static final String SMS_SERVICE_KEY   = "smsService";
-	public static final String PROSPECT_REPO_KEY = "prospectRepo";
-
 
 
 	public static int getNumber(int max){
@@ -62,7 +49,6 @@ public class Spirit {
 		Matcher m = p.matcher(str);
 		return m.find();
 	}
-
 
 	private static String getExtension(final String path) {
 		String result = null;
@@ -145,45 +131,32 @@ public class Spirit {
 		return value;
 	}
 
-	public static void main(String[] args) throws Exception {
+	public static Map<String, String[]> getNations() {
+		Map<String, String[]> locations = new HashMap<>();
+		String[] usStates = {
+				"Alabama", "Alaska", "American Samoa", "Arizona", "Arkansas",
+				"California", "Colorado", "Connecticut",
+				"Delaware", "District of Columbia",
+				"Florida",
+				"Georgia", "Guam",
+				"Hawaii",
+				"Idaho", "Illinois", "Indiana", "Iowa",
+				"Kansas", "Kentucky",
+				"Louisiana",
+				"Maine", "Maryland", "Massachusetts", "Michigan", "Minnesota", "Mississippi", "Missouri", "Montana",
+				"Nebraska", "Nevada", "New Hampshire", "New Jersey", "New Mexico", "New York", "North Carolina", "North Dakota", "Northern Mariana Islands",
+				"Ohio", "Oklahoma", "Oregon",
+				"Pennsylvania", "Puerto Rico",
+				"Rhode Island",
+				"South Carolina", "South Dakota",
+				"Tennessee", "Texas",
+				"Utah",
+				"Vermont", "Virgin Islands", "Virginia",
+				"Washington", "West Virginia", "Wisconsin", "Wyoming"
+		};
+		locations.put("United States of America", usStates);
 
-		String baseDir = ".";
-		String webappDirLocation = "src/main/webapp/";
-		Tomcat tomcat = new Tomcat();
-
-		tomcat.setPort(8080);
-
-		tomcat.setBaseDir("tomcat.8080");
-		tomcat.getHost().setAppBase(baseDir);
-		tomcat.enableNaming();
-
-		StandardContext ctx = (StandardContext) tomcat.addWebapp("/a", new File(webappDirLocation).getAbsolutePath());
-		ctx.setJarScanner(new StandardJarScanner());
-
-		ClassLoader classLoader = Spirit.class.getClassLoader();
-		ctx.setParentClassLoader(classLoader);
-
-		File additionWebInfClasses = new File("output/classes");
-		WebResourceRoot resources = new StandardRoot(ctx);
-		resources.addPreResources(new DirResourceSet(resources, "/WEB-INF/classes",
-				additionWebInfClasses.getAbsolutePath(), "/"));
-		ctx.setResources(resources);
-
-		File webXml = new File(webappDirLocation + "WEB-INF/web.xml");
-		ctx.setDefaultWebXml(webXml.getAbsolutePath());
-
-		tomcat.start();
-
-		Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-			try {
-				new StartupService().shutdown();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}));
-
-		tomcat.getServer().await();
-
+		return locations;
 	}
 
 }

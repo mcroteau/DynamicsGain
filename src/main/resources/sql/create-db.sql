@@ -22,59 +22,30 @@ create table if not exists user_roles(
 	user_id bigint NOT NULL REFERENCES users(id)
 );
 
-
-create table if not exists statuses (
-	id bigint PRIMARY KEY AUTO_INCREMENT,
-	name character varying(131) NOT NULL,
-	constraint status_name unique(name)
-);
-
-create table if not exists prospects (
+create table if not exists nations (
 	id bigint PRIMARY KEY AUTO_INCREMENT,
 	name character varying(254) NOT NULL,
-	email character varying(254),
-	phone character varying(142),
-	contacts text,
-	notes text,
-	constraint prospect_name unique(name),
-	status_id bigint NOT NULL REFERENCES statuses(id)
+	constraint country_name unique(name)
 );
 
-create table if not exists activities (
+create table if not exists states (
 	id bigint PRIMARY KEY AUTO_INCREMENT,
 	name character varying(254) NOT NULL,
-	constraint activity_name unique(name)
+	nation_id bigint NOT NULL REFERENCES nations(id)
 );
 
-create table if not exists efforts (
+create table if not exists towns (
 	id bigint PRIMARY KEY AUTO_INCREMENT,
-	start_date bigint default 0,
-	end_date bigint,
-	finished boolean default false,
-	success boolean default false,
-	starting_status_id bigint NOT NULL REFERENCES statuses(id),
-	ending_status_id bigint REFERENCES statuses(id),
-	prospect_id bigint NOT NULL REFERENCES prospects(id)
+	name character varying(254) NOT NULL,
+	state_id bigint NOT NULL REFERENCES states(id)
 );
 
-create table if not exists prospect_activities (
+create table organizations (
 	id bigint PRIMARY KEY AUTO_INCREMENT,
-	task_date bigint default 0,
-	complete_date bigint default 0,
-	completed boolean default false,
-	five_reminder boolean default false,
-	fifteen_reminder boolean default false,
-	thirty_reminder boolean default false,
-	notified_five boolean default false,
-	notified_fifteen boolean default false,
-	notified_thirty boolean default false,
-	phones text default '',
-	time_zone character varying(151),
-	effort_id bigint REFERENCES efforts(id),
-	activity_id bigint NOT NULL REFERENCES activities(id),
-	prospect_id bigint NOT NULL REFERENCES prospects(id),
-	completed_by_user_id bigint REFERENCES users(id)
+	name character varying(255) NOT NULL,
+	description text,
+	count bigint default 1,
+	organization_uri character varying (254),
+	town_id bigint NOT NULL REFERENCES towns(id),
+	constraint unique_location_uri unique(location_uri)
 );
-
-
-

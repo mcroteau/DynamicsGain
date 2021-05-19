@@ -1,4 +1,4 @@
 #!/bin/bash
 
 ./mvnw package
-sh output/bin/Akki
+sh output/bin/Server

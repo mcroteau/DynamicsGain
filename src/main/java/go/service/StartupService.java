@@ -2,7 +2,6 @@ package go.service;
 
 import go.Spirit;
 import go.support.SpiritAccessor;
-import go.jobs.NotificationJob;
 import go.model.*;
 import go.repo.*;
 import eco.m1.M1;
@@ -11,15 +10,13 @@ import eco.m1.annotate.Inject;
 import eco.m1.annotate.Service;
 import eco.m1.jdbc.BasicDataSource;
 import org.h2.tools.RunScript;
-import org.quartz.*;
-import org.quartz.impl.StdSchedulerFactory;
 import xyz.goioc.Parakeet;
 
 import java.io.File;
 import java.io.FileReader;
 import java.nio.file.Paths;
 import java.sql.Connection;
-import java.util.List;
+import java.util.Map;
 
 @Service
 public class StartupService {
@@ -34,30 +31,23 @@ public class StartupService {
     RoleRepo roleRepo;
 
     @Inject
-    StatusRepo statusRepo;
+    StateRepo stateRepo;
 
     @Inject
-    ActivityRepo activityRepo;
-
-    @Inject
-    ProspectRepo prospectRepo;
-
-    @Inject
-    EffortRepo effortRepo;
-
-    @Inject
-    SmsService smsService;
+    NationRepo nationRepo;
 
     @Inject
     SpiritAccessor spiritAccessor;
 
-
     public void init() throws Exception {
+
+        runCreateScript();
 
         Parakeet.perch(spiritAccessor);
 
         Role superRole = roleRepo.find(Spirit.SUPER_ROLE);
-        Role userRole = roleRepo.find(Spirit.USER_ROLE);
+        Role donorRole = roleRepo.find(Spirit.DONOR_ROLE);
+        Role charityRole = roleRepo.find(Spirit.CHARITY_ROLE);
 
         if(superRole == null){
             superRole = new Role();
@@ -65,10 +55,16 @@ public class StartupService {
             roleRepo.save(superRole);
         }
 
-        if(userRole == null){
-            userRole = new Role();
-            userRole.setName(Spirit.USER_ROLE);
-            roleRepo.save(userRole);
+        if(donorRole == null){
+            donorRole = new Role();
+            donorRole.setName(Spirit.DONOR_ROLE);
+            roleRepo.save(donorRole);
+        }
+
+        if(charityRole == null){
+            charityRole = new Role();
+            charityRole.setName(Spirit.CHARITY_ROLE);
+            roleRepo.save(charityRole);
         }
 
         User existing = userRepo.getByUsername(Spirit.SUPER_USERNAME);
@@ -76,83 +72,34 @@ public class StartupService {
 
         if(existing == null){
             User superUser = new User();
-            superUser.setPhone("+19076879557");
+            superUser.setPhone("+19079878652");
             superUser.setUsername(Spirit.SUPER_USERNAME);
             superUser.setPassword(password);
             userRepo.saveAdministrator(superUser);
         }
 
-        Long statusCount = statusRepo.getCount();
-        if(statusCount == 0) {
-            String[] names = {Spirit.IDLE_STATUS,
-                                Spirit.PROSPECT_STATUS,
-                                Spirit.WORKING_STATUS,
-                                Spirit.CUSTOMER_STATUS};
+        Long nationCount = nationRepo.getCount();
+        Map<String, String[]> nations = Spirit.getNations();
+        if(nationCount == 0){
+            for(Map.Entry<String, String[]> nationEntry : nations.entrySet()){
+                Nation nation = new Nation();
+                nation.setName(nationEntry.getKey());
+                Nation savedNation = nationRepo.save(nation);
 
-            for (String name : names) {
-                Status status = new Status();
-                status.setName(name);
-                statusRepo.save(status);
-            }
-        }
-
-
-        Long activityCount = activityRepo.getCount();
-        if(activityCount == 0) {
-            String[] activityNames = {"Call",
-                                    "Email",
-                                    "Mailer",
-                                    "Meeting",
-                                    "Demo",
-                                    "Sale"};
-            for (String name : activityNames) {
-                Activity activity = new Activity();
-                activity.setName(name);
-                activityRepo.save(activity);
-            }
-        }
-
-        System.out.println("Roles : " + roleRepo.count());
-        System.out.println("Users : " + userRepo.getCount());
-        System.out.println("Statuses : " + statusRepo.getCount());
-        System.out.println("Activities : " + activityRepo.getCount());
-
-
-        try {
-
-            Class[] jobs = { NotificationJob.class };
-            String[] jobNames = { Spirit.NOTIFICATION_JOB };
-            String[] triggers = { Spirit.NOTIFICATION_TRIGGER };
-
-            for(int n = 0; n < jobs.length; n++){
-
-                JobDetail job = JobBuilder.newJob(jobs[n])
-                        .withIdentity(jobNames[n], Spirit.NOTIFICATION_GROUP).build();
-
-                job.getJobDataMap().put(Spirit.PROSPECT_REPO_KEY, prospectRepo);
-                job.getJobDataMap().put(Spirit.SMS_SERVICE_KEY, smsService);
-
-                Trigger trigger = TriggerBuilder
-                        .newTrigger()
-                        .withIdentity(triggers[n], Spirit.NOTIFICATION_GROUP)
-                        .withSchedule(
-                                SimpleScheduleBuilder.simpleSchedule()
-                                        .withIntervalInSeconds(Spirit.NOTIFICATION_JOB_DURATION).repeatForever())
-                        .build();
-
-                Scheduler scheduler = new StdSchedulerFactory().getScheduler();
-                scheduler.startDelayed(0 );
-                JobKey key = new JobKey(jobNames[n], Spirit.NOTIFICATION_GROUP);
-                if(!scheduler.checkExists(key)) {
-                    scheduler.scheduleJob(job, trigger);
-                    System.out.println(jobs[n] + " repeated " + Spirit.NOTIFICATION_JOB_DURATION + " seconds");
+                for(String stateName : nationEntry.getValue()){
+                    State state = new State();
+                    state.setName(stateName);
+                    state.setNationId(savedNation.getId());
+                    stateRepo.save(state);
                 }
             }
-
-
-        }catch (Exception ex){
-            ex.printStackTrace();
         }
+
+        System.out.println("Users : " + userRepo.getCount());
+        System.out.println("Roles : " + roleRepo.count());
+        System.out.println("Nations : " + nationRepo.getCount());
+        System.out.println("States : " + stateRepo.getCount());
+
     }
 
     private void runCreateScript() throws Exception {
@@ -170,76 +117,9 @@ public class StartupService {
         RunScript.execute(conn, new FileReader(createSql));
     }
 
-    protected void createMockData(){
-        User superUser = userRepo.getByUsername(Spirit.SUPER_USERNAME);
-        String password = Parakeet.dirty(Spirit.SUPER_PASSWORD);
-
-        if(superUser == null){
-            User user = new User();
-            user.setUsername(Spirit.SUPER_USERNAME);
-            user.setPassword(password);
-            userRepo.save(user);
-        }
-
-        List<Status> statuses = statusRepo.getList();
-        Long prospectCount = prospectRepo.getCount();
-        if(prospectCount == 0) {
-            String[] prospectNames = {"Blue Water Trucking Co.",
-                                    "Love Hour Meditation",
-                                    "Jeff's Silly Suds Brew House",
-                                    "Dr. Suese's Chiropractor's Masseuse",
-                                    "Tidy Tim's Bean Factory",
-                                    "Grand Rapids Auto Park",
-                                    "Dirken's Fluffanutters"};
-
-            for (String name : prospectNames) {
-                Status status = statuses.get(Spirit.getNumber(statuses.size()));
-                Prospect prospect = new Prospect();
-                prospect.setName(name);
-                prospect.setEmail(Spirit.getString(13));
-                prospect.setPhone("(808) 012-0910");
-                prospect.setStatusId(status.getId());
-                prospectRepo.save(prospect);
-            }
-        }
-        System.out.println("Prospects : " + prospectRepo.getCount());
-
-
-        Long activityCount = activityRepo.getCount();
-        if(activityCount == 0) {
-            String[] activityNames = {"Mailer",
-                                    "Call",
-                                    "Email",
-                                    "Meeting",
-                                    "Demo",
-                                    "Sale"};
-            for (String name : activityNames) {
-                Activity activity = new Activity();
-                activity.setName(name);
-                activityRepo.save(activity);
-            }
-            System.out.println("Activities : " + activityRepo.getCount());
-
-            List<Activity> activities = activityRepo.getList();
-
-            List<Prospect> prospects = prospectRepo.getList();
-            for (int z = 4; z < prospects.size(); z++) {
-                Prospect prospect = prospects.get(z);
-                int index = Spirit.getNumber(activityNames.length);
-                Activity activity = activities.get(index);
-                ProspectActivity prospectActivity = new ProspectActivity();
-                prospectActivity.setActivityId(activity.getId());
-                prospectActivity.setProspectId(prospect.getId());
-                prospectRepo.saveActivity(prospectActivity);
-            }
-        }
-        System.out.println("Prospect Activities : " + prospectRepo.getActivityCount());
-
-    }
-
-
     public void shutdown() throws Exception{
         System.out.println("shutdown...");
+        runDropScript();
     }
 
     private void runDropScript() throws Exception {

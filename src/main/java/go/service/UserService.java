@@ -1,22 +1,17 @@
 package go.service;
 
-import go.Spirit;
-import go.model.Prospect;
-import go.model.ProspectActivity;
-import go.model.Role;
-import go.model.User;
-import go.repo.ProspectRepo;
-import go.repo.RoleRepo;
-import go.repo.UserRepo;
 import eco.m1.annotate.Inject;
 import eco.m1.annotate.Service;
 import eco.m1.data.RequestData;
+import go.Spirit;
+import go.model.Role;
+import go.model.User;
+import go.repo.RoleRepo;
+import go.repo.UserRepo;
 import xyz.goioc.Parakeet;
 
 import javax.servlet.http.HttpServletRequest;
 import java.net.URLEncoder;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Enumeration;
 import java.util.List;
 
@@ -30,27 +25,11 @@ public class UserService {
     UserRepo userRepo;
 
     @Inject
-    ProspectRepo prospectRepo;
-
-    @Inject
     AuthService authService;
 
 
     private String getPermission(String id){
         return Spirit.USER_MAINTENANCE + id;
-    }
-
-    public void setPretty(ProspectActivity prospectActivity){
-        try {
-            Prospect prospect = prospectRepo.get(prospectActivity.getProspectId());
-            prospectActivity.setProspectName(prospect.getName());
-            SimpleDateFormat format = new SimpleDateFormat(Spirit.DATE_TIME);
-            Date date = format.parse(Long.toString(prospectActivity.getTaskDate()));
-
-            SimpleDateFormat formatter = new SimpleDateFormat(Spirit.DATE_PRETTY);
-            String pretty = formatter.format(date);
-            prospectActivity.setPrettyTime(pretty);
-        }catch (Exception ex){}
     }
 
 
@@ -76,13 +55,8 @@ public class UserService {
             return "[redirect]/";
         }
 
-        List<ProspectActivity> prospectActivities = prospectRepo.getActivities();
-        prospectActivities.stream().forEach((prospectActivity -> setPretty(prospectActivity)));
-
         User user = userRepo.get(id);
-
         data.put("user", user);
-        data.put("prospectActivities", prospectActivities);
 
         return "/pages/user/edit.jsp";
     }
@@ -181,7 +155,7 @@ public class UserService {
             userRepo.save(user);
 
             User savedUser = userRepo.getByUsername(user.getUsername());
-            Role defaultRole = roleRepo.find(Spirit.USER_ROLE);
+            Role defaultRole = roleRepo.find(Spirit.DONOR_ROLE);
 
             userRepo.saveUserRole(savedUser.getId(), defaultRole.getId());
             String permission = getPermission(Long.toString(savedUser.getId()));

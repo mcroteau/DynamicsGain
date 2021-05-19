@@ -122,8 +122,8 @@
 					<assembleDirectory>output</assembleDirectory>
 					<programs>
 						<program>
-							<mainClass>go.Spirit</mainClass>
-							<name>Akki</name>
+							<mainClass>go.support.TomcatServer</mainClass>
+							<name>Server</name>
 						</program>
 					</programs>
 				</configuration>
