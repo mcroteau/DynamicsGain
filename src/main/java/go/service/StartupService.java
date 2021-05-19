@@ -79,16 +79,17 @@ public class StartupService {
         }
 
         Long nationCount = nationRepo.getCount();
-        Map<String, String[]> nations = Spirit.getNations();
+        Map<String, String[][]> nations = Spirit.getNations();
         if(nationCount == 0){
-            for(Map.Entry<String, String[]> nationEntry : nations.entrySet()){
+            for(Map.Entry<String, String[][]> nationEntry : nations.entrySet()){
                 Nation nation = new Nation();
                 nation.setName(nationEntry.getKey());
                 Nation savedNation = nationRepo.save(nation);
 
-                for(String stateName : nationEntry.getValue()){
+                for(String[] stateEntry : nationEntry.getValue()){
                     State state = new State();
-                    state.setName(stateName);
+                    state.setName(stateEntry[0]);
+                    state.setAbbreviation(stateEntry[1]);
                     state.setNationId(savedNation.getId());
                     stateRepo.save(state);
                 }

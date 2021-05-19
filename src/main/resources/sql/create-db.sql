@@ -31,12 +31,15 @@ create table if not exists nations (
 create table if not exists states (
 	id bigint PRIMARY KEY AUTO_INCREMENT,
 	name character varying(254) NOT NULL,
+	abbreviation character varying(12),
 	nation_id bigint NOT NULL REFERENCES nations(id)
 );
 
 create table if not exists towns (
 	id bigint PRIMARY KEY AUTO_INCREMENT,
 	name character varying(254) NOT NULL,
+    count bigint default 0,
+    town_uri character varying(255),
 	state_id bigint NOT NULL REFERENCES states(id)
 );
 
