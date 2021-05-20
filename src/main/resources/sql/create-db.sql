@@ -43,12 +43,25 @@ create table if not exists towns (
 	state_id bigint NOT NULL REFERENCES states(id)
 );
 
-create table organizations (
+create table if not exists organizations (
 	id bigint PRIMARY KEY AUTO_INCREMENT,
 	name character varying(255) NOT NULL,
 	description text,
-	count bigint default 1,
-	organization_uri character varying (254),
+	uri character varying (254),
+	latitude character varying (254),
+	longitude character varying (254),
 	town_id bigint NOT NULL REFERENCES towns(id),
-	constraint unique_location_uri unique(location_uri)
+	constraint unique_uri unique(uri)
+);
+
+create table if not exists donations(
+	id bigint PRIMARY KEY AUTO_INCREMENT,
+	amount decimal,
+	processed boolean,
+	charge_id text,
+	subscription_id text,
+	cancelled boolean default false,
+	donation_date bigint,
+	user_id bigint NOT NULL REFERENCES users(id),
+	organization_id bigint REFERENCES organizations(id)
 );

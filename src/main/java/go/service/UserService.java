@@ -11,6 +11,7 @@ import go.repo.UserRepo;
 import xyz.goioc.Parakeet;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.swing.*;
 import java.net.URLEncoder;
 import java.util.Enumeration;
 import java.util.List;
@@ -31,7 +32,6 @@ public class UserService {
     private String getPermission(String id){
         return Spirit.USER_MAINTENANCE + id;
     }
-
 
     public String getUsers(RequestData data){
         if(!authService.isAuthenticated()){
@@ -156,20 +156,16 @@ public class UserService {
 
             userRepo.saveUserRole(savedUser.getId(), Spirit.DONOR_ROLE);
 
-            String permission = Spirit.USER_MAINTENANCE + savedUser.getId();
-            userRepo.savePermission(savedUser.getId(), permission);
+            User storedUser = userRepo.getByUsername(user.getUsername());
+            userRepo.saveUserRole(storedUser.getId(), Spirit.DONOR_ROLE);
 
-            User savedUser = userRepo.getByUsername(user.getUsername());
-            Role defaultRole = roleRepo.find(Spirit.DONOR_ROLE);
-
-            userRepo.saveUserRole(savedUser.getId(), defaultRole.getId());
             String permission = getPermission(Long.toString(savedUser.getId()));
             userRepo.savePermission(savedUser.getId(), permission);
 
 
         }catch(Exception e){
             e.printStackTrace();
-            data.put("message", "Will you contact us? Email us with the subject, support@amadeus.social. Our programmers missed something. Gracias!");
+            data.put("message", "Will you email with the subject, support@gospirit.xyz. Our programmers missed something. Gracias!");
             return("[redirect]/signup");
         }
 

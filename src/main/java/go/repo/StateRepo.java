@@ -39,9 +39,10 @@ public class StateRepo {
     }
 
     public State save(State state){
-        String sql = "insert into states (name, nation_id) values ('{}', {})";
+        String sql = "insert into states (name, abbreviation, nation_id) values ('{}', '{}', {})";
         q.update(sql, new Object[] {
                 state.getName(),
+                state.getAbbreviation(),
                 state.getNationId()
         });
 
@@ -50,9 +51,10 @@ public class StateRepo {
     }
 
     public boolean update(State state) {
-        String sql = "update states set name = '{}', nation_id = {} where id = {}";
+        String sql = "update states set name = '{}', abbreviation = '{}', nation_id = {} where id = {}";
         q.update(sql, new Object[] {
                 state.getName(),
+                state.getAbbreviation(),
                 state.getNationId(),
                 state.getId()
         });
