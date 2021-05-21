@@ -2,8 +2,14 @@ package go.web;
 
 import eco.m1.annotate.Http;
 import eco.m1.annotate.Inject;
-import go.model.Town;
+import eco.m1.annotate.Variable;
+import eco.m1.annotate.verbs.Get;
+import eco.m1.annotate.verbs.Post;
+import eco.m1.data.RequestData;
 import go.service.TownService;
+import org.apache.catalina.servlet4preview.http.HttpServletRequest;
+
+import javax.servlet.http.HttpServletResponse;
 
 @Http
 public class TownController {
@@ -11,44 +17,56 @@ public class TownController {
     @Inject
     TownService townService;
 
-    @GetMapping(value="/towns/{uri}")
-    public String index(ModelMap modelMap,
-                        @PathVariable String uri){
-        return townService.index(uri, modelMap);
+    @Get(value="/towns/{uri}")
+    public String index(HttpServletRequest req,
+                        HttpServletResponse resp,
+                        RequestData data,
+                        @Variable String uri){
+        return townService.index(uri, data);
     }
 
-    @GetMapping(value="/admin/towns/create")
-    public String index(ModelMap modelMap){
-        return townService.create(modelMap);
+    @Get(value="/admin/towns/create")
+    public String index(HttpServletRequest req,
+                        HttpServletResponse resp,
+                        RequestData data){
+        return townService.create();
     }
 
-    @PostMapping(value="/admin/towns/save")
-    public String save(@ModelAttribute("town") Town town,
-                          RedirectAttributes redirect){
-        return townService.save(town, redirect);
+    @Post(value="/admin/towns/save")
+    public String save(HttpServletRequest req,
+                       HttpServletResponse resp,
+                       RequestData data){
+        return townService.save(req, data);
     }
 
-    @GetMapping(value="/admin/towns")
-    public String getProjects(ModelMap modelMap){
-        return townService.getTowns(modelMap);
+    @Get(value="/admin/towns")
+    public String getProjects(HttpServletRequest req,
+                              HttpServletResponse resp,
+                              RequestData data){
+        return townService.getTowns(data);
     }
 
-    @GetMapping(value="/admin/towns/edit/{id}")
-    public String getEdit(ModelMap modelMap,
-                          @PathVariable Long id){
-        return townService.getEdit(id, modelMap);
+    @Get(value="/admin/towns/edit/{id}")
+    public String getEdit(HttpServletRequest req,
+                          HttpServletResponse resp,
+                          RequestData data,
+                          @Variable Long id){
+        return townService.getEdit(id, data);
     }
 
-    @PostMapping(value="/admin/towns/update")
-    public String update(@ModelAttribute("town") Town town,
-                            RedirectAttributes redirect){
-        return townService.update(town, redirect);
+    @Post(value="/admin/towns/update")
+    public String update(HttpServletRequest req,
+                         HttpServletResponse resp,
+                         RequestData data){
+        return townService.update(req, data);
     }
 
-    @PostMapping(value="/admin/towns/delete/{id}")
-    public String delete(@PathVariable Long id,
-                            RedirectAttributes redirect){
-        return townService.delete(id, redirect);
+    @Post(value="/admin/towns/delete/{id}")
+    public String delete(HttpServletRequest req,
+                         HttpServletResponse resp,
+                         RequestData data,
+                         @Variable Long id){
+        return townService.delete(id, data);
     }
 
 }

@@ -4,10 +4,12 @@ import eco.m1.annotate.Inject;
 import eco.m1.annotate.Service;
 import eco.m1.data.RequestData;
 import go.model.Location;
+import go.model.Organization;
 import go.model.Town;
 import go.repo.LocationRepo;
 import go.repo.OrganizationRepo;
 import go.repo.TownRepo;
+import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 
 import java.text.NumberFormat;
 import java.util.List;
@@ -45,14 +47,14 @@ public class TownService {
         return "town/index";
     }
 
-    public String create(ModelMap modelMap) {
+    public String create() {
         if(!authService.isAuthenticated()){
             return "redirect:/";
         }
         return "town/create";
     }
 
-    public String save(Town town, RedirectAttributes redirect) {
+    public String save(HttpServletRequest req, RequestData data) {
         if(!authService.isAuthenticated()){
             return "redirect:/";
         }
@@ -66,7 +68,7 @@ public class TownService {
         return "redirect:/admin/towns";
     }
 
-    public String getEdit(Long id, ModelMap modelMap) {
+    public String getEdit(Long id, RequestData data) {
         if(!authService.isAuthenticated()){
             return "redirect:/";
         }
@@ -75,12 +77,12 @@ public class TownService {
         }
 
         Town town = townRepo.get(id);
-        modelMap.put("town", town);
+        data.put("town", town);
 
         return "town/edit";
     }
 
-    public String update(Town town, RedirectAttributes redirect) {
+    public String update(HttpServletRequest req, RequestData data) {
         if(!authService.isAuthenticated()){
             return "redirect:/";
         }
@@ -96,17 +98,18 @@ public class TownService {
         townRepo.update(town);
 
         List<Town> towns = townRepo.getList();
-        try {
-            sitemapService.writeTowns(towns);
-        }catch(Exception ex){
-            ex.printStackTrace();
-        }
+
+//        try {
+//            sitemapService.writeTowns(towns);
+//        }catch(Exception ex){
+//            ex.printStackTrace();
+//        }
 
         redirect.addFlashAttribute("message", "Successfully updated town");
         return "redirect:/admin/towns/edit/" + town.getId();
     }
 
-    public String getTowns(ModelMap modelMap) {
+    public String getTowns(RequestData data) {
         if(!authService.isAuthenticated()){
             return "redirect:/";
         }
@@ -116,12 +119,12 @@ public class TownService {
         }
 
         List<Town> towns = townRepo.getList();
-        modelMap.put("towns", towns);
+        data.put("towns", towns);
 
         return "town/list";
     }
 
-    public String delete(Long id, RedirectAttributes redirect) {
+    public String delete(Long id, RequestData data) {
         if(!authService.isAuthenticated()){
             return "redirect:/";
         }
@@ -129,13 +132,9 @@ public class TownService {
             return "redirect:/unauthorized";
         }
 
-        List<Location> locations = locationRepo.getList(id);
-        for(Location location: locations){
-            dailyRepo.deleteCounts(location.getId());
-        }
-        locationRepo.deleteLocations(id);
+        organizationRepo.deleteLocations(id);
         townRepo.delete(id);
-        redirect.addFlashAttribute("message", "Successfully deleted town.");
+        data.put("message", "Successfully deleted town.");
 
         return "redirect:/admin/towns";
     }
