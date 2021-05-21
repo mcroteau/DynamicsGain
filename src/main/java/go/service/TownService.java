@@ -3,10 +3,8 @@ package go.service;
 import eco.m1.annotate.Inject;
 import eco.m1.annotate.Service;
 import eco.m1.data.RequestData;
-import go.model.Location;
 import go.model.Organization;
 import go.model.Town;
-import go.repo.LocationRepo;
 import go.repo.OrganizationRepo;
 import go.repo.TownRepo;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
@@ -32,17 +30,13 @@ public class TownService {
 
     public String index(String uri, RequestData data) {
         Town town = townRepo.get(uri);
-        List<Location> locations = locationRepo.getList(town.getId());
+        List<Organization> organizations = organizationRepo.getList(town.getId());
 
-        long sum = 0;
-        for(Location location: locations){
-            sum = sum + location.getCount();
-        }
-        String count = NumberFormat.getInstance(Locale.US).format(sum);
+        String count = NumberFormat.getInstance(Locale.US).format(town.getCount());
 
-        modelMap.put("count", count);
-        modelMap.put("town", town);
-        modelMap.put("locations", locations);
+        data.put("count", count);
+        data.put("town", town);
+        data.put("organizations", organizations);
 
         return "town/index";
     }
@@ -59,12 +53,21 @@ public class TownService {
             return "redirect:/";
         }
 
-        if(town.getName().equals("")){
-            redirect.addFlashAttribute("message", "Please give your web town a name...");
+        String name = req.getParameter("name");
+
+        if(name == null || name.equals("")){
+            data.put("message", "Please give your town a name...");
             return "redirect:/admin/towns/create";
         }
 
+        Long stateId = Long.parseLong(req.getParameter("stateId"));
+
+        Town town = new Town();
+        town.setName(name);
+        town.setStateId(stateId);
+
         townRepo.save(town);
+
         return "redirect:/admin/towns";
     }
 
@@ -90,10 +93,23 @@ public class TownService {
             return "redirect:/";
         }
 
-        if(town.getName().equals("")){
-            redirect.addFlashAttribute("message", "Please give your web town a name...");
+        Long id = Long.parseLong(req.getParameter("id"));
+        Town town = townRepo.get(id);
+
+        String name = req.getParameter("name");
+
+        if(name == null ||
+            name.equals("")){
+            data.put("message", "Please give your web town a name...");
             return "redirect:/admin/towns/edit/" + town.getId();
         }
+
+        Long stateId = Long.parseLong(req.getParameter("stateId"));
+        Long count = Long.parseLong(req.getParameter("count"));
+
+        town.setName(name);
+        town.setStateId(stateId);
+        town.setCount(count);
 
         townRepo.update(town);
 
@@ -105,7 +121,7 @@ public class TownService {
 //            ex.printStackTrace();
 //        }
 
-        redirect.addFlashAttribute("message", "Successfully updated town");
+        data.put("message", "Successfully updated town");
         return "redirect:/admin/towns/edit/" + town.getId();
     }
 
@@ -132,7 +148,7 @@ public class TownService {
             return "redirect:/unauthorized";
         }
 
-        organizationRepo.deleteLocations(id);
+        organizationRepo.deleteOrganizations(id);
         townRepo.delete(id);
         data.put("message", "Successfully deleted town.");
 

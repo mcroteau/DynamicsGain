@@ -1,26 +1,19 @@
 package go.web;
 
-import com.google.gson.Gson;
-import dynamics.gain.model.Location;
-import dynamics.gain.service.LocationService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import eco.m1.annotate.Http;
+import eco.m1.annotate.Inject;
+import go.model.Organization;
 
-@Controller
+@Http
 public class OrganizationController {
 
-    Gson gson = new Gson();
-
-    @Autowired
-    LocationService locationService;
+    @Inject
+    OrganizationService organizationService;
 
     @GetMapping(value="/locations/{uri}")
     public String index(ModelMap modelMap,
                         @PathVariable String uri){
-        return locationService.index(uri, modelMap);
+        return organizationService.index(uri, modelMap);
     }
 
     @GetMapping(value="/admin/locations/create")
@@ -31,7 +24,7 @@ public class OrganizationController {
     @PostMapping(value="/admin/locations/save")
     protected String save(@ModelAttribute("location") Location location,
                           RedirectAttributes redirect){
-        return locationService.save(location, redirect);
+        return organizationService.save(location, redirect);
     }
 
     @GetMapping(value="/admin/locations")
@@ -42,19 +35,19 @@ public class OrganizationController {
     @GetMapping(value="/admin/locations/edit/{id}")
     public String getEdit(ModelMap modelMap,
                               @PathVariable Long id){
-        return locationService.getEdit(id, modelMap);
+        return organizationService.getEdit(id, modelMap);
     }
 
     @PostMapping(value="/admin/locations/update")
     protected String update(@ModelAttribute("location") Location location,
                             RedirectAttributes redirect) throws Exception {
-        return locationService.update(location, redirect);
+        return organizationService.update(location, redirect);
     }
 
     @PostMapping(value="/admin/locations/delete/{id}")
     protected String delete(@PathVariable Long id,
                             RedirectAttributes redirect){
-        return locationService.delete(id, redirect);
+        return organizationService.delete(id, redirect);
     }
 
 }

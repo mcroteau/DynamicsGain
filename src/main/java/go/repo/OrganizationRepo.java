@@ -38,6 +38,12 @@ public class OrganizationRepo {
         return organizations;
     }
 
+    public List<Organization> getList(long id) {
+        String sql = "select * from locations where town_id = ?";
+        List<Organization> organizations = (List) q.getList(sql, new Object[]{ id }, Organization.class);
+        return organizations;
+    }
+
     public Organization save(Organization organization){
         String sql = "insert into organizations (name, town_id) values ('{}', {})";
         q.update(sql, new Object[] {
@@ -69,4 +75,9 @@ public class OrganizationRepo {
         return true;
     }
 
+    public boolean deleteOrganizations(Long id) {
+        String sql = "delete from organizations where town_id = ?";
+        q.delete(sql, new Object[] { id });
+        return true;
+    }
 }
