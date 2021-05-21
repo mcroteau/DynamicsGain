@@ -2,7 +2,14 @@ package go.web;
 
 import eco.m1.annotate.Http;
 import eco.m1.annotate.Inject;
-import go.model.Organization;
+import eco.m1.annotate.Variable;
+import eco.m1.annotate.verbs.Get;
+import eco.m1.annotate.verbs.Post;
+import eco.m1.data.RequestData;
+import go.service.OrganizationService;
+import org.apache.catalina.servlet4preview.http.HttpServletRequest;
+
+import javax.servlet.http.HttpServletResponse;
 
 @Http
 public class OrganizationController {
@@ -10,44 +17,57 @@ public class OrganizationController {
     @Inject
     OrganizationService organizationService;
 
-    @GetMapping(value="/locations/{uri}")
-    public String index(ModelMap modelMap,
-                        @PathVariable String uri){
-        return organizationService.index(uri, modelMap);
+    @Get(value="/organizations/{{uri}}")
+    public String index(HttpServletRequest req,
+                        HttpServletResponse resp,
+                        RequestData data,
+                        @Variable String uri){
+        return organizationService.index(uri, data);
     }
 
-    @GetMapping(value="/admin/locations/create")
-    public String index(ModelMap modelMap){
-        return locationService.create(modelMap);
+    @Get(value="/admin/organizations/create")
+    public String index(HttpServletRequest req,
+                        HttpServletResponse resp,
+                        RequestData data){
+        return organizationService.create(data);
     }
 
-    @PostMapping(value="/admin/locations/save")
-    protected String save(@ModelAttribute("location") Location location,
-                          RedirectAttributes redirect){
-        return organizationService.save(location, redirect);
+    @Post(value="/admin/organizations/save")
+    protected String save(HttpServletRequest req,
+                          HttpServletResponse resp,
+                          RequestData data){
+        return organizationService.save(data, req);
     }
 
-    @GetMapping(value="/admin/locations")
-    public String getProjects(ModelMap modelMap){
-        return locationService.getLocations(modelMap);
+    @Get(value="/admin/organizations")
+    public String getProjects(HttpServletRequest req,
+                              HttpServletResponse resp,
+                              RequestData data){
+        return organizationService.getOrganizations(data);
     }
 
-    @GetMapping(value="/admin/locations/edit/{id}")
-    public String getEdit(ModelMap modelMap,
-                              @PathVariable Long id){
-        return organizationService.getEdit(id, modelMap);
+    @Get(value="/admin/organizations/edit/{{id}}")
+    public String getEdit(HttpServletRequest req,
+                          HttpServletResponse resp,
+                          RequestData data,
+                          @Variable Long id){
+        return organizationService.getEdit(id, data);
     }
 
-    @PostMapping(value="/admin/locations/update")
-    protected String update(@ModelAttribute("location") Location location,
-                            RedirectAttributes redirect) throws Exception {
-        return organizationService.update(location, redirect);
+    @Post(value="/admin/organizations/update/{{id}}")
+    protected String update(HttpServletRequest req,
+                            HttpServletResponse resp,
+                            RequestData data,
+                            @Variable Long id) throws Exception {
+        return organizationService.update(id, data, req);
     }
 
-    @PostMapping(value="/admin/locations/delete/{id}")
-    protected String delete(@PathVariable Long id,
-                            RedirectAttributes redirect){
-        return organizationService.delete(id, redirect);
+    @Post(value="/admin/organizations/delete/{{id}}}")
+    protected String delete(HttpServletRequest req,
+                            HttpServletResponse resp,
+                            RequestData data,
+                            @Variable Long id){
+        return organizationService.delete(id, data);
     }
 
 }

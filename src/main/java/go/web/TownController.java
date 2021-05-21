@@ -17,7 +17,7 @@ public class TownController {
     @Inject
     TownService townService;
 
-    @Get(value="/towns/{uri}")
+    @Get(value="/towns/{{uri}}")
     public String index(HttpServletRequest req,
                         HttpServletResponse resp,
                         RequestData data,
@@ -46,7 +46,7 @@ public class TownController {
         return townService.getTowns(data);
     }
 
-    @Get(value="/admin/towns/edit/{id}")
+    @Get(value="/admin/towns/edit/{{id}}")
     public String getEdit(HttpServletRequest req,
                           HttpServletResponse resp,
                           RequestData data,
@@ -54,14 +54,15 @@ public class TownController {
         return townService.getEdit(id, data);
     }
 
-    @Post(value="/admin/towns/update")
+    @Post(value="/admin/towns/update/{{id}}")
     public String update(HttpServletRequest req,
                          HttpServletResponse resp,
-                         RequestData data){
-        return townService.update(req, data);
+                         RequestData data,
+                         @Variable Long id){
+        return townService.update(id, req, data);
     }
 
-    @Post(value="/admin/towns/delete/{id}")
+    @Post(value="/admin/towns/delete/{{id}}")
     public String delete(HttpServletRequest req,
                          HttpServletResponse resp,
                          RequestData data,

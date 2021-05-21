@@ -32,6 +32,12 @@ public class OrganizationRepo {
         return organization;
     }
 
+    public Organization get(String uri) {
+        String sql = "select * from locations where location_uri = ?";
+        Organization location = (Organization) q.get(sql, new Object[] { uri }, Organization.class);
+        return location;
+    }
+
     public List<Organization> getList(){
         String sql = "select * from organizations";
         List<Organization> organizations = (ArrayList) q.getList(sql, new Object[]{}, Organization.class);
@@ -45,9 +51,10 @@ public class OrganizationRepo {
     }
 
     public Organization save(Organization organization){
-        String sql = "insert into organizations (name, town_id) values ('{}', {})";
+        String sql = "insert into organizations (name, uri, town_id) values ('{}', '{}', {})";
         q.update(sql, new Object[] {
                 organization.getName(),
+                organization.getUri(),
                 organization.getTownId()
         });
 

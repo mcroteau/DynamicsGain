@@ -3,6 +3,7 @@ package go.service;
 import eco.m1.annotate.Inject;
 import eco.m1.annotate.Service;
 import eco.m1.data.RequestData;
+import go.Spirit;
 import go.model.Organization;
 import go.model.Town;
 import go.repo.OrganizationRepo;
@@ -43,21 +44,29 @@ public class TownService {
 
     public String create() {
         if(!authService.isAuthenticated()){
-            return "redirect:/";
+            return "[redirect]/";
+        }
+        if(!authService.isAdministrator() &&
+                !authService.hasRole(Spirit.SUPER_ROLE)){
+            return "[redirect]/";
         }
         return "town/create";
     }
 
     public String save(HttpServletRequest req, RequestData data) {
         if(!authService.isAuthenticated()){
-            return "redirect:/";
+            return "[redirect]/";
+        }
+        if(!authService.isAdministrator() &&
+                !authService.hasRole(Spirit.SUPER_ROLE)){
+            return "[redirect]/";
         }
 
         String name = req.getParameter("name");
 
         if(name == null || name.equals("")){
             data.put("message", "Please give your town a name...");
-            return "redirect:/admin/towns/create";
+            return "[redirect]/admin/towns/create";
         }
 
         Long stateId = Long.parseLong(req.getParameter("stateId"));
@@ -68,15 +77,16 @@ public class TownService {
 
         townRepo.save(town);
 
-        return "redirect:/admin/towns";
+        return "[redirect]/admin/towns";
     }
 
     public String getEdit(Long id, RequestData data) {
         if(!authService.isAuthenticated()){
-            return "redirect:/";
+            return "[redirect]/";
         }
-        if(!authService.isAdministrator()){
-            return "redirect:/unauthorized";
+        if(!authService.isAdministrator() &&
+                !authService.hasRole(Spirit.SUPER_ROLE)){
+            return "[redirect]/";
         }
 
         Town town = townRepo.get(id);
@@ -85,23 +95,22 @@ public class TownService {
         return "town/edit";
     }
 
-    public String update(HttpServletRequest req, RequestData data) {
+    public String update(Long id, HttpServletRequest req, RequestData data) {
         if(!authService.isAuthenticated()){
-            return "redirect:/";
+            return "[redirect]/";
         }
-        if(!authService.isAdministrator()){
-            return "redirect:/";
+        if(!authService.isAdministrator() &&
+                !authService.hasRole(Spirit.SUPER_ROLE)){
+            return "[redirect]/";
         }
 
-        Long id = Long.parseLong(req.getParameter("id"));
         Town town = townRepo.get(id);
-
         String name = req.getParameter("name");
 
         if(name == null ||
             name.equals("")){
-            data.put("message", "Please give your web town a name...");
-            return "redirect:/admin/towns/edit/" + town.getId();
+            data.put("message", "Please give your town a name...");
+            return "[redirect]/admin/towns/edit/" + town.getId();
         }
 
         Long stateId = Long.parseLong(req.getParameter("stateId"));
@@ -122,16 +131,17 @@ public class TownService {
 //        }
 
         data.put("message", "Successfully updated town");
-        return "redirect:/admin/towns/edit/" + town.getId();
+        return "[redirect]/admin/towns/edit/" + town.getId();
     }
 
     public String getTowns(RequestData data) {
         if(!authService.isAuthenticated()){
-            return "redirect:/";
+            return "[redirect]/";
         }
 
-        if(!authService.isAdministrator()){
-            return "redirect:/";
+        if(!authService.isAdministrator() &&
+                !authService.hasRole(Spirit.SUPER_ROLE)){
+            return "[redirect]/";
         }
 
         List<Town> towns = townRepo.getList();
@@ -142,17 +152,18 @@ public class TownService {
 
     public String delete(Long id, RequestData data) {
         if(!authService.isAuthenticated()){
-            return "redirect:/";
+            return "[redirect]/";
         }
-        if(!authService.isAdministrator()){
-            return "redirect:/unauthorized";
+        if(!authService.isAdministrator() &&
+                !authService.hasRole(Spirit.SUPER_ROLE)){
+            return "[redirect]/";
         }
 
         organizationRepo.deleteOrganizations(id);
         townRepo.delete(id);
         data.put("message", "Successfully deleted town.");
 
-        return "redirect:/admin/towns";
+        return "[redirect]/admin/towns";
     }
 
 }
