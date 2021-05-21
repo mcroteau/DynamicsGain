@@ -1,28 +1,46 @@
 package go.web;
 
-import go.service.AuthService;
 import eco.m1.annotate.Http;
 import eco.m1.annotate.Inject;
 import eco.m1.annotate.verbs.Get;
 import eco.m1.data.RequestData;
+import go.service.BasicService;
+import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @Http
 public class BasicController {
 
     @Inject
-    AuthService authService;
+    BasicService basicService;
 
-    @Get("/")
+    @Get(value="/")
     public String index(HttpServletRequest req,
                         HttpServletResponse resp,
                         RequestData data){
-        if(authService.isAuthenticated()){
-            return "[redirect]/prospects";
-        }
-        return "[redirect]/signin";
+        return basicService.index();
+    }
+
+    @Get(value="/home")
+    public String home(HttpServletRequest req,
+                       HttpServletResponse resp,
+                       RequestData data){
+        return basicService.home(data);
+    }
+
+    @Get(value="/towns")
+    public String towns(HttpServletRequest req,
+                        HttpServletResponse resp,
+                        RequestData data){
+        return basicService.towns(data);
+    }
+
+    @Get(value="/organizations")
+    public String organizations(HttpServletRequest req,
+                                HttpServletResponse resp,
+                                RequestData data){
+        return basicService.organizations(data);
     }
 
 }
