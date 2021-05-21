@@ -32,6 +32,12 @@ public class TownRepo {
         return town;
     }
 
+    public Town get(String uri) {
+        String sql = "select * from towns where town_uri = ?";
+        Town town = (Town) q.get(sql, new Object[] { uri }, Town.class);
+        return town;
+    }
+
     public List<Town> getList(){
         String sql = "select * from towns";
         List<Town> towns = (ArrayList) q.getList(sql, new Object[]{}, Town.class);
@@ -39,9 +45,10 @@ public class TownRepo {
     }
 
     public Town save(Town town){
-        String sql = "insert into towns (name) values ('{}')";
+        String sql = "insert into towns (name, state_id) values ('{}', {})";
         q.update(sql, new Object[] {
-                town.getName()
+                town.getName(),
+                town.getStateId()
         });
 
         Town savedTown = getLastInserted();
@@ -49,9 +56,11 @@ public class TownRepo {
     }
 
     public boolean update(Town town) {
-        String sql = "update towns set name = {} where id = {}";
+        String sql = "update towns set name = '{}', uri = '{}', state_id = {} where id = {}";
         q.update(sql, new Object[] {
                 town.getName(),
+                town.getUri(),
+                town.getStateId(),
                 town.getId()
         });
         return true;
