@@ -44,6 +44,12 @@ public class TownRepo {
         return towns;
     }
 
+    public List<Town> getList(Long id){
+        String sql = "select * from towns where state_id = {}";
+        List<Town> towns = (ArrayList) q.getList(sql, new Object[]{ id }, Town.class);
+        return towns;
+    }
+
     public Town save(Town town){
         String sql = "insert into towns (name, state_id) values ('{}', {})";
         q.update(sql, new Object[] {

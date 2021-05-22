@@ -31,6 +31,9 @@ public class StartupService {
     RoleRepo roleRepo;
 
     @Inject
+    TownRepo townRepo;
+
+    @Inject
     StateRepo stateRepo;
 
     @Inject
@@ -100,8 +103,33 @@ public class StartupService {
         System.out.println("Roles : " + roleRepo.count());
         System.out.println("Nations : " + nationRepo.getCount());
         System.out.println("States : " + stateRepo.getCount());
-
+        
+        createMockData();
     }
+
+
+    private void createMockData(){
+        String[][] towns = {
+            {"Los Angeles", "Seattle", "Boston", "Miami"},
+            {"California", "Washington", "Massachusetts", "Florida"},
+        };
+
+        Long[] counts = { 66436L, 11752L, 4021L, 3472L };
+
+        for(int z = 0; z < towns.length; z++){
+            String[] townData = towns[z];
+            String stateName = townData[1];
+            State state = stateRepo.get(stateName);
+            Town town = new Town();
+            town.setName(townData[0]);
+            town.setStateId(state.getId());
+            town.setCount(counts[z]);
+            townRepo.save(town);
+        }
+
+        System.out.println("towns : " + townRepo.getCount());
+    }
+
 
     private void runCreateScript() throws Exception {
         BasicDataSource dataSource = (BasicDataSource)q.getBean("datasource");

@@ -32,6 +32,13 @@ public class StateRepo {
         return state;
     }
 
+    public State get(String name){
+        String sql = "select * from states where name = '{}'";
+        State state = (State) q.get(sql, new Object[]{ name }, State.class);
+        return state;
+    }
+
+
     public List<State> getList(){
         String sql = "select * from states";
         List<State> states = (ArrayList) q.getList(sql, new Object[]{}, State.class);

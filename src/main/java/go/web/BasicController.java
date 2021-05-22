@@ -43,4 +43,10 @@ public class BasicController {
         return basicService.organizations(data);
     }
 
+    @Get(value="/about")
+    public String about(HttpServletRequest req,
+                        HttpServletResponse resp,
+                        RequestData data){
+        return "basic/about";
+    }
 }
