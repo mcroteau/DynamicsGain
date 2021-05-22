@@ -99,11 +99,18 @@ public class StartupService {
             }
         }
 
+        /**
+         if i can make two requests
+         will you stop trying to gain access to caucasian technologies
+         will you hook someone else up to this who likes country music
+         preferably african american and make them show black people
+         how that music makes them feel.
+         */
         System.out.println("Users : " + userRepo.getCount());
         System.out.println("Roles : " + roleRepo.count());
         System.out.println("Nations : " + nationRepo.getCount());
         System.out.println("States : " + stateRepo.getCount());
-        
+
         createMockData();
     }
 
