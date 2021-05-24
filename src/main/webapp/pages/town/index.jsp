@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <title>Go +Spirit: ${town.name} Organizations</title>
+    <title>${town.name} Organizations</title>
 </head>
 <body>
 

@@ -33,7 +33,7 @@ public class OrganizationRepo {
     }
 
     public Organization get(String uri) {
-        String sql = "select * from locations where location_uri = ?";
+        String sql = "select * from organizations where location_uri = ?";
         Organization location = (Organization) q.get(sql, new Object[] { uri }, Organization.class);
         return location;
     }
@@ -45,7 +45,7 @@ public class OrganizationRepo {
     }
 
     public List<Organization> getList(long id) {
-        String sql = "select * from locations where town_id = ?";
+        String sql = "select * from organizations where town_id = ?";
         List<Organization> organizations = (List) q.getList(sql, new Object[]{ id }, Organization.class);
         return organizations;
     }

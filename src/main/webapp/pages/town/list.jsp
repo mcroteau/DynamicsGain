@@ -5,7 +5,7 @@
 </head>
 <body>
 <h1>Towns</h1>
-<a href="/z/admin/towns/create" class="href-dotted">+ New Town</a>
+<a href="${pageContext.request.contextPath}/admin/towns/create" class="href-dotted">+ New Town</a>
 <br/>
 
 <c:if test="${towns.size() > 0}">

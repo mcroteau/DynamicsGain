@@ -117,11 +117,13 @@ public class StartupService {
             {"California", "Washington", "Massachusetts", "Florida", "New Hampshire"},
         };
 
-        Long[] counts = { new Long(166436),
+        String[] uris = { "losangeles", "seattle", "boston", "miami", "newdurham" };
+
+        Long[] counts = { new Long(66436),
                         new Long(11752),
                         new Long(4021),
                         new Long(3472),
-                        new Long( 142)};
+                        new Long( 142) };
 
         String[] townNames = towns[0];
         String[] stateNames = towns[1];
@@ -131,6 +133,7 @@ public class StartupService {
             town.setName(townNames[z]);
             town.setStateId(state.getId());
             town.setCount(counts[z]);
+            town.setTownUri(uris[z]);
             townRepo.save(town);
         }
 

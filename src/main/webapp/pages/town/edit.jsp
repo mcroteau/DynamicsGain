@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="go.model.State" %>
+<%@ page import="go.model.Town" %>
 <html>
 <head>
     <title>Edit Town</title>
@@ -11,7 +12,7 @@
 <form action="${pageContext.request.contextPath}/admin/towns/update/${town.id}" method="post">
 
     <label>Name</label>
-    <input type="text" name="name" value="${town.name}"/>
+    <input type="text" name="name" value="${town.name}" style="width:80%"/>
 
     <label>Count</label>
     <input type="text" name="count" value="${town.count}" />
@@ -22,15 +23,11 @@
     <label>State</label>
     <select name="stateId" style="display: block">
         <c:forEach items="${states}" var="state">
-            <%
-                String selected = "";
-                State selectedState = (State) request.getAttribute("state");
-            %>
-            <c:if test="${town.stateId == selectedState.id}">
-                <%selected = "selected";%>
+            <c:set var="selected" value=""/>
+            <c:if test="${town.stateId == state.id}">
+                <c:set var="selected" value="selected"/>
             </c:if>
-
-            <option value="${state.id}" <%=selected%>>${state.name}</option>
+            <option value="${state.id}" ${selected}>${state.name}</option>
         </c:forEach>
     </select>
 

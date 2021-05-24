@@ -1,6 +1,6 @@
 <html>
 <head>
-    <title>Go +Spirit: ${organization.name}</title>
+    <title>${organization.name}</title>
 </head>
 <body>
 

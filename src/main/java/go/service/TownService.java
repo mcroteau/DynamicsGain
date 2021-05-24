@@ -99,11 +99,10 @@ public class TownService {
         }
 
         Town town = townRepo.get(id);
-        State state = stateRepo.get(town.getStateId());
         List<State> states = stateRepo.getList();
 
         data.put("town", town);
-        data.put("state", state);
+        data.put("stateId", town.getStateId());
         data.put("states", states);
 
         return "/pages/town/edit.jsp";
