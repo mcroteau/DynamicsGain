@@ -13,6 +13,8 @@ import go.repo.TownRepo;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 
 import javax.servlet.http.HttpServletResponse;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.text.NumberFormat;
 import java.util.List;
 import java.util.Locale;
@@ -30,8 +32,11 @@ public class StateController {
     public String index(HttpServletRequest req,
                         HttpServletResponse resp,
                         RequestData data,
-                        @Variable String uri){
-        State state = stateRepo.get(uri);
+                        @Variable String uri) throws Exception {
+
+        String decodedUri = URLDecoder.decode(uri, StandardCharsets.UTF_8.toString());
+
+        State state = stateRepo.get(decodedUri);
         List<Town> towns = townRepo.getList(state.getId());
 
         Long sum = new Long(0);
