@@ -1,11 +1,15 @@
 package go.model;
 
+import java.text.NumberFormat;
+import java.util.Locale;
+
 public class State {
     Long id;
     String name;
     String abbreviation;
     Long nationId;
     Long count;
+    String countZero;
 
     public Long getId() {
         return id;
@@ -46,4 +50,13 @@ public class State {
     public void setCount(Long count) {
         this.count = count;
     }
+
+    public void setCountZero(String countZero){
+        this.countZero = countZero;
+    }
+
+    public String getCountZero(){
+        return countZero;
+    }
+
 }

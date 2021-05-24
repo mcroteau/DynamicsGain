@@ -1,10 +1,19 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div style="position:relative">
     <div id="map" style="position: relative; width: 690px; height: 370px;"></div>
 </div>
 
+<p>* = data has yet to entered.</p>
+
 <p>Go +Spirit is an organization that attempts to remove barriers
     for those wishing to help others that are suffering. </p>
 
+<h1>States</h1>
+<ul>
+    <c:forEach items="${states}" var="state">
+        <li><a href="${pageContext.request.contextPath}/states/${state.name}" class="href-dotted" style="line-height: 1.3em;">${state.name} ${state.countZero}</a></li>
+    </c:forEach>
+</ul>
 
 <script>
 
@@ -60,8 +69,8 @@
             },
             done: function(datamap) {
                 datamap.svg.selectAll('.datamaps-subunit').on('click', function(geography) {
-                    console.log(geography.properties);
-                    window.location = "${pageContext.request.contextPath}/states/" + geography.properties.name
+                    //console.log(geography.properties);
+                    //window.location = "${pageContext.request.contextPath}/states/" + geography.properties.name.toLowerCase();
                 });
             }
         });

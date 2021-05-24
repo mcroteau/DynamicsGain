@@ -22,7 +22,6 @@
 
     <p class="left">Select an Town/City to get more information or to donate to them.</p>
 
-
     <h3>Towns &amp; Cities</h3>
     <table>
         <c:forEach var="town" items="${towns}">

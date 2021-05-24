@@ -55,6 +55,7 @@ public class BasicService {
             Long sum = new Long(0);
             for(Town town: towns){
                 sum += town.getCount();
+                state.setCountZero(NumberFormat.getInstance(Locale.US).format(sum));
             }
             total += sum;
         }
