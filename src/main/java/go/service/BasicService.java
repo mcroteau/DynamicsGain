@@ -79,9 +79,15 @@ public class BasicService {
             }
             String value = sum.toString();
             if(value.length() >= 4){
-                value = value.substring(3, value.length() -1);
+                if(sum > 0) {
+                    value = value.substring(0, value.length() - 3).concat("K");
+                }
             }
-            map.put(state.getAbbreviation(), value);
+            if(sum > 0) {
+                map.put(state.getAbbreviation(), value);
+            }else{
+                map.put(state.getAbbreviation(), "No Data");
+            }
         }
 
         return gson.toJson(map);

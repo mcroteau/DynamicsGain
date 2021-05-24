@@ -113,14 +113,15 @@ public class StartupService {
 
     private void createMockData(){
         String[][] towns = {
-            {"Los Angeles", "Seattle", "Boston", "Miami"},
-            {"California", "Washington", "Massachusetts", "Florida"},
+            {"Los Angeles", "Seattle", "Boston", "Miami", "New Durham"},
+            {"California", "Washington", "Massachusetts", "Florida", "New Hampshire"},
         };
 
-        Long[] counts = { new Long(66436),
+        Long[] counts = { new Long(166436),
                         new Long(11752),
                         new Long(4021),
-                        new Long(3472) };
+                        new Long(3472),
+                        new Long( 142)};
 
         String[] townNames = towns[0];
         String[] stateNames = towns[1];

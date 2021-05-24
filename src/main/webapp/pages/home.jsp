@@ -20,6 +20,7 @@
         var map = new Datamap({
             element: document.getElementById('map'),
             scope: 'usa',
+            data: data,
             fills: {
                 defaultFill: 'rgba(219,255,211,1.0)',
                 defaultFill: 'rgba(249,251,255,1.0)',
