@@ -33,7 +33,7 @@ public class OrganizationRepo {
     }
 
     public Organization get(String uri) {
-        String sql = "select * from organizations where location_uri = ?";
+        String sql = "select * from organizations where uri = '{}'";
         Organization location = (Organization) q.get(sql, new Object[] { uri }, Organization.class);
         return location;
     }
