@@ -66,10 +66,11 @@ public class TownRepo {
     }
 
     public boolean update(Town town) {
-        String sql = "update towns set name = '{}', uri = '{}', state_id = {} where id = {}";
+        String sql = "update towns set name = '{}', count = {}, town_uri = '{}', state_id = {} where id = {}";
         q.update(sql, new Object[] {
                 town.getName(),
-                town.getUri(),
+                town.getCount(),
+                town.getTownUri(),
                 town.getStateId(),
                 town.getId()
         });

@@ -62,7 +62,7 @@ public class OrganizationController {
         return organizationService.update(id, data, req);
     }
 
-    @Post(value="/admin/organizations/delete/{{id}}}")
+    @Post(value="/admin/organizations/delete/{{id}}")
     protected String delete(HttpServletRequest req,
                             HttpServletResponse resp,
                             RequestData data,

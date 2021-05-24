@@ -5,8 +5,10 @@ import eco.m1.annotate.Service;
 import eco.m1.data.RequestData;
 import go.Spirit;
 import go.model.Organization;
+import go.model.State;
 import go.model.Town;
 import go.repo.OrganizationRepo;
+import go.repo.StateRepo;
 import go.repo.TownRepo;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 
@@ -19,6 +21,9 @@ public class TownService {
 
     @Inject
     TownRepo townRepo;
+
+    @Inject
+    StateRepo stateRepo;
 
     @Inject
     OrganizationRepo organizationRepo;
@@ -39,10 +44,10 @@ public class TownService {
         data.put("town", town);
         data.put("organizations", organizations);
 
-        return "town/index";
+        return "/pages/town/index.jsp";
     }
 
-    public String create() {
+    public String create(RequestData data) {
         if(!authService.isAuthenticated()){
             return "[redirect]/";
         }
@@ -50,7 +55,11 @@ public class TownService {
                 !authService.hasRole(Spirit.SUPER_ROLE)){
             return "[redirect]/";
         }
-        return "town/create";
+
+        List<State> states = stateRepo.getList();
+        data.put("states", states);
+
+        return "/pages/town/create.jsp";
     }
 
     public String save(HttpServletRequest req, RequestData data) {
@@ -90,9 +99,14 @@ public class TownService {
         }
 
         Town town = townRepo.get(id);
-        data.put("town", town);
+        State state = stateRepo.get(town.getStateId());
+        List<State> states = stateRepo.getList();
 
-        return "town/edit";
+        data.put("town", town);
+        data.put("state", state);
+        data.put("states", states);
+
+        return "/pages/town/edit.jsp";
     }
 
     public String update(Long id, HttpServletRequest req, RequestData data) {
@@ -113,19 +127,23 @@ public class TownService {
             return "[redirect]/admin/towns/edit/" + town.getId();
         }
 
+//i work for children's belonging, aight?! word...
+
+        String townUri = req.getParameter("townUri");
         Long stateId = Long.parseLong(req.getParameter("stateId"));
         Long count = Long.parseLong(req.getParameter("count"));
 
         town.setName(name);
         town.setStateId(stateId);
         town.setCount(count);
+        town.setTownUri(townUri);
 
         townRepo.update(town);
 
-        List<Town> towns = townRepo.getList();
 
 //        try {
-//            sitemapService.writeTowns(towns);
+//              List<Town> towns = townRepo.getList();
+//              sitemapService.writeTowns(towns);
 //        }catch(Exception ex){
 //            ex.printStackTrace();
 //        }
@@ -147,7 +165,7 @@ public class TownService {
         List<Town> towns = townRepo.getList();
         data.put("towns", towns);
 
-        return "town/list";
+        return "/pages/town/list.jsp";
     }
 
     public String delete(Long id, RequestData data) {

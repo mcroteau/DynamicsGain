@@ -29,7 +29,7 @@ public class TownController {
     public String index(HttpServletRequest req,
                         HttpServletResponse resp,
                         RequestData data){
-        return townService.create();
+        return townService.create(data);
     }
 
     @Post(value="/admin/towns/save")

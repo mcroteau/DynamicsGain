@@ -1,48 +1,114 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<html>
-<head>
-	<title>Edit Profile</title>
-</head>
-<body>
 
-	<div class="inside-container">
+<c:if test="${not empty error}">
+	<div class="notify">${error}</div>
+</c:if>
 
-		<c:if test="${not empty message}">
-			<div class="notify">${message}</div>
-		</c:if>
+<h1>Your Profile</h1>
+<p>Below are your contribution details.</p>
 
-		<h1>Your Profile</h1>
+<c:if test="${subscriptions.size() > 0}">
+	<div id="subscription-details">
+		<h3>Subscriptions</h3>
 
-		<c:if test="${activityCounts.size() > 0}">
-			<h3>Great Job!</h3>
-			<p>You're always doing a great job.
-				Let's see what you've been up to.</p>
-			<c:forEach items="${activityCounts}" var="activityCount">
-				<p>${activityCount.count} ${activityCount.name}s</p>
-			</c:forEach>
-			<p>Not bad...</p>
-		</c:if>
-		<c:if test="${activityCounts.size() == 0}">
-			Nothing to show yet.
-		</c:if>
-
-		<form action="${pageContext.request.contextPath}/users/update/${user.id}" method="post">
-
-			<label>Phone</label>
-			<p class="information">Used to send Activity Reminders via Text.</p>
-			<input type="text" name="phone" placeholder="+19076879557" value="${user.phone}"/>
-
-			<label>Email</label>
-			<input type="text" name="username" placeholder="mail@mail.org" value="${user.username}" style="width:80%;"/>
-
-			<input type="submit" value="Update Profile" class="button" style="display:block;margin:40px 0px 140px 0px;"/>
-		</form>
-
-
-		<div style="text-align: right">
-			<a href="${pageContext.request.contextPath}/signout" class="href-dotted">Signout</a>
-		</div>
+		<c:forEach var="subscription" items="${subscriptions}">
+			<p><strong>${subscription.amountZero}
+			</strong> monthly to
+				<c:if test="${subscription.location != null}">
+					${subscription.location.name}
+				</c:if>
+				<c:if test="${subscription.location == null}">
+					Dynamics <strong>+Gain</strong>
+				</c:if>
+					${subscription.donationDate}
+				<c:if test="${!subscription.cancelled}">
+					<a href="javascript:" class="button beauty small cancel" class="button beauty small"
+					   data-subscription="${subscription.stripeId}"
+							<c:if test="${subscription.location != null}">
+								data-location="${subscription.location.id}"
+							</c:if>
+					>Cancel</a>
+				</c:if>
+				<c:if test="${subscription.cancelled}">
+					<strong class="yellow">Cancelled</strong>
+				</c:if>
+			</p>
+		</c:forEach>
 	</div>
-</body>
-</html>
+</c:if>
 
+<c:if test="${charges.size() > 0}">
+	<h3 style="margin-top:30px;">One-Time Donations</h3>
+	<c:forEach var="charge" items="${charges}">
+		<p><strong>${charge.amountZero}</strong> donated to
+			<c:if test="${charge.location != null}">
+				${charge.location.name}
+			</c:if>
+			<c:if test="${charge.location == null}">
+				Go <strong>+Spirit</strong>
+			</c:if>
+				${charge.donationDate}
+		</p>
+	</c:forEach>
+</c:if>
+
+<c:if test="${charges.size() == 0 && subscriptions.size() == 0}">
+	<p>No current donations.</p>
+	<p><a href="/z/donate" class="href-dotted">Donate</a></p>
+</c:if>
+
+
+<c:if test="${charges.size() > 0 || subscriptions.size() > 0}">
+	<p>Thank you for being a contributor.<br/>
+		Contact us any time if you have questions.</p>
+</c:if>
+
+
+<a href="${pageContext.request.contextPath}/user/edit_password/${user.id}" class="href-dotted" style="display:inline-block;margin-top:60px;">Update Password</a>
+
+
+
+<script>
+	$(document).ready(function(){
+		var $cancel = $('.cancel');
+
+		$cancel.click(function(){
+			var subscription = $(this).attr('data-subscription')
+			var location = $(this).attr('data-location')
+			console.log(location)
+			if(location != null){
+				console.log('location exists')
+				removeByLocation(location, subscription)
+			}
+			if(location == null){
+				remove(subscription)
+			}
+		})
+
+		var remove = function(subscription){
+			return $.ajax({
+				method: "Delete",
+				url : "${pageContext.request.contextPath}/donation/cancel/" + subscription,
+				success: success,
+				error : error
+			})
+		}
+
+		var removeByLocation = function(location, subscription){
+			return $.ajax({
+				method: "Delete",
+				url : "${pageContext.request.contextPath}/donation/cancel/" + location + "/" + subscription,
+				success: success,
+				error : error
+			})
+		}
+
+		var success = function(){
+			window.location.reload();
+		}
+
+		var error = function(ex){
+			alert(ex.toString());
+		}
+	});
+</script>

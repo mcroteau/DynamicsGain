@@ -41,7 +41,7 @@ public class BasicService {
     public String index() {
         if(authService.isAuthenticated()){
             long id =  authService.getUser().getId();
-            return "[redirect]/user/edit/" + id;
+            return "[redirect]/users/edit/" + id;
         }
         return "[redirect]/home";
     }
@@ -86,7 +86,7 @@ public class BasicService {
             if(sum > 0) {
                 map.put(state.getAbbreviation(), value);
             }else{
-                map.put(state.getAbbreviation(), "No Data");
+                map.put(state.getAbbreviation(), "*");
             }
         }
 

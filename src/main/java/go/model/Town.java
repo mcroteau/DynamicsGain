@@ -7,7 +7,7 @@ import java.util.Locale;
 public class Town {
     Long id;
     String name;
-    String uri;
+    String townUri;
     Long count;
     Long stateId;
 
@@ -29,12 +29,12 @@ public class Town {
         this.name = name;
     }
 
-    public String getUri() {
-        return uri;
+    public String getTownUri() {
+        return townUri;
     }
 
-    public void setUri(String uri) {
-        this.uri = uri;
+    public void setTownUri(String townUri) {
+        this.townUri = townUri;
     }
 
     public Long getCount() {
