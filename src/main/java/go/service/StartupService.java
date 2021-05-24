@@ -86,13 +86,16 @@ public class StartupService {
         if(nationCount == 0){
             for(Map.Entry<String, String[][]> nationEntry : nations.entrySet()){
                 Nation nation = new Nation();
+
                 nation.setName(nationEntry.getKey());
                 Nation savedNation = nationRepo.save(nation);
 
-                for(String[] stateEntry : nationEntry.getValue()){
+                String[] stateNames = nationEntry.getValue()[0];
+                String[] abbreviations = nationEntry.getValue()[1];
+                for(int z = 0; z < stateNames.length; z++){
                     State state = new State();
-                    state.setName(stateEntry[0]);
-                    state.setAbbreviation(stateEntry[1]);
+                    state.setName(stateNames[z]);
+                    state.setAbbreviation(abbreviations[z]);
                     state.setNationId(savedNation.getId());
                     stateRepo.save(state);
                 }
@@ -123,12 +126,12 @@ public class StartupService {
 
         Long[] counts = { 66436L, 11752L, 4021L, 3472L };
 
-        for(int z = 0; z < towns.length; z++){
-            String[] townData = towns[z];
-            String stateName = townData[1];
-            State state = stateRepo.get(stateName);
+        String[] townNames = towns[0];
+        String[] stateNames = towns[1];
+        for(int z = 0; z < townNames.length; z++){
+            State state = stateRepo.get(stateNames[z]);
             Town town = new Town();
-            town.setName(townData[0]);
+            town.setName(townNames[z]);
             town.setStateId(state.getId());
             town.setCount(counts[z]);
             townRepo.save(town);

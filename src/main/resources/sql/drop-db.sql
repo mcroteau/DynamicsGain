@@ -1,9 +1,9 @@
 drop table if exists user_roles;
 drop table if exists user_permissions;
-drop table if exists prospect_activities;
-drop table if exists efforts;
-drop table if exists prospects;
-drop table if exists activities;
-drop table if exists statuses;
+drop table if exists donations;
+drop table if exists organizations;
+drop table if exists towns;
+drop table if exists states;
+drop table if exists nations;
 drop table if exists users;
 drop table if exists roles;

@@ -15,7 +15,7 @@ public class TownRepo {
     Q q;
 
     public Town getLastInserted() {
-        String sql = "select * from from towns order by id desc limit 1";
+        String sql = "select * from towns order by id desc limit 1";
         Town town = (Town) q.get(sql, new Object[]{}, Town.class);
         return town;
     }
@@ -46,13 +46,16 @@ public class TownRepo {
 
     public List<Town> getList(Long id){
         String sql = "select * from towns where state_id = {}";
-        List<Town> towns = (ArrayList) q.getList(sql, new Object[]{ id }, Town.class);
+        List<Town> towns = new ArrayList<>();
+        try {
+            towns =(ArrayList) q.getList(sql, new Object[]{id}, Town.class);
+        }catch(Exception ex){}
         return towns;
     }
 
     public Town save(Town town){
         String sql = "insert into towns (name, state_id) values ('{}', {})";
-        q.update(sql, new Object[] {
+        q.save(sql, new Object[] {
                 town.getName(),
                 town.getStateId()
         });

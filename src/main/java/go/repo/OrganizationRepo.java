@@ -15,7 +15,7 @@ public class OrganizationRepo {
     Q q;
 
     public Organization getLastInserted() {
-        String sql = "select * from from organizations order by id desc limit 1";
+        String sql = "select * from organizations order by id desc limit 1";
         Organization organization = (Organization) q.get(sql, new Object[]{}, Organization.class);
         return organization;
     }

@@ -67,7 +67,7 @@ public class BasicService {
         data.put("states", states);
         data.put("map", map);
 
-        return "home";
+        return "/pages/home.jsp";
     }
 
     public String states(RequestData data){

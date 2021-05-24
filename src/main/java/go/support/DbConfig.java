@@ -8,9 +8,6 @@ import eco.m1.jdbc.BasicDataSource;
 @Configuration
 public class DbConfig {
 
-    @Prop("db.name")
-    String dbName;
-
     @Prop("db.url")
     String dbUrl;
 
@@ -26,7 +23,6 @@ public class DbConfig {
     @Dependency
     public BasicDataSource dataSource(){
         return new BasicDataSource.Builder()
-                            .dbName(dbName)
                             .driver(dbDriver)
                             .url(dbUrl)
                             .username(dbUser)

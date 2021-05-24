@@ -24,8 +24,7 @@ create table if not exists user_roles(
 
 create table if not exists nations (
 	id bigint PRIMARY KEY AUTO_INCREMENT,
-	name character varying(254) NOT NULL,
-	constraint country_name unique(name)
+	name character varying(254) NOT NULL
 );
 
 create table if not exists states (

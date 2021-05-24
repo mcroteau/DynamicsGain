@@ -15,7 +15,7 @@ public class StateRepo {
     Q q;
 
     public State getLastInserted() {
-        String sql = "select * from from states order by id desc limit 1";
+        String sql = "select * from states order by id desc limit 1";
         State state = (State) q.get(sql, new Object[]{}, State.class);
         return state;
     }
@@ -47,7 +47,7 @@ public class StateRepo {
 
     public State save(State state){
         String sql = "insert into states (name, abbreviation, nation_id) values ('{}', '{}', {})";
-        q.update(sql, new Object[] {
+        q.save(sql, new Object[] {
                 state.getName(),
                 state.getAbbreviation(),
                 state.getNationId()

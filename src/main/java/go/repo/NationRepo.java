@@ -15,7 +15,7 @@ public class NationRepo {
     Q q;
 
     public Nation getLastInserted() {
-        String sql = "select * from from nations order by id desc limit 1";
+        String sql = "select * from nations order by id desc limit 1";
         Nation nation = (Nation) q.get(sql, new Object[]{}, Nation.class);
         return nation;
     }
@@ -40,7 +40,7 @@ public class NationRepo {
 
     public Nation save(Nation nation){
         String sql = "insert into nations (name) values ('{}')";
-        q.update(sql, new Object[] {
+        q.save(sql, new Object[] {
                 nation.getName()
         });
 

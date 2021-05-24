@@ -29,10 +29,11 @@ public class StartupListener implements ServletContextListener {
                     .withDataEnabled(true)
                     .inject();
 
+            Q.set(m1.getBeans());
+
             StartupService startupService = (StartupService) m1.getBean("startupservice");
             startupService.init();
 
-            Q.set(m1.getBeans());
 
         }catch(Exception ex){
             ex.printStackTrace();
