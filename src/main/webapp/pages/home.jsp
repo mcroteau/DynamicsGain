@@ -61,6 +61,7 @@
             done: function(datamap) {
                 datamap.svg.selectAll('.datamaps-subunit').on('click', function(geography) {
                     console.log(geography.properties);
+                    window.location = "${pageContext.request.contextPath}/states/" + geography.properties.name
                 });
             }
         });

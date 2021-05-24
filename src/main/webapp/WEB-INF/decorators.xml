@@ -5,12 +5,15 @@
         <pattern>/signin</pattern>
         <pattern>/signup</pattern>
         <pattern>/towns*</pattern>
-        <pattern>*/users/reset*</pattern>
-        <pattern>*/users/send</pattern>
-        <pattern>*/users/confirm</pattern>
+        <pattern>/states*</pattern>
+        <pattern>/organizations*</pattern>
+        <pattern>/users/reset*</pattern>
+        <pattern>/users/send</pattern>
+        <pattern>/users/confirm</pattern>
     </decorator>
     <decorator name="auth" page="auth.jsp">
         <pattern>*/users/edit*</pattern>
         <pattern>*/admin/towns*</pattern>
+        <pattern>*/admin/organizations*</pattern>
     </decorator>
 </decorators>

@@ -22,11 +22,15 @@
     <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/packages/data.maps.js"></script>
 
     <style>
-        h1.gospirit{
-            font-style: italic;
-        }
 
-        h1 .spirit{
+        a.gospirit{
+            color:#000;
+            font-size:34px;
+            font-style: italic;
+            text-decoration: none;
+            line-height: 1.0em;
+        }
+        a .spirit{
             background: rgb(255,75,176);
             background: linear-gradient(101deg, rgba(255,75,176,1) 0%, rgba(255,75,176,1) 19%, rgba(253,254,3,1) 26%, rgba(44,244,0,1) 28%, rgba(44,244,0,1) 49%, rgba(84,175,255,1) 54%, rgba(84,175,255,1) 72%, rgba(0,0,0,1) 72%);
             -webkit-background-clip: text;
@@ -69,8 +73,8 @@
 
             <div id="header">
                 <div style="float:left">
-                    <h1 class="gospirit">Go<span class="plus">+</span><br/>
-                        <span class="spirit">Spirit</span></h1>
+                    <a href="${pageContext.request.contextPath}" class="gospirit">Go<span class="plus">+</span><br/>
+                        <span class="spirit">Spirit</span></a>
                     <p>A Movement to End Pain.</p>
                 </div>
                 <div style="float:right; text-align: right" id="guest-navigation">

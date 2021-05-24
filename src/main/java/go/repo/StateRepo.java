@@ -33,11 +33,10 @@ public class StateRepo {
     }
 
     public State get(String name){
-        String sql = "select * from states where name = '{}'";
-        State state = (State) q.get(sql, new Object[]{ name }, State.class);
+        String sql = "select * from states where lower(name) = '{}'";
+        State state = (State) q.get(sql, new Object[]{ name.toLowerCase() }, State.class);
         return state;
     }
-
 
     public List<State> getList(){
         String sql = "select * from states";
