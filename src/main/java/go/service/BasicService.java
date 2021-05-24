@@ -1,5 +1,6 @@
 package go.service;
 
+import com.google.gson.Gson;
 import eco.m1.annotate.Inject;
 import eco.m1.annotate.Service;
 import eco.m1.data.RequestData;
@@ -15,6 +16,8 @@ import java.util.*;
 
 @Service
 public class BasicService {
+
+    Gson gson = new Gson();
 
     @Inject
     TownRepo townRepo;
@@ -53,11 +56,6 @@ public class BasicService {
             for(Town town: towns){
                 sum += town.getCount();
             }
-            String value = sum.toString();
-            if(value.length() >= 4){
-                value = value.substring(3, value.length() -1);
-            }
-            map.put(state.getAbbreviation(), value);
             total += sum;
         }
 
@@ -65,9 +63,28 @@ public class BasicService {
 
         data.put("count", count);
         data.put("states", states);
-        data.put("map", map);
 
         return "/pages/home.jsp";
+    }
+
+    public String mapData(RequestData data){
+        Map<String, String> map = new HashMap<>();
+        List<State> states = stateRepo.getList();
+
+        for(State state : states){
+            List<Town> towns = townRepo.getList(state.getId());
+            Long sum = new Long(0);
+            for(Town town: towns){
+                sum += town.getCount();
+            }
+            String value = sum.toString();
+            if(value.length() >= 4){
+                value = value.substring(3, value.length() -1);
+            }
+            map.put(state.getAbbreviation(), value);
+        }
+
+        return gson.toJson(map);
     }
 
     public String states(RequestData data){

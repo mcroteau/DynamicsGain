@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <decorators defaultdir="/designs">
     <decorator name="guest" page="guest.jsp">
-        <pattern>*/</pattern>
+        <pattern>*/home</pattern>
         <pattern>*/signin</pattern>
         <pattern>*/signup</pattern>
         <pattern>*/users/reset*</pattern>

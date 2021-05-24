@@ -102,13 +102,6 @@ public class StartupService {
             }
         }
 
-        /**
-         if i can make two requests
-         will you stop trying to gain access to caucasian technologies
-         will you hook someone else up to this who likes country music
-         preferably african american and make them show black people
-         how that music makes them feel.
-         */
         System.out.println("Users : " + userRepo.getCount());
         System.out.println("Roles : " + roleRepo.count());
         System.out.println("Nations : " + nationRepo.getCount());
@@ -124,7 +117,10 @@ public class StartupService {
             {"California", "Washington", "Massachusetts", "Florida"},
         };
 
-        Long[] counts = { 66436L, 11752L, 4021L, 3472L };
+        Long[] counts = { new Long(66436),
+                        new Long(11752),
+                        new Long(4021),
+                        new Long(3472) };
 
         String[] townNames = towns[0];
         String[] stateNames = towns[1];

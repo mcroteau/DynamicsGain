@@ -54,9 +54,10 @@ public class TownRepo {
     }
 
     public Town save(Town town){
-        String sql = "insert into towns (name, state_id) values ('{}', {})";
+        String sql = "insert into towns (name, count, state_id) values ('{}', {}, {})";
         q.save(sql, new Object[] {
                 town.getName(),
+                town.getCount(),
                 town.getStateId()
         });
 

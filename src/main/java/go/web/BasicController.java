@@ -2,6 +2,7 @@ package go.web;
 
 import eco.m1.annotate.Http;
 import eco.m1.annotate.Inject;
+import eco.m1.annotate.Json;
 import eco.m1.annotate.verbs.Get;
 import eco.m1.data.RequestData;
 import go.service.BasicService;
@@ -27,6 +28,14 @@ public class BasicController {
                        HttpServletResponse resp,
                        RequestData data){
         return basicService.home(data);
+    }
+
+    @Json
+    @Get(value="/home/map/data")
+    public String mapData(HttpServletRequest req,
+                       HttpServletResponse resp,
+                       RequestData data){
+        return basicService.mapData(data);
     }
 
     @Get(value="/towns")
