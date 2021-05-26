@@ -11,6 +11,8 @@ public class User {
 	long dateCreated;
 	String phone;
 
+	String stripeUserId;
+
 	public long getId() {
 		return id;
 	}
@@ -65,6 +67,14 @@ public class User {
 
 	public void setPhone(String phone) {
 		this.phone = phone;
+	}
+
+	public String getStripeUserId() {
+		return stripeUserId;
+	}
+
+	public void setStripeUserId(String stripeUserId) {
+		this.stripeUserId = stripeUserId;
 	}
 }
 

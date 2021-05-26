@@ -6,6 +6,7 @@ import org.apache.catalina.core.StandardContext;
 import org.apache.catalina.startup.Tomcat;
 import org.apache.catalina.webresources.DirResourceSet;
 import org.apache.catalina.webresources.StandardRoot;
+import org.apache.commons.validator.routines.EmailValidator;
 import org.apache.tomcat.util.scan.StandardJarScanner;
 
 import java.io.File;
@@ -38,6 +39,13 @@ public class Spirit {
 	public static final String DATE_FORMAT  = "yyyyMMddHHmm";
 	public static final String DATE_PRETTY  = "HH:mmaa dd MMM";
 
+
+
+
+	public static boolean isValidMailbox(String str){
+		EmailValidator validator = EmailValidator.getInstance();
+		return validator.isValid(str);
+	}
 
 	public static int getNumber(int max){
 		Random r = new Random();
