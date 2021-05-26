@@ -27,6 +27,8 @@ import java.util.regex.Pattern;
 
 public class Spirit {
 
+	public static final String GO_FUTURES = "success";
+
 	public static final String USER_MAINTENANCE = "users:";
 
 	public static final String SUPER_ROLE   = "SUPER_ROLE";

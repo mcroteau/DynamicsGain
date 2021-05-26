@@ -19,6 +19,7 @@ import xyz.goioc.Parakeet;
 import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -108,7 +109,7 @@ public class DonationService {
     }
 
 
-    private Price genStripeReccurringPrice(Long amountInCents, DynamicsPrice dynamicsPrice, Product stripeProduct) throws StripeException {
+    private Price genStripeRecurringPrice(Long amountInCents, DynamicsPrice dynamicsPrice, Product stripeProduct) throws StripeException {
         Map<String, Object> recurring = new HashMap<>();
         recurring.put("interval", dynamicsPrice.getFrequency());
 
@@ -141,54 +142,11 @@ public class DonationService {
         return true;
     }
 
-    public String select(ModelMap modelMap, RedirectAttributes redirect){
-        if(!authService.isAuthenticated()){
-            redirect.addFlashAttribute("message", "Please signin to continue");
-            return "redirect:/";
-        }
-        List<DynamicsPrice> dynamicsPrices = stripeRepo.getList();
-        modelMap.put("dynamicsPrices", dynamicsPrices);
-        return "price/select";
-    }
-
-    public String upgrade(ModelMap modelMap, RedirectAttributes redirect){
-        if(!authService.isAuthenticated()){
-            redirect.addFlashAttribute("message", "Please signin to continue");
-            return "redirect:/";
-        }
-
-        User user = authService.getUser();
-        List<DynamicsPrice> dynamicsPrices = stripeRepo.getList();
-
-        modelMap.put("user", user);
-        modelMap.put("dynamicsPrices", dynamicsPrices);
-
-        return "price/upgrade";
-    }
-
-    public String confirm(Long id, ModelMap modelMap){
-        if(!authService.isAuthenticated()){
-            return "redirect:/unauthorized";
-        }
-
-        User user = authService.getUser();
-        String permission = getUserPermission(Long.toString(user.getId()));
-        if(!authService.isAdministrator() &&
-                !authService.hasPermission(permission)){
-            return "redirect:/unauthorized";
-        }
-
-        DynamicsPrice dynamicsPrice = stripeRepo.getPrice(id);
-        modelMap.put("dynamicsPrice", dynamicsPrice);
-
-        return "dynamicsPrice/confirm";
-    }
-
 
     public String cancel(String subscriptionId){
         try{
 
-            Stripe.apiKey = persistenceService.getApiKey();
+            Stripe.apiKey = apiKey;
             com.stripe.model.Subscription subscription = com.stripe.model.Subscription.retrieve(subscriptionId);
             subscription.cancel();
 
@@ -200,13 +158,13 @@ public class DonationService {
             ex.printStackTrace();
         }
 
-        return Spirit.GAINING;
+        return Spirit.GO_FUTURES;
     }
 
     public String cancel(Long organizationId, String subscriptionId){
         try{
 
-            Stripe.apiKey = persistenceService.getApiKey(organizationId);
+            Stripe.apiKey = apiKey;
             com.stripe.model.Subscription subscription = com.stripe.model.Subscription.retrieve(subscriptionId);
             subscription.cancel();
 
@@ -218,123 +176,15 @@ public class DonationService {
             ex.printStackTrace();
         }
 
-        return Constants.GAINING;
-    }
-
-    public String list(ModelMap modelMap) {
-        if(!authService.isAuthenticated()){
-            return "redirect:/unauthorized";
-        }
-        if(!authService.isAdministrator()){
-            return "redirect:/unauthorized";
-        }
-        List<DynamicsPrice> dynamicsPrices = stripeRepo.getList();
-        modelMap.put("dynamicsPrices", dynamicsPrices);
-        return "price/index";
-    }
-
-    public String create(){
-        if(!authService.isAuthenticated()){
-            return "redirect:/unauthorized";
-        }
-        if(!authService.isAdministrator()){
-            return "redirect:/unauthorized";
-        }
-        return "price/create";
-    }
-
-
-    public String save(DynamicsPrice dynamicsPrice, RedirectAttributes redirectAttributes){
-        if(!authService.isAuthenticated()){
-            return "redirect:/unauthorized";
-        }
-        if(!authService.isAdministrator()){
-            return "redirect:/unauthorized";
-        }
-        if(dynamicsPrice.getAmount().multiply(new BigDecimal(100)).longValue() >= 1000){
-            redirectAttributes.addFlashAttribute("message", "You just entered an amount larger than $1000.00");
-            return "redirect:/donate/list";
-        }
-        if(dynamicsPrice.getNickname().equals("")){
-            redirectAttributes.addFlashAttribute("message", "blank nickname");
-            return "redirect:/donate/list";
-        }
-
-        try {
-
-            Stripe.apiKey = persistenceService.getApiKey();
-
-            Map<String, Object> productParams = new HashMap<>();
-            productParams.put("name", dynamicsPrice.getNickname());
-            com.stripe.model.Product stripeProduct = com.stripe.model.Product.create(productParams);
-
-            DynamicsProduct dynamicsProduct = new DynamicsProduct();
-            dynamicsProduct.setNickname(dynamicsPrice.getNickname());
-            dynamicsProduct.setStripeId(stripeProduct.getId());
-            DynamicsProduct savedDynamicsProduct = stripeRepo.saveProduct(dynamicsProduct);
-
-
-            Map<String, Object> priceParams = new HashMap<>();
-            priceParams.put("product", stripeProduct.getId());
-            priceParams.put("nickname", dynamicsPrice.getNickname());
-            priceParams.put("interval", dynamicsPrice.getFrequency());
-            priceParams.put("currency", dynamicsPrice.getCurrency());
-            priceParams.put("amount", dynamicsPrice.getAmount());
-            com.stripe.model.Price stripePrice = com.stripe.model.Price.create(priceParams);
-
-            dynamicsPrice.setStripeId(stripePrice.getId());
-            dynamicsPrice.setProductId(savedDynamicsProduct.getId());
-            stripeRepo.savePrice(dynamicsPrice);
-
-        }catch (Exception ex){
-            ex.printStackTrace();
-        }
-
-        return "redirect:/dynamicsPrice/list";
-    }
-
-    public String delete(Long id, RedirectAttributes redirect){
-        if(!authService.isAuthenticated()){
-            return "redirect:/unauthorized";
-        }
-        if(!authService.isAdministrator()){
-            return "redirect:/unauthorized";
-        }
-
-        DynamicsPrice dynamicsPrice = stripeRepo.getPrice(id);
-        DynamicsProduct dynamicsProduct = stripeRepo.getProduct(dynamicsPrice.getProductId());
-
-        try{
-            com.stripe.model.Plan price = com.stripe.model.Plan.retrieve(dynamicsPrice.getStripeId());
-            price.delete();
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-
-        try{
-            com.stripe.model.Product product = com.stripe.model.Product.retrieve(dynamicsProduct.getStripeId());
-            product.delete();
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-
-        List<User> users = userRepo.getPriceList(dynamicsPrice.getId());
-        for(User user : users){
-            userRepo.removePrice(user.getId());
-        }
-
-        stripeRepo.deletePrice(dynamicsPrice.getId());
-        stripeRepo.deleteProduct(dynamicsProduct.getId());
-
-        return "redirect:/price/list";
+        return Spirit.GO_FUTURES;
     }
 
     public String cleanup(){
         if(!authService.isAuthenticated()){
-            return "redirect:/";
+            return "[redirect]/";
         }
         if(!authService.isAdministrator()){
-            return "redirect:/";
+            return "[redirect]/";
         }
         try {
 
@@ -343,7 +193,7 @@ public class DonationService {
             Map<String, Object> params = new HashMap<>();
             params.put("limit", 100);
             PlanCollection priceCollection = com.stripe.model.Plan.list(params);
-            List<com.stripe.model.Plan> plans = priceCollection.getData();
+            List<Plan> plans = priceCollection.getData();
             for(Plan plan: plans){
                 plan.delete();
             }
@@ -369,23 +219,23 @@ public class DonationService {
         }catch(Exception ex){
             ex.printStackTrace();
         }
-        return "redirect:/";
+        return "[redirect]/";
     }
 
     public String momentum(RequestData data) {
         if(!authService.isAuthenticated()){
-            return "redirect:/";
+            return "[redirect]/";
         }
         if(!authService.isAdministrator()){
-            return "redirect:/unauthorized";
+            return "[redirect]/unauthorized";
         }
         List<Donation> donations = donationRepo.getList();
         BigDecimal sum = new BigDecimal(0);
         for(Donation donation: donations){
             sum = sum.add(donation.getAmount());
         }
-        modelMap.put("sum", sum);
-        modelMap.put("donations", donations);
+        data.put("sum", sum);
+        data.put("donations", donations);
         return "momentum/index";
     }
 }
