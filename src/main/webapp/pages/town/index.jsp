@@ -28,7 +28,7 @@
         <c:forEach var="organizations" items="${organizations}">
             <tr>
                 <td class="center">
-                    <a href="/z/donate/${organizations.id}" class="href-dotted">${organizations.name}</a>
+                    <a href="${pageContext.request.contextPath}/donate/${organizations.id}" class="href-dotted">${organizations.name}</a>
                 </td>
             </tr>
         </c:forEach>

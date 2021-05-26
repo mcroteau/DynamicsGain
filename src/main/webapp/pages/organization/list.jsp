@@ -6,6 +6,7 @@
 <body>
 <h1 style="float:left">Organizations</h1>
 <a href="${pageContext.request.contextPath}/admin/organizations/create" class="href-dotted" style="float:left;margin:24px 0px 0px 30px;">+ New Organization</a>
+<br class="clear"/>
 
 <c:if test="${not empty message}">
     <div class="notify">${message}</div>

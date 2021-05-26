@@ -13,7 +13,7 @@
     <h3>Give to ${organization.name}</h3>
     <p>You can make a one-time or a reoccurring donation that goes
         directly to ${organization.name}.</p>
-    <a href="/z/donate/organizations/${organization.id}" class="button super yellow">Give Now +</a>
+    <a href="${pageContext.request.contextPath}/donate/organizations/${organization.id}" class="button super yellow">Give Now +</a>
 
 </body>
 </html>
