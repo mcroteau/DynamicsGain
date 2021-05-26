@@ -121,7 +121,9 @@
         <br class="clear"/>
     </div>
 
-    <decorator:body />
+    <div id="wrapper">
+        <decorator:body />
+    </div>
 
     <div id="footer">
         <a href="${pageContext.request.contextPath}/signout" class="href-dotted">Signout</a>

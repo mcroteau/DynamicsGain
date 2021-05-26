@@ -1,9 +1,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <title>${town.name} Organizations</title>
+    <title>${state.name} Towns</title>
+
 </head>
 <body>
+
+<div class="center">
 
     <c:if test="${not empty message}">
         <div class="notify">${message}</div>
@@ -23,7 +26,7 @@
     <p class="left">Select an Town/City to get more information or to donate to them.</p>
 
     <h3>Towns &amp; Cities</h3>
-    <table>
+    <table style="width:100%;text-align: center">
         <c:forEach var="town" items="${towns}">
             <tr>
                 <td class="center">
@@ -37,9 +40,11 @@
 
     <p>Give to Go <strong>+Spirit</strong></p>
 
-    <div style="margin-bottom:70px;">
-        <a href="/z/donate" class="button beauty small">Give +</a>
+    <div style="margin:10px auto 70px auto;">
+        <a href="${pageContext.request.contextPath}/donate" class="button beauty small center">Give +</a>
     </div>
+
+</div>
 
 </body>
 </html>

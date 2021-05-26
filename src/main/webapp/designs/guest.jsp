@@ -61,6 +61,9 @@
         #footer-navigation{
             margin:30px 0px 200px 0px;
         }
+        .center{
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -75,7 +78,7 @@
                 <div style="float:left">
                     <a href="${pageContext.request.contextPath}" class="gospirit">Go<span class="plus">+</span><br/>
                         <span class="spirit">Spirit</span></a>
-                    <p>A Movement to End Pain.</p>
+                    <p style="font-size: 16px;">A Movement to End Pain.</p>
                 </div>
                 <div style="float:right; text-align: right" id="guest-navigation">
                     <a href="#">Home</a>
@@ -87,7 +90,7 @@
 
             <br class="clear"/>
 
-            <div id="guest-content">
+            <div id="guest-content" class="center">
                 <decorator:body />
 
                 <div id="footer-navigation">

@@ -3,7 +3,7 @@
     <div id="map" style="position: relative; width: 690px; height: 370px;"></div>
 </div>
 
-<p>* = data has yet to entered.</p>
+<p>* = data has yet to be entered.</p>
 
 <p>Go +Spirit is an organization that attempts to remove barriers
     for those wishing to help others that are suffering. </p>
