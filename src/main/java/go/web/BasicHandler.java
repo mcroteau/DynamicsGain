@@ -11,7 +11,7 @@ import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @Http
-public class BasicController {
+public class BasicHandler {
 
     @Inject
     BasicService basicService;

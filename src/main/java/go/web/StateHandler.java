@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.Locale;
 
 @Http
-public class StateController {
+public class StateHandler {
 
     @Inject
     StateRepo stateRepo;

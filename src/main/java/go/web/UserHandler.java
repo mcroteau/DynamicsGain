@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 
 @Http
-public class UserController {
+public class UserHandler {
 
 	@Inject
 	UserService userService;

@@ -12,7 +12,7 @@ import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @Http
-public class TownController {
+public class TownHandler {
 
     @Inject
     TownService townService;

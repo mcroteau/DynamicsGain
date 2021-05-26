@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @Http
-public class AuthController {
+public class AuthHandler {
 
 	@Inject
 	AuthService authService;
