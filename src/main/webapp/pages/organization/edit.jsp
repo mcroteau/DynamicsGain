@@ -7,16 +7,18 @@
 </head>
 <body>
 <h1>Edit Organization</h1>
-<form action="/z/admin/organizations/update" method="post">
 
-    <input type="hidden" name="id" value="${organization.id}"/>
-    <input type="hidden" name="count" value="${organization.count}"/>
+<c:if test="${not empty message}">
+    <div class="notify">${message}</div>
+</c:if>
+
+<form action="${pageContext.request.contextPath}/admin/organizations/update/${organization.id}" method="post">
 
     <label>Name</label>
     <input type="text" name="name" value="${organization.name}"/>
 
     <label>Uri</label>
-    <input type="text" name="organizationUri" value="${organization.organizationUri}" />
+    <input type="text" name="uri" value="${organization.uri}" />
 
     <label>Town</label>
     <select name="townId" style="display: block">

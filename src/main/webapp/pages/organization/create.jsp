@@ -5,7 +5,7 @@
 </head>
 <body>
 <h1>Create Organization</h1>
-<form action="/z/admin/organizations/save" method="post">
+<form action="${pageContext.request.contextPath}/admin/organizations/save" method="post">
 
     <label>Name</label>
     <input type="text" name="name" />

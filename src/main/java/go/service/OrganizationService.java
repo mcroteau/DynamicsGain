@@ -43,7 +43,7 @@ public class OrganizationService {
     public String index(String uri, RequestData data) {
         Organization organization = organizationRepo.get(uri);
         data.put("organization", organization);
-        return "organization/index";
+        return "/pages/organization/index.jsp";
     }
 
     public String create(RequestData data) {
@@ -56,7 +56,7 @@ public class OrganizationService {
         }
         List<Town> towns = townRepo.getList();
         data.put("towns", towns);
-        return "organization/create";
+        return "/pages/organization/create.jsp";
     }
 
     public String getOrganizations(RequestData data) {
@@ -71,7 +71,7 @@ public class OrganizationService {
         List<Organization> organizations = organizationRepo.getList();
         data.put("organizations", organizations);
 
-        return "organization/list";
+        return "/pages/organization/list.jsp";
     }
 
     public String save(RequestData data, HttpServletRequest req) {
@@ -118,7 +118,7 @@ public class OrganizationService {
         data.put("towns", towns);
         data.put("organization", organization);
 
-        return "organization/edit";
+        return "/pages/organization/edit.jsp";
     }
 
     public String update(Long id, RequestData data, HttpServletRequest req) throws Exception {

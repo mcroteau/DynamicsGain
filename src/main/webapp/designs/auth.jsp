@@ -13,7 +13,6 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/default.css?v=<%=System.currentTimeMillis()%>">
 
     <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/packages/jquery.js"></script>
-
 </head>
 <body>
 
@@ -106,9 +105,18 @@
         #footer{
             margin-top:59px;
         }
+        #header-navigation{
+            margin-top:10px;
+            float:left;
+        }
     </style>
 
     <div id="header-wrapper">
+        <div id="header-navigation">
+            <a href="${pageContext.request.contextPath}/home" class="href-dotted">Home</a>&nbsp;&nbsp;
+            <a href="${pageContext.request.contextPath}/admin/organizations" class="href-dotted">Organizations</a>&nbsp;&nbsp;
+            <a href="${pageContext.request.contextPath}/admin/towns" class="href-dotted">Towns</a>&nbsp;&nbsp;
+        </div>
         <div id="welcome">Hello <a href="${pageContext.request.contextPath}/users/edit/${sessionScope.userId}">${sessionScope.username}!</a></div>
         <br class="clear"/>
     </div>
@@ -116,8 +124,6 @@
     <decorator:body />
 
     <div id="footer">
-        <a href="${pageContext.request.contextPath}/admin/organizations" class="href-dotted">Organizations</a>&nbsp;&nbsp;
-        <a href="${pageContext.request.contextPath}/admin/towns" class="href-dotted">Towns</a>&nbsp;&nbsp;
         <a href="${pageContext.request.contextPath}/signout" class="href-dotted">Signout</a>
     </div>
 

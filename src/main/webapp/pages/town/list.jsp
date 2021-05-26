@@ -4,8 +4,8 @@
     <title>Towns</title>
 </head>
 <body>
-<h1>Towns</h1>
-<a href="${pageContext.request.contextPath}/admin/towns/create" class="href-dotted">+ New Town</a>
+<h1 style="float:left">Towns</h1>
+<a href="${pageContext.request.contextPath}/admin/towns/create" class="href-dotted"  style="float:left;margin:24px 0px 0px 30px;">+ New Town</a>
 <br/>
 
 <c:if test="${towns.size() > 0}">
