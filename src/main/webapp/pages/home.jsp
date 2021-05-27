@@ -44,18 +44,32 @@
                 borderColor : 'rgba(84,175,255,1)',
                 borderColor : 'rgba(0,0,0,1)',
                 borderColor: function(d) {
-                    idx++
-                    if (idx % 2 == 0) {
-                        return '#000000';
-                    }
-                    if (idx % 3 == 0) {
-                        return '#FE4BAF';
-                    }
-                    if (idx % 5 == 0) {
-                        return '#2CF300';
-                    }
-                    return '#54AEFF';
+                    // idx++
+                    // if (idx % 2 == 0) {
+                    //     return '#000000';
+                    // }
+                    // if (idx % 3 == 0) {
+                    //     return '#FE4BAF';
+                    // }
+                    // if (idx % 5 == 0) {
+                    //     return '#2CF300';
+                    // }
+                    // return '#54AEFF';
+                    return '#797979';
                 },
+                /**
+                 * king of pain
+                 * i lose you guys
+                 * i travel through canada, through with a ough not thru
+                 * they make me write everyone and tell them to leave me alone
+                 * during canada they piss off Ron, Nettie and Wade
+                 * i travel to maryland
+                 * drive down south and across the us
+                 * they try to get me to walk in front of a moving truck
+                 * then a lot of stuff and now we are reconnected...
+                 * steve weatherby played NF, im not sure if that was bait or not
+                 * i think it was, it was
+                 */
                 borderWidth: '3px',
                 highlightBorderWidth: '3px',
                 highlightBorderColor : 'rgba(0,0,0,1)',

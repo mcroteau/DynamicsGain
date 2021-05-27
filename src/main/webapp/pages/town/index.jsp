@@ -24,7 +24,7 @@
 
 
     <h3>Organizations &amp; Shelters</h3>
-    <table>
+    <table style="width:100%; text-align: center">
         <c:forEach var="organizations" items="${organizations}">
             <tr>
                 <td class="center">

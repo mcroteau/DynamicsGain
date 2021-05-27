@@ -51,10 +51,11 @@ public class OrganizationRepo {
     }
 
     public Organization save(Organization organization){
-        String sql = "insert into organizations (name, uri, town_id) values ('{}', '{}', {})";
-        q.update(sql, new Object[] {
+        String sql = "insert into organizations (name, uri, description, town_id) values ('{}', '{}', '{}', {})";
+        q.save(sql, new Object[] {
                 organization.getName(),
                 organization.getUri(),
+                organization.getDescription(),
                 organization.getTownId()
         });
 

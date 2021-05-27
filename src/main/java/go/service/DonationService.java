@@ -56,14 +56,14 @@ public class DonationService {
 
     public String index(RequestData data) {
         data.put("inDonateMode", true);
-        return "donate/index";
+        return "/pages/donate/index.jsp";
     }
 
     public String organization(Long id, RequestData data) {
         Organization organization = organizationRepo.get(id);
 
         data.put("organization", organization);
-        return "donate/index";
+        return "/pages/donate/index.jsp";
     }
 
     public String make(RequestData data, HttpServletRequest req){
@@ -236,6 +236,6 @@ public class DonationService {
         }
         data.put("sum", sum);
         data.put("donations", donations);
-        return "momentum/index";
+        return "/pages/momentum/index.jsp";
     }
 }

@@ -25,9 +25,16 @@
 
         a.gospirit{
             color:#000;
-            font-size:34px;
+            font-size:47px;
             font-style: italic;
             text-decoration: none;
+            line-height: 1.0em;
+        }
+        a.gospirit .plus{
+            font-size:37px;
+        }
+        a.gospirit span{
+            font-size: 34px;
             line-height: 1.0em;
         }
         a .spirit{
@@ -46,6 +53,7 @@
             font-family: Roboto;
             margin:0px;
         }
+
         #map{
             cursor: pointer;
             cursor: hand;
@@ -64,6 +72,10 @@
         .center{
             text-align: center;
         }
+        label{
+            display:block;
+            clear:both;
+        }
     </style>
 </head>
 <body>
@@ -81,10 +93,10 @@
                     <p style="font-size: 16px;">A Movement to End Pain.</p>
                 </div>
                 <div style="float:right; text-align: right" id="guest-navigation">
-                    <a href="#">Home</a>
-                    <a href="#">Give</a>
-                    <a href="#">Organizations</a>
-                    <a href="#">About</a>
+                    <a href="${pageContext.request.contextPath}/">Home</a>
+                    <a href="${pageContext.request.contextPath}/donate">Give</a>
+                    <a href="${pageContext.request.contextPath}/organizations">Organizations</a>
+                    <a href="${pageContext.request.contextPath}/about">About</a>
                 </div>
             </div>
 
@@ -94,21 +106,12 @@
                 <decorator:body />
 
                 <div id="footer-navigation">
-                    <%if(!request.getServletPath().equals("/home")){%>
-                        <a href="${pageContext.request.contextPath}/home" class="href-dotted">Home</a>
-                    <%}%>
-
-                    <%if(!request.getServletPath().equals("/about")){%>
-                        &nbsp;<a href="${pageContext.request.contextPath}/about" class="href-dotted">About</a>
-                    <%}%>
-
                     <parakeet:isAuthenticated>
-                        &nbsp;<strong class="highlight" style="font-family: roboto-slab-semibold !important">Signed in <a href="${pageContext.request.contextPath}/" class="href-dotted">My Profile</a></strong>&nbsp;
+                        &nbsp;<strong class="highlight" style="font-family: roboto-slab-semibold !important">Signed in <a href="${pageContext.request.contextPath}/" class="href-dotted">My Profile</a></strong>&nbsp
                     </parakeet:isAuthenticated>
                     <parakeet:isAnonymous>
                         &nbsp;<a href="${pageContext.request.contextPath}/signin" class="href-dotted">Signin</a>&nbsp;
                     </parakeet:isAnonymous>
-
                 </div>
             </div>
 

@@ -40,6 +40,9 @@ public class StartupService {
     NationRepo nationRepo;
 
     @Inject
+    OrganizationRepo organizationRepo;
+
+    @Inject
     SpiritAccessor spiritAccessor;
 
     public void init() throws Exception {
@@ -138,6 +141,23 @@ public class StartupService {
         }
 
         System.out.println("towns : " + townRepo.getCount());
+
+        String[] organizations = { "Miami Homeless Shelter", "New Durham Chapel", "Los Angeles Mission" };
+        String[] organizationUris = { "miamihomelessshelter", "newdurhamchapel", "losangelesmission" };
+        String[] organizationTowns = { "miami", "newdurham", "losangeles"};
+
+        for(int n = 0; n < organizations.length; n++){
+            String townUri = organizationTowns[n];
+            Town town = townRepo.get(townUri);
+            Organization organization = new Organization();
+            organization.setName(organizations[n]);
+            organization.setUri(organizationUris[n]);
+            organization.setTownId(town.getId());
+            organization.setDescription("Helping at-risk and homeless families with children in Clark County achieve sustainable housing and independence through a compassionate, community-based response.");
+            organizationRepo.save(organization);
+        }
+
+        System.out.println("Organizations : " + organizationRepo.getCount());
     }
 
 

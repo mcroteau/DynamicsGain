@@ -41,7 +41,7 @@
             border:solid 3px #7D5ABF;
             padding: 12px 12px 11px 12px !important;
             display: inline-block;
-            font-family: roboto-black !important;
+            font-weight: 900;
             box-shadow: none !important;
             text-align: center;
             text-transform: none;
@@ -72,7 +72,7 @@
             background: #fdfe01;
             background: #f540a6;
             border:solid 3px #ff7bc5;
-            font-family: roboto-bold !important;
+            font-weight: 900;
         }
         .light.active:hover{
             background:#3fb8ff;
@@ -117,12 +117,12 @@
     </c:if>
 
     <c:if test="${organization == null}">
-        <h1>Give to Dynamics <strong class="fun">+Gain</strong></h1>
+        <h1>Give to Go <strong class="fun">+Spirit</strong></h1>
         <p class="left">All donations will go towards abolishing/destroying homelessness
         any which way we can. Kiosks, local Community Housing organizations
             and anything else that may move us forward.</p>
         <p class="left">You can make a one-time or a reoccurring donation that goes
-            to Dynamics <strong>+Gain</strong>.</p>
+            to Go <strong>+Spirit</strong>.</p>
     </c:if>
 
     <c:if test="${!inDonateMode}">
@@ -132,8 +132,8 @@
         us, we are here to help.</p>
 
         <div style="margin:20px auto 30px;">
-            <p>Help Dynamics +Gain</p>
-            <a href="/z/donate" class="button beauty">Give +</a>
+            <p>Help Go +Spirit</p>
+            <a href="${pageContext.request.contextPath}/donate" class="button beauty">Give +</a>
         </div>
     </c:if>
 
