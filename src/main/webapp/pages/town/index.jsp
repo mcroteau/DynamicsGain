@@ -39,7 +39,7 @@
     <p>Give to Go <strong>+Spirit</strong></p>
 
     <div style="margin-bottom:70px;">
-        <a href="/z/donate" class="button beauty small">Give +</a>
+        <a href="${pageContext.request.contextPath}/donate" class="button beauty small">Give +</a>
     </div>
 
 </body>

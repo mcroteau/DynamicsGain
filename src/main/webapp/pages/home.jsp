@@ -1,4 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<h4>Homelessness Counts</h4>
+
 <div style="position:relative">
     <div id="map" style="position: relative; width: 690px; height: 370px;"></div>
 </div>
@@ -8,7 +11,8 @@
 <p>Go +Spirit is an organization that attempts to remove barriers
     for those wishing to help others that are suffering. </p>
 
-<h1>States</h1>
+<h4>Homelessness by</h4>
+<h1>State</h1>
 <ul>
     <c:forEach items="${states}" var="state">
         <li><a href="${pageContext.request.contextPath}/states/${state.name}" class="href-dotted" style="line-height: 1.3em;">${state.name} ${state.countZero}</a></li>
@@ -44,18 +48,18 @@
                 borderColor : 'rgba(84,175,255,1)',
                 borderColor : 'rgba(0,0,0,1)',
                 borderColor: function(d) {
-                    // idx++
-                    // if (idx % 2 == 0) {
-                    //     return '#000000';
-                    // }
-                    // if (idx % 3 == 0) {
-                    //     return '#FE4BAF';
-                    // }
-                    // if (idx % 5 == 0) {
-                    //     return '#2CF300';
-                    // }
-                    // return '#54AEFF';
-                    return '#797979';
+                    idx++
+                    if (idx % 2 == 0) {
+                        return '#000000';
+                    }
+                    if (idx % 3 == 0) {
+                        return '#FE4BAF';
+                    }
+                    if (idx % 5 == 0) {
+                        return '#2CF300';
+                    }
+                    return '#54AEFF';
+                    // return '#797979';
                 },
                 /**
                  * king of pain
@@ -70,8 +74,8 @@
                  * steve weatherby played NF, im not sure if that was bait or not
                  * i think it was, it was
                  */
-                borderWidth: '3px',
-                highlightBorderWidth: '3px',
+                borderWidth: '4px',
+                highlightBorderWidth: '5px',
                 highlightBorderColor : 'rgba(0,0,0,1)',
                 highlightBorderColor : 'rgba(84,175,255,1)',
                 popupTemplate: function(geo, d) {

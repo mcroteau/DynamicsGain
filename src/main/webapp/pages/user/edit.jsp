@@ -18,7 +18,7 @@
 					${subscription.location.name}
 				</c:if>
 				<c:if test="${subscription.location == null}">
-					Dynamics <strong>+Gain</strong>
+					Spirit <strong>+Gain</strong>
 				</c:if>
 					${subscription.donationDate}
 				<c:if test="${!subscription.cancelled}">

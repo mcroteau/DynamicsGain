@@ -129,10 +129,19 @@
         <p class="yellow" style="display:inline-block">Contact to make a donation</p>
         <p>or</p>
         <p>Let them know you believe in this idea and encourage them to use
-        us, we are here to help.</p>
+        claim their space on our site.</p>
+
+        <p class="left" style="margin-top:20px;">Are you someone who helps make decisions for <strong>${organization.name}</strong>?
+            You can register with us, claim this organization and be part of the
+            movement. After registering and entering banking details, you will be
+            able to recieve donations on our site or at kiosks hopefully within
+            your community.
+            <a href="${pageContext.request.contextPath}/signup" class="button">Claim ${organization.name}!</a>
+        </p>
 
         <div style="margin:20px auto 30px;">
-            <p>Help Go +Spirit</p>
+            <p>or</p>
+            <p>Give to Go +Spirit</p>
             <a href="${pageContext.request.contextPath}/donate" class="button beauty">Give +</a>
         </div>
     </c:if>
