@@ -157,8 +157,12 @@ public class BasicService {
     }
 
     public String claim(HttpServletRequest req, RequestData data) {
+        
+        return "/pages/basic/notes.jsp";
     }
 
     public String claimNote(HttpServletRequest req, RequestData data) {
+        data.put("message", "Successfully sent organization request.");
+        return "[redirect]/";
     }
 }
