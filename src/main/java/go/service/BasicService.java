@@ -11,6 +11,7 @@ import go.repo.OrganizationRepo;
 import go.repo.StateRepo;
 import go.repo.TownRepo;
 
+import javax.servlet.http.HttpServletRequest;
 import java.text.NumberFormat;
 import java.util.*;
 
@@ -112,7 +113,7 @@ public class BasicService {
         data.put("count", count);
         data.put("states", states);
 
-        return "basic/towns";
+        return "/pages/basic/towns.jsp";
     }
 
 
@@ -128,7 +129,7 @@ public class BasicService {
 
         data.put("count", count);
         data.put("towns", towns);
-        return "basic/towns";
+        return "/pages/basic/towns.jsp";
     }
 
     public String organizations(RequestData data){
@@ -145,7 +146,19 @@ public class BasicService {
 
         data.put("count", count);
         data.put("organizations", organizations);
-        return "basic/organizations";
+        return "/pages/basic/organizations.jsp";
     }
 
+    public String claimView(HttpServletRequest req, RequestData data) {
+        Long id = Long.parseLong(req.getParameter("id"));
+        Organization organization = organizationRepo.get(id);
+        data.put("organization", organization);
+        return "/pages/basic/claim.jsp";
+    }
+
+    public String claim(HttpServletRequest req, RequestData data) {
+    }
+
+    public String claimNote(HttpServletRequest req, RequestData data) {
+    }
 }

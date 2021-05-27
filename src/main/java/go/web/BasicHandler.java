@@ -4,6 +4,7 @@ import eco.m1.annotate.Http;
 import eco.m1.annotate.Inject;
 import eco.m1.annotate.Json;
 import eco.m1.annotate.verbs.Get;
+import eco.m1.annotate.verbs.Post;
 import eco.m1.data.RequestData;
 import go.service.BasicService;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
@@ -56,6 +57,27 @@ public class BasicHandler {
     public String about(HttpServletRequest req,
                         HttpServletResponse resp,
                         RequestData data){
-        return "basic/about";
+        return "/pages/basic/about.jsp";
+    }
+
+    @Get("/claim")
+    public String claimView(HttpServletRequest req,
+                         HttpServletResponse resp,
+                         RequestData data){
+        return basicService.claimView(req, data);
+    }
+
+    @Post("/claim")
+    public String claim(HttpServletRequest req,
+                         HttpServletResponse resp,
+                         RequestData data){
+        return basicService.claim(req, data);
+    }
+
+    @Post("/claim/note")
+    public String claimNote(HttpServletRequest req,
+                         HttpServletResponse resp,
+                         RequestData data){
+        return basicService.claimNote(req, data);
     }
 }

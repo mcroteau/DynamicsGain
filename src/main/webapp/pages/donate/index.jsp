@@ -136,7 +136,7 @@
             movement. After registering and entering banking details, you will be
             able to recieve donations on our site or at kiosks hopefully within
             your community.
-            <a href="${pageContext.request.contextPath}/signup" class="button">Claim ${organization.name}!</a>
+            <a href="${pageContext.request.contextPath}/claim" class="button">Claim ${organization.name}!</a>
         </p>
 
         <div style="margin:20px auto 30px;">
