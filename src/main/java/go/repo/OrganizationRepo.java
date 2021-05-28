@@ -91,7 +91,7 @@ public class OrganizationRepo {
     }
 
     public boolean saveRequest(OwnershipRequest ownershipRequest) {
-        String sql = "insert into organization_requests (name, email, phone, date_requested) values ('{}', '{}', '{}', {})";
+        String sql = "insert into ownership_requests (name, email, phone, date_requested) values ('{}', '{}', '{}', {})";
         q.save(sql, new Object[] {
                 ownershipRequest.getName(),
                 ownershipRequest.getEmail(),

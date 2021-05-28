@@ -17,12 +17,11 @@ public class Web {
             Field[] fields = clazz.getDeclaredFields();
             for(Field field : fields){
 
-                System.out.println(req.getParameter("amount"));
-
                 String value = req.getParameter(field.getName());
-                System.out.println("value:" + value);
                 if(value != null &&
                         !value.equals("")){
+
+                    field.setAccessible(true);
 
                     Type type = field.getType();
                     System.out.println("set me " + value + "::" + type.getTypeName());

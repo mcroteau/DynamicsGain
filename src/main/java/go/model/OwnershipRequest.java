@@ -2,6 +2,7 @@ package go.model;
 
 public class OwnershipRequest {
     Long id;
+    Long organizationId;
     String name;
     String email;
     String phone;
@@ -14,6 +15,14 @@ public class OwnershipRequest {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getOrganizationId() {
+        return organizationId;
+    }
+
+    public void setOrganizationId(Long organizationId) {
+        this.organizationId = organizationId;
     }
 
     public String getName() {

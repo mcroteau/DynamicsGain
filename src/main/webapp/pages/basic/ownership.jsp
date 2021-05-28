@@ -30,17 +30,19 @@
         <p class="left" style="margin-bottom:30px;">Feel free to give us your contact details so we may
             begin verifying your affiliation with this organization.</p>
 
-        <form action="${pageContext.request.contextPath}/claim" method="post" id="registration-form">
+        <form action="${pageContext.request.contextPath}/ownership" method="post" id="registration-form">
             <fieldset style="text-align: left">
 
+                <input type="hidden" name="organizationId" value="${organization.id}"/>
+
                 <label>Contact Name</label>
-                <input id="name" type="email" placeholder="Mike Croteau" name="name" style="width:80%;">
+                <input type="email" placeholder="Mike Croteau" name="name" style="width:80%;">
 
                 <label>Contact Email</label>
-                <input id="username" type="email" placeholder="mike@godynamics.cc" name="username" style="width:100%;">
+                <input type="email" placeholder="mike@godynamics.cc" name="email" style="width:100%;">
 
                 <label>Contact Direct Number</label>
-                <input id="phone" type="text" placeholder="(907) 987-8652" name="phone" style="width:60%;">
+                <input type="text" placeholder="(907) 987-8652" name="phone" style="width:60%;">
 
             </fieldset>
         </form>
