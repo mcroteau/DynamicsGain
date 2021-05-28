@@ -8,6 +8,7 @@
         <pattern>/states*</pattern>
         <pattern>/organizations*</pattern>
         <pattern>/donate*</pattern>
+        <pattern>/ownership*</pattern>
         <pattern>/users/reset*</pattern>
         <pattern>/users/send</pattern>
         <pattern>/users/confirm</pattern>

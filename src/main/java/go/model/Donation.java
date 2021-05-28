@@ -3,23 +3,16 @@ package go.model;
 import java.math.BigDecimal;
 
 public class Donation {
-
     Long id;
     BigDecimal amount;
-
     String chargeId;
     String subscriptionId;
-
     Long userId;
     Long organizationId;
-
     Boolean processed;
     String status;
-
     Long donationDate;
-
     String username;
-
     User user;
     Organization organization;
 

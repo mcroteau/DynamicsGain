@@ -2,7 +2,7 @@
 <%@ taglib prefix="parakeet" uri="/META-INF/tags/parakeet.tld" %>
 <html>
 <head>
-    <title>Go +Spirit: Make Donation</title>
+    <title>Go +Dynamics: Make Donation</title>
 </head>
 <body>
     <style>
@@ -117,12 +117,12 @@
     </c:if>
 
     <c:if test="${organization == null}">
-        <h1>Give to Go <strong class="fun">+Spirit</strong></h1>
+        <h1>Give to Go <strong class="fun">+Dynamics</strong></h1>
         <p class="left">All donations will go towards abolishing/destroying homelessness
         any which way we can. Kiosks, local Community Housing organizations
             and anything else that may move us forward.</p>
         <p class="left">You can make a one-time or a reoccurring donation that goes
-            to Go <strong>+Spirit</strong>.</p>
+            to Go <strong>+Dynamics</strong>.</p>
     </c:if>
 
     <c:if test="${!inDonateMode}">
@@ -134,14 +134,15 @@
         <p class="left" style="margin-top:20px;">Are you someone who helps make decisions for <strong>${organization.name}</strong>?
             You can register with us, claim this organization and be part of the
             movement. After registering and entering banking details, you will be
-            able to recieve donations on our site or at kiosks hopefully within
+            able to receive donations on our site or at kiosks hopefully within
             your community.
-            <a href="${pageContext.request.contextPath}/claim" class="button">Claim ${organization.name}!</a>
+            <a href="${pageContext.request.contextPath}/ownership?id=${organization.id}" class="href-dotted">Are you the owner of ${organization.name}?</a>
+            And would like to be part of a movement?
         </p>
 
         <div style="margin:20px auto 30px;">
             <p>or</p>
-            <p>Give to Go +Spirit</p>
+            <p>Give to Go +Dynamics</p>
             <a href="${pageContext.request.contextPath}/donate" class="button beauty">Give +</a>
         </div>
     </c:if>
@@ -209,7 +210,7 @@
         <div id="modal">
             <div id="processing" class="message" style="display:block">
                 <h3>Processing... please wait</h3>
-                <img src="/z/assets/media/processing.gif" style="margin:20px auto;"/>
+                <img src="${pageContext.request.contextPath}/assets/media/processing.gif" style="margin:20px auto;"/>
                 <p>Your donation is being processed. <br/>Thank you for your patience.</p>
             </div>
 
@@ -222,9 +223,9 @@
                 <p>Your username : <strong id="username"></strong></p>
                 <p>Your temporary password : <strong id="password"></strong></p>
 
-                <p><a href="/z/signin" class="href-dotted">Signin</a></p>
+                <p><a href="${pageContext.request.contextPath}/signin" class="href-dotted">Signin</a></p>
 
-                <a href="/z/home" class="href-dotted">Take me home...</a>
+                <a href="${pageContext.request.contextPath}/home" class="href-dotted">Take me home...</a>
             </div>
 
             <div id="error-container" class="message" style="display:none">
@@ -232,7 +233,7 @@
                 <p>Please make sure all information is correct...</p>
     <%--            <p>or</p>--%>
     <%--            <p id="error"></p>--%>
-                <a href="/z/donate" class="href-dotted">Go Back!</a>
+                <a href="${pageContext.request.contextPath}/donate" class="href-dotted">Go Back!</a>
             </div>
         </div>
 
@@ -346,11 +347,11 @@
 
                         $.ajax({
                             method: 'post',
-                            url: '/z/donation/make',
+                            url: '${pageContext.request.contextPath}/donation/make',
                             data: data,
                             contentType: "application/json",
-                            success: function(resp){
-                                var data = JSON.parse(resp)
+                            success: function(data){
+                                console.log(data);
                                 $processing.hide()
                                 if(data.processed){
                                     if('cleanPassword' in data.user){
@@ -388,7 +389,7 @@
                         "cvc" : $cvc.val().replace(/ /g,''),
                         "email" : $email.val().replace(/ /g,''),
                         "recurring" : recurring,
-                        "organization" : $organizationId.val().replace(/ /g,'')
+                        "organization" : $organizationId.val() != '' ? $organizationId.val().replace(/ /g,'') : 0
                     };
                 }
 

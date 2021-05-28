@@ -1,5 +1,6 @@
 package go.web;
 
+import com.google.gson.Gson;
 import eco.m1.annotate.Http;
 import eco.m1.annotate.Inject;
 import eco.m1.annotate.Json;
@@ -14,6 +15,8 @@ import javax.servlet.http.HttpServletResponse;
 
 @Http
 public class DonationHandler {
+
+    Gson gson = new Gson();
 
     @Inject
     DonationService donationService;
@@ -43,7 +46,8 @@ public class DonationHandler {
     public String make(HttpServletRequest req,
                          HttpServletResponse resp,
                          RequestData data){
-        return donationService.make(data, req);
+        System.out.println("here..");
+        return gson.toJson(donationService.make(data, req));
     }
 
     @Json

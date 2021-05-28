@@ -31,10 +31,10 @@
             line-height: 1.0em;
         }
         a.gospirit .plus{
-            font-size:37px;
+
         }
         a.gospirit span{
-            font-size: 34px;
+            font-size: 47px;
             line-height: 1.0em;
         }
         a .spirit{

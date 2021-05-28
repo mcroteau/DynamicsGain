@@ -14,6 +14,7 @@ import go.repo.DonationRepo;
 import go.repo.OrganizationRepo;
 import go.repo.StripeRepo;
 import go.repo.UserRepo;
+import go.support.Web;
 import xyz.goioc.Parakeet;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,6 +22,7 @@ import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -66,10 +68,52 @@ public class DonationService {
         return "/pages/donate/index.jsp";
     }
 
-    public String make(RequestData data, HttpServletRequest req){
+    public Donation make(RequestData data, HttpServletRequest req){
 
+        Donation donation = new Donation();
+        String reqBody = "";
 
-        return "";
+        try{
+            reqBody = req.getReader().lines().collect(Collectors.joining());
+        }catch (Exception ex){ ex.printStackTrace();}
+
+        System.out.println(reqBody);
+        DonationInput donationInput = gson.fromJson(reqBody, DonationInput.class);
+
+        System.out.println(donationInput);
+        if(donationInput.getAmount() == null){
+            donation.setStatus("$ amount not passed in, please give it another go!");
+            return donation;
+        }
+        if(!Spirit.isValidMailbox(donationInput.getEmail())){
+            donation.setStatus("Email is invalid, please give it another go!");
+            return donation;
+        }
+        if(donationInput.getCreditCard().equals("")){
+            donation.setStatus("Credit card is empty, please give it another go!");
+            return donation;
+        }
+        if(donationInput.getExpMonth() == null){
+            donation.setStatus("Expiration month is empty, please give it another go!");
+            return donation;
+        }
+        if(donationInput.getExpYear() == null){
+            donation.setStatus("Expiration year is empty, please give it another go!");
+            return donation;
+        }
+        if(donationInput.getCvc().equals("")){
+            donation.setStatus("Cvc is empty, please give it another go!");
+            return donation;
+        }
+
+        if(donationInput.getOrganization() != null &&
+                donationInput.getOrganizationId() == null){
+            donationInput.setOrganizationId(donationInput.getOrganization());
+        }
+
+        System.out.println("made it... clear");
+
+        return donation;
     }
 
     private Price generateStripePrice(Long amountInCents, DynamicsPrice storedPrice, Donation donation) throws StripeException {

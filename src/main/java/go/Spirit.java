@@ -9,7 +9,10 @@ import org.apache.catalina.webresources.StandardRoot;
 import org.apache.commons.validator.routines.EmailValidator;
 import org.apache.tomcat.util.scan.StandardJarScanner;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.File;
+import java.lang.reflect.Field;
+import java.lang.reflect.Type;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.SimpleDateFormat;
@@ -40,7 +43,6 @@ public class Spirit {
 
 	public static final String DATE_FORMAT  = "yyyyMMddHHmm";
 	public static final String DATE_PRETTY  = "HH:mmaa dd MMM";
-
 
 
 

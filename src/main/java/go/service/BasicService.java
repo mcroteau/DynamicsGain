@@ -145,24 +145,26 @@ public class BasicService {
         }
 
         data.put("count", count);
-        data.put("organizations", organizations);
+        data.put("towns", towns);
         return "/pages/basic/organizations.jsp";
     }
 
-    public String claimView(HttpServletRequest req, RequestData data) {
-        Long id = Long.parseLong(req.getParameter("id"));
-        Organization organization = organizationRepo.get(id);
-        data.put("organization", organization);
-        return "/pages/basic/claim.jsp";
+    public String takeOwnership(HttpServletRequest req, RequestData data) {
+        if(req.getParameter("id") != null &&
+                !req.getParameter("id").equals("")) {
+            Long id = Long.parseLong(req.getParameter("id"));
+            Organization organization = organizationRepo.get(id);
+            data.put("organization", organization);
+        }
+        List<Organization> organizations = organizationRepo.getList();
+        data.put("organizations", organizations);
+        return "/pages/basic/ownership.jsp";
     }
 
-    public String claim(HttpServletRequest req, RequestData data) {
-        
-        return "/pages/basic/notes.jsp";
-    }
+    public String ownership(HttpServletRequest req, RequestData data) {
 
-    public String claimNote(HttpServletRequest req, RequestData data) {
-        data.put("message", "Successfully sent organization request.");
+
         return "[redirect]/";
     }
+
 }

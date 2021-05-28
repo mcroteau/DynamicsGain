@@ -1,7 +1,7 @@
 create table if not exists users (
 	id bigint PRIMARY KEY AUTO_INCREMENT,
 	phone character varying(40) NOT NULL,
-	username character varying(55) NOT NULL,
+	username character varying(254) NOT NULL,
 	password character varying(155) NOT NULL,
 	uuid character varying(155),
 	date_created bigint default 0
@@ -63,4 +63,13 @@ create table if not exists donations(
 	donation_date bigint,
 	user_id bigint NOT NULL REFERENCES users(id),
 	organization_id bigint REFERENCES organizations(id)
+);
+
+create table if not exists ownership_requests (
+	id bigint PRIMARY KEY AUTO_INCREMENT,
+	name character varying(254) NOT NULL,
+	email character varying (254),
+	phone character varying (254),
+	date_requested bigint,
+	approved boolean
 );
