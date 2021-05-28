@@ -3,7 +3,7 @@
 
 <html>
 <head>
-    <title>Go +Spirit : <decorator:title default="A Movement to End Pain"/></title>
+    <title>Go +Spirit : <decorator:title default="A Movement to End Suffering of Homelessness"/></title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -90,7 +90,7 @@
                 <div style="float:left">
                     <a href="${pageContext.request.contextPath}" class="gospirit">Go<span class="plus">+</span><br/>
                         <span class="spirit">Spirit</span></a>
-                    <p style="font-size: 16px;">A Movement to End Pain.</p>
+                    <p style="font-size: 16px;">A Homelessness Movement.</p>
                 </div>
                 <div style="float:right; text-align: right" id="guest-navigation">
                     <a href="${pageContext.request.contextPath}/">Home</a>

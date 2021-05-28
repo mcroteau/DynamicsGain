@@ -2,7 +2,7 @@
 <%@ taglib prefix="parakeet" uri="/META-INF/tags/parakeet.tld" %>
 <html>
 <head>
-    <title>Go +Dynamics: Make Donation</title>
+    <title>Go +Spirit: Make Donation</title>
 </head>
 <body>
     <style>
@@ -117,12 +117,12 @@
     </c:if>
 
     <c:if test="${organization == null}">
-        <h1>Give to Go <strong class="fun">+Dynamics</strong></h1>
+        <h1>Give to Go <strong class="fun">+Spirit</strong></h1>
         <p class="left">All donations will go towards abolishing/destroying homelessness
         any which way we can. Kiosks, local Community Housing organizations
             and anything else that may move us forward.</p>
         <p class="left">You can make a one-time or a reoccurring donation that goes
-            to Go <strong>+Dynamics</strong>.</p>
+            to Go <strong>+Spirit</strong>.</p>
     </c:if>
 
     <c:if test="${!inDonateMode}">
@@ -142,7 +142,7 @@
 
         <div style="margin:20px auto 30px;">
             <p>or</p>
-            <p>Give to Go +Dynamics</p>
+            <p>Give to Go +Spirit</p>
             <a href="${pageContext.request.contextPath}/donate" class="button beauty">Give +</a>
         </div>
     </c:if>

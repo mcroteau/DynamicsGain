@@ -16,7 +16,7 @@
             <strong class="highlight" style="font-size:89px;">${town.name}</strong></span></span>
     </p>
 
-    <p class="open-text left">Go +Dynamics is a non profit designed with
+    <p class="open-text left">Go +Spirit is a non profit designed with
         the sole purpose of removing barriers that prevent people from
         giving time, money and resources to those in need!</p>
 
@@ -36,7 +36,7 @@
 
     <p>or</p>
 
-    <p>Give to Go <strong>+Dynamics</strong></p>
+    <p>Give to Go <strong>+Spirit</strong></p>
 
     <div style="margin-bottom:70px;">
         <a href="${pageContext.request.contextPath}/donate" class="button beauty small">Give +</a>

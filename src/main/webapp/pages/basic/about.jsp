@@ -1,12 +1,12 @@
 <html>
 <head>
-    <title>About Go +Dynamics</title>
+    <title>About Go +Spirit</title>
 </head>
 <body>
 
     <h1>About</h1>
 
-    <p class="left">Go +Dynamics was founded by me, Mike.
+    <p class="left">Go +Spirit was founded by me, Mike.
     Yeah, I admit it, I've been homeless. You
     know what the worst part about it is, most people
     don't give a poop. That's where we come in.
@@ -21,13 +21,13 @@
 
     <h3 style="margin-top:20px;">How does it work?</h3>
     <p class="left">100% of your donation goes toward the organization you select
-    or to Go <strong>+Dynamics</strong>.
+    or to Go <strong>+Spirit</strong>.
         The organization has signed up and
     has gone through the registration process.</p>
 
 
     <h3 style="margin-top:20px;">Give me details!</h3>
-    <p class="left">Go +Dynamics uses a payments processor
+    <p class="left">Go +Spirit uses a payments processor
         called Stripe to process donations.
         You will need to setup a Stripe account in order to
         move forward and accept donations if you are a
@@ -60,7 +60,7 @@
     <p class="left">Well, I recalled what it felt like to be without.
         It was pretty disheartening. Calling someone Dynamic is a
         pretty big compliment, so they, the people in need are...
-        Dynamics <strong>+Gain</strong>.
+        Spirit <strong>+Gain</strong>.
     </p>
 
     <br/>

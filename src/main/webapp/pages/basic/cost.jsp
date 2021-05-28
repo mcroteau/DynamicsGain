@@ -17,7 +17,7 @@
         people in order for them to help their local community.</p>
 
     <p class="left" style="margin-top:20px;">Administrative costs outside of that are practically zero.
-    The individual, me responsible for everything Go <strong>+Dynamics</strong>
+    The individual, me responsible for everything Go <strong>+Spirit</strong>
     wants to see this to the end.</p>
 
     <p style="margin-top:30px;">

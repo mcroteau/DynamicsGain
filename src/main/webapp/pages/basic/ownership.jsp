@@ -17,16 +17,18 @@
 
     <h4>What happens after we claim ownership?</h4>
 
-    <p class="left" style="margin-bottom:20px;">I will be calling you to verify your affiliation with the org and
+    <p class="left" style="margin-bottom:20px;">I will be calling you to
+        verify your affiliation with the organization and
         will give you instructions on how to complete the registration
         process. Once you have completed the registration process you
         will be able to start receiving donations through our system.
         This means on our site, developer's sites and kiosks throughout
         local communities.</p>
 
-    <c:if test="${requested}">
+    <c:if test="${!requested}">
 
-        <p class="left">Give us your contact details so we may verify your affiliation with this organization.</p>
+        <p class="left" style="margin-bottom:30px;">Feel free to give us your contact details so we may
+            begin verifying your affiliation with this organization.</p>
 
         <form action="${pageContext.request.contextPath}/claim" method="post" id="registration-form">
             <fieldset style="text-align: left">
@@ -45,7 +47,7 @@
 
 
         <div style="width:100%;margin-top:41px;text-align:center;margin-bottom:30px; ">
-            <input type="submit" class="button retro" id="signup-button" value="Take Ownership" style="width:100%;"/>
+            <input type="submit" class="button retro" id="signup-button" value="Request Ownership" style="width:100%;"/>
         </div>
 
     </c:if>

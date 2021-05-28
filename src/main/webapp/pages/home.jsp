@@ -8,7 +8,7 @@
 
 <p>* = data has yet to be entered.</p>
 
-<p>Go +Dynamics is an organization that attempts to remove barriers
+<p>Go +Spirit is an organization that attempts to remove barriers
     for those wishing to help others that are suffering. </p>
 
 <h4>Homelessness by</h4>

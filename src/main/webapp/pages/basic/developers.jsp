@@ -7,7 +7,7 @@
     <h1>Developers API</h1>
 
     <p>We have an API in that allows you to integrate
-    Dynamics <strong>+Gain's</strong> donations processor so you can make
+    Spirit <strong>+Gain's</strong> donations processor so you can make
         donations to the organization or shelter you love on your website or
         through your android app or ios app.
         All you need is the Organization's Id for the system.</p>
@@ -48,7 +48,7 @@
         <li><strong>recurring</strong> : true|false if recurring monthly donation</li>
         <li><strong>location (optional)</strong> : The Id of the Charitable Organization or Homeless Shelter that you would like to donate to on the system.
             Location is used throughout our system to reference a Homeless Shelter or Charitable Organization.
-        If you leave blank you can make a donation to Dynamics +Gain instead.</li>
+        If you leave blank you can make a donation to Spirit +Gain instead.</li>
     </ul>
 
     <p class="center">Sample Response:</p>
