@@ -4,12 +4,15 @@ import com.google.gson.Gson;
 import eco.m1.annotate.Inject;
 import eco.m1.annotate.Service;
 import eco.m1.data.RequestData;
+import go.Spirit;
 import go.model.Organization;
+import go.model.OwnershipRequest;
 import go.model.State;
 import go.model.Town;
 import go.repo.OrganizationRepo;
 import go.repo.StateRepo;
 import go.repo.TownRepo;
+import go.support.Web;
 
 import javax.servlet.http.HttpServletRequest;
 import java.text.NumberFormat;
@@ -162,7 +165,24 @@ public class BasicService {
     }
 
     public String ownership(HttpServletRequest req, RequestData data) {
+        OwnershipRequest ownershipRequest = (OwnershipRequest) Web.hydrate(req, OwnershipRequest.class);
+        if(ownershipRequest.getName() == null ||
+                ownershipRequest.getName().equals("")){
+            data.put("message", "Please enter a contact name");
+            return "[redirect]/ownership";
+        }
+        if(!Spirit.isValidMailbox(ownershipRequest.getEmail())){
+            data.put("message", "Please enter a valid email address");
+            return "[redirect]/ownership";
+        }
+        if(ownershipRequest.getPhone() == null ||
+                ownershipRequest.getPhone().equals("")){
+            data.put("message", "Please enter a contact phone");
+            return "[redirect]/ownership";
+        }
 
+        ownershipRequest.setDateRequested(Spirit.getDate());
+        organizationRepo.saveRequest(ownershipRequest);
 
         return "[redirect]/";
     }

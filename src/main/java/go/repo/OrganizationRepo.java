@@ -4,6 +4,7 @@ import eco.m1.Q;
 import eco.m1.annotate.Inject;
 import eco.m1.annotate.Jdbc;
 import go.model.Organization;
+import go.model.OwnershipRequest;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -86,6 +87,17 @@ public class OrganizationRepo {
     public boolean deleteOrganizations(Long id) {
         String sql = "delete from organizations where town_id = {}";
         q.delete(sql, new Object[] { id });
+        return true;
+    }
+
+    public boolean saveRequest(OwnershipRequest ownershipRequest) {
+        String sql = "insert into organization_requests (name, email, phone, date_requested) values ('{}', '{}', '{}', {})";
+        q.save(sql, new Object[] {
+                ownershipRequest.getName(),
+                ownershipRequest.getEmail(),
+                ownershipRequest.getPhone(),
+                ownershipRequest.getDateRequested()
+        });
         return true;
     }
 }

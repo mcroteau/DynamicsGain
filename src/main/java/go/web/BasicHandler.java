@@ -92,11 +92,6 @@ public class BasicHandler {
     public String ownership(HttpServletRequest req,
                          HttpServletResponse resp,
                          RequestData data){
-        OwnershipRequest ownershipRequest = (OwnershipRequest) Web.hydrate(req, OwnershipRequest.class);
-        if(!Spirit.isValidMailbox(ownershipRequest.getEmail())){
-            
-        }
-
         return basicService.ownership(req, data);
     }
 
