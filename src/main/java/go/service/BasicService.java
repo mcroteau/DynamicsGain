@@ -184,7 +184,10 @@ public class BasicService {
         ownershipRequest.setDateRequested(Spirit.getDate());
         organizationRepo.saveRequest(ownershipRequest);
 
-        return "[redirect]/";
+        data.put("message", "Successfully sent request");
+        data.put("requested", true);
+
+        return "[redirect]/ownership";
     }
 
 }

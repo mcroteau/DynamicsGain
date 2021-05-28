@@ -24,27 +24,31 @@
         This means on our site, developer's sites and kiosks throughout
         local communities.</p>
 
-    <p class="left">Give us your contact details so we may verify your affiliation with this organization.</p>
+    <c:if test="${requested}">
 
-    <form action="${pageContext.request.contextPath}/claim" method="post" id="registration-form">
-        <fieldset style="text-align: left">
+        <p class="left">Give us your contact details so we may verify your affiliation with this organization.</p>
 
-            <label>Contact Name</label>
-            <input id="name" type="email" placeholder="Mike Croteau" name="name" style="width:80%;">
+        <form action="${pageContext.request.contextPath}/claim" method="post" id="registration-form">
+            <fieldset style="text-align: left">
 
-            <label>Contact Email</label>
-            <input id="username" type="email" placeholder="mike@godynamics.cc" name="username" style="width:100%;">
+                <label>Contact Name</label>
+                <input id="name" type="email" placeholder="Mike Croteau" name="name" style="width:80%;">
 
-            <label>Contact Direct Number</label>
-            <input id="phone" type="text" placeholder="(907) 987-8652" name="phone" style="width:60%;">
+                <label>Contact Email</label>
+                <input id="username" type="email" placeholder="mike@godynamics.cc" name="username" style="width:100%;">
 
-        </fieldset>
-    </form>
+                <label>Contact Direct Number</label>
+                <input id="phone" type="text" placeholder="(907) 987-8652" name="phone" style="width:60%;">
+
+            </fieldset>
+        </form>
 
 
-    <div style="width:100%;margin-top:41px;text-align:center;margin-bottom:30px; ">
-        <input type="submit" class="button retro" id="signup-button" value="Take Ownership" style="width:100%;"/>
-    </div>
+        <div style="width:100%;margin-top:41px;text-align:center;margin-bottom:30px; ">
+            <input type="submit" class="button retro" id="signup-button" value="Take Ownership" style="width:100%;"/>
+        </div>
+
+    </c:if>
 
     <br class="clear"/>
 
