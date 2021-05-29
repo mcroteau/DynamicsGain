@@ -81,4 +81,18 @@ public class BasicHandler {
         return "/pages/basic/privacy.jsp";
     }
 
+    @Get(value="/reauth")
+    public String reauth(HttpServletRequest req,
+                         HttpServletResponse resp,
+                         RequestData data){
+        return basicService.home(data);
+    }
+
+    @Get(value="/stripe/onboarding")
+    public String stripeReturn(HttpServletRequest req,
+                         HttpServletResponse resp,
+                         RequestData data){
+        return "/pages/basic/onboarding.jsp";
+    }
+
 }

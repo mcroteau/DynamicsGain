@@ -133,21 +133,20 @@
         <p>Let them know you believe in this idea and encourage them to
         claim their organization on our site.</p>
 
+        <h3>This organization has yet to be claimed.</h3>
+
         <p class="left" style="margin-top:20px;">
             <a href="${pageContext.request.contextPath}/ownership?id=${organization.id}" class="href-dotted">
                 Are you someone who helps make decisions for <strong>${organization.name}</strong>?</a>
-
-            You can register with us, claim this organization and be part of the
-            movement. After registering you will be
+            After completing the registration process you will be
             able to receive donations on our site or at kiosks hopefully within
             your community.
             <a href="${pageContext.request.contextPath}/ownership?id=${organization.id}" class="href-dotted">Are you the owner of ${organization.name}?</a>
-            And would like to be part of a movement?
         </p>
 
         <div style="margin:20px auto 30px;">
             <p>or</p>
-            <p>Give to Go +Spirit</p>
+            <p>Give to Go <strong>+Spirit</strong></p>
             <a href="${pageContext.request.contextPath}/donate" class="button beauty">Give +</a>
         </div>
     </c:if>

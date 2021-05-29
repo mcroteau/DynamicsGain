@@ -6,7 +6,7 @@
 
 <h1>Your Profile</h1>
 
-<c:if test="${user.stripeAccountId == null && user.charity}">
+<c:if test="${user.charity}">
 	<img src="${pageContext.request.contextPath}/assets/media/stripe.png" style="width:150px;"/>
 	<p>You will be redirect to Stripe to complete the activation process.</p>
 	<form action="${pageContext.request.contextPath}/admin/ownership/requests/activate/${user.id}" method="post">

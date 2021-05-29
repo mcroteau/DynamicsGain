@@ -66,7 +66,7 @@ public class OrganizationService {
         if(!authService.isAdministrator() &&
                 !authService.hasRole(Spirit.SUPER_ROLE)){
             data.put("message", "You do not have permission to perform this action.");
-            return "[redirect]/user/edit/" + authService.getUser().getId();
+            return "[redirect]/users/edit/" + authService.getUser().getId();
         }
         List<Town> towns = townRepo.getList();
         data.put("towns", towns);
@@ -80,7 +80,7 @@ public class OrganizationService {
         if(!authService.hasRole(Spirit.SUPER_ROLE) &&
                     !authService.hasRole(Spirit.CHARITY_ROLE)){
             data.put("message", "You do not have permission to perform this action.");
-            return "[redirect]/user/edit/" + authService.getUser().getId();
+            return "[redirect]/users/edit/" + authService.getUser().getId();
         }
 
         List<Organization> organizations = organizationRepo.getList();
@@ -96,7 +96,7 @@ public class OrganizationService {
         if(!authService.isAdministrator() &&
                 !authService.hasRole(Spirit.SUPER_ROLE)){
             data.put("message", "You do not have permission to perform this action.");
-            return "[redirect]/user/edit/" + authService.getUser().getId();
+            return "[redirect]/users/edit/" + authService.getUser().getId();
         }
 
         String name = req.getParameter("name");
@@ -273,6 +273,7 @@ public class OrganizationService {
         user.setUsername(req.getEmail());
         user.setPhone(req.getPhone());
         user.setOrganizationId(id);
+        user.setCharity(true);
         User savedUser = userRepo.save(user);
 
 
@@ -298,8 +299,6 @@ public class OrganizationService {
             return "[redirect]/";
         }
 
-        User user = userRepo.get(id);
-
         AccountCreateParams accountParams =
                 AccountCreateParams.builder()
                         .setType(AccountCreateParams.Type.STANDARD)
@@ -314,21 +313,21 @@ public class OrganizationService {
             AccountLinkCreateParams linkParams =
                     AccountLinkCreateParams.builder()
                             .setAccount(account.getId())
-                            .setRefreshUrl("https://gospirit.xyz/reauth")
-                            .setReturnUrl("https://gospirit.xyz/stripe/return")
+                            .setRefreshUrl("https://gospirit.xyz/a/reauth")
+                            .setReturnUrl("https://gospirit.xyz/a/stripe/onboarding")
                             .setType(AccountLinkCreateParams.Type.ACCOUNT_ONBOARDING)
                             .build();
 
             AccountLink accountLink = AccountLink.create(linkParams);
 
+            User user = userRepo.get(id);
             user.setStripeAccountId(account.getId());
-            user.setCharity(true);
+            userRepo.update(user);
 
             Organization organization = organizationRepo.get(user.getOrganizationId());
             organization.setStripeAccountId(account.getId());
             organizationRepo.update(organization);
 
-            userRepo.update(user);
 
             PrintWriter pw = resp.getWriter();
             resp.sendRedirect(accountLink.getUrl());
