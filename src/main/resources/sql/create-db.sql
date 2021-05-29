@@ -54,6 +54,7 @@ create table if not exists organizations (
 	latitude character varying (254),
 	longitude character varying (254),
 	town_id bigint NOT NULL REFERENCES towns(id),
+	stripe_account_id text,
 	constraint unique_uri unique(uri)
 );
 
