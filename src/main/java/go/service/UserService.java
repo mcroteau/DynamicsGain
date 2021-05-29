@@ -78,43 +78,38 @@ public class UserService {
                 storedOrganization = organizationRepo.get(donation.getOrganizationId());
             }
 
-            if(donation.getChargeId() != null) {
-                try{
-                    Charge charge = new Charge();
-                    charge.setAmount(donation.getAmount());
-                    charge.setId(donation.getId());
-                    charge.setStripeId(donation.getChargeId());
-                    charge.setDonationDate(donation.getPrettyDate());
-                    if(storedOrganization != null){
-                        charge.setOrganization(storedOrganization);
-                    }
-                    charges.add(charge);
-                }catch(Exception ex){
-                    ex.printStackTrace();
+            if(donation.getChargeId() != null &&
+                    !donation.getChargeId().equals("null")) {
+                Charge charge = new Charge();
+                charge.setAmount(donation.getAmount());
+                charge.setId(donation.getId());
+                charge.setStripeId(donation.getChargeId());
+                charge.setDonationDate(donation.getPrettyDate());
+                if(storedOrganization != null){
+                    charge.setOrganization(storedOrganization);
                 }
+                charges.add(charge);
             }
 
-            System.out.println("subscription : " + donation.getSubscriptionId());
+            System.out.println("subscription : '" + donation.getSubscriptionId() + "'");
 
-            if(donation.getSubscriptionId() != null) {
-                try {
+            if(donation.getSubscriptionId() != null &&
+                    !donation.getSubscriptionId().equals("null")) {
+                System.out.println("subscription 2 : " + donation.getSubscriptionId());
 
-                    Subscription subscription = new Subscription();
-                    subscription.setAmount(donation.getAmount());
-                    subscription.setId(donation.getId());
-                    subscription.setStripeId(donation.getSubscriptionId());
-                    subscription.setDonationDate(donation.getPrettyDate());
-                    if(storedOrganization != null) {
-                        subscription.setOrganization(storedOrganization);
-                    }
-                    if(donation.isCancelled()){
-                        subscription.setCancelled(true);
-                    }
-                    subscriptions.add(subscription);
-
-                } catch (Exception ex) {
-                    ex.printStackTrace();
+                Subscription subscription = new Subscription();
+                subscription.setAmount(donation.getAmount());
+                subscription.setId(donation.getId());
+                subscription.setStripeId(donation.getSubscriptionId());
+                subscription.setDonationDate(donation.getPrettyDate());
+                if(storedOrganization != null) {
+                    subscription.setOrganization(storedOrganization);
                 }
+                if(donation.isCancelled()){
+                    subscription.setCancelled(true);
+                }
+                subscriptions.add(subscription);
+
             }
         }
 
