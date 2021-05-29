@@ -117,7 +117,7 @@
     </c:if>
 
     <c:if test="${organization == null}">
-        <h1>Give to Go <strong class="fun">+Spirit</strong></h1>
+        <h1>Give to Go +Spirit</h1>
         <p class="left">All donations will go towards abolishing/destroying homelessness
         any which way we can. Kiosks, local Community Housing organizations
             and anything else that may move us forward.</p>

@@ -6,6 +6,8 @@ import com.stripe.exception.StripeException;
 import com.stripe.model.*;
 import com.stripe.net.RequestOptions;
 import com.stripe.param.SubscriptionCreateParams;
+import com.stripe.param.TokenCreateParams;
+import com.stripe.param.issuing.CardCreateParams;
 import eco.m1.annotate.Inject;
 import eco.m1.annotate.Prop;
 import eco.m1.annotate.Service;
@@ -160,7 +162,15 @@ public class DonationService {
             Map<String, Object> params = new HashMap<>();
             params.put("card", card);
 
-            Token token = Token.create(params);
+            Token token = null;
+            if(organization != null) {
+                RequestOptions requestOptions = RequestOptions.builder()
+                                .setStripeAccount(organization.getStripeAccountId())
+                                .build();
+                token = Token.create(params, requestOptions);
+            }else{
+                token = Token.create(params);
+            }
 
             if (user.getStripeCustomerId() != null &&
                     !user.getStripeCustomerId().equals("")) {
@@ -175,7 +185,16 @@ public class DonationService {
             Map<String, Object> customerParams = new HashMap<>();
             customerParams.put("email", donationInput.getEmail());
             customerParams.put("source", token.getId());
-            Customer customer = com.stripe.model.Customer.create(customerParams);
+
+            Customer customer = null;
+            if(organization != null) {
+                RequestOptions requestOptions = RequestOptions.builder()
+                                .setStripeAccount(organization.getStripeAccountId())
+                                .build();
+                customer = com.stripe.model.Customer.create(customerParams, requestOptions);
+            }else{
+                customer = com.stripe.model.Customer.create(customerParams);
+            }
 
             user.setStripeCustomerId(customer.getId());
             userRepo.update(user);
@@ -264,6 +283,7 @@ public class DonationService {
                     donation.setOrganization(organization);
                 }
 
+                donation.setAmount(donationInput.getAmount());
                 donation.setUser(user);
                 donation.setProcessed(true);
                 donation.setStatus("Successfully processed donation!");

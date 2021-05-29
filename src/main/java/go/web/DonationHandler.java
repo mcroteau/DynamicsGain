@@ -37,7 +37,9 @@ public class DonationHandler {
     }
 
     @Get(value="/donation/cleanup")
-    public String cleanup(){
+    public String cleanup(HttpServletRequest req,
+                          HttpServletResponse resp,
+                          RequestData data){
         return donationService.cleanup();
     }
 

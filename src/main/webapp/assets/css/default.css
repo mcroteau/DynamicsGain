@@ -90,6 +90,9 @@ h1{
     line-height:1.3em;
     font-weight: 900;
 }
+h1 span{
+    font-size:49px;
+}
 
 h2{
     font-size:36px;
