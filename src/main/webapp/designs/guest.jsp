@@ -92,27 +92,27 @@
                         <span class="spirit">Spirit</span></a>
                     <p style="font-size: 16px;">End Homelessness Movement.</p>
                 </div>
+                <div style="float:left;">
+                    <parakeet:isAuthenticated>
+                        &nbsp;<strong class="highlight" style="font-family: roboto-slab-semibold !important">Signed in <a href="${pageContext.request.contextPath}/" class="href-dotted">My Profile</a></strong>&nbsp
+                        &nbsp;<a href="${pageContext.request.contextPath}/signout" class="href-dotted">Signout</a>&nbsp;
+                    </parakeet:isAuthenticated>
+                </div>
                 <div style="float:right; text-align: right" id="guest-navigation">
                     <a href="${pageContext.request.contextPath}/">Home</a>
                     <a href="${pageContext.request.contextPath}/donate">Give</a>
                     <a href="${pageContext.request.contextPath}/organizations">Organizations</a>
                     <a href="${pageContext.request.contextPath}/about">About</a>
-                </div>
+                    <parakeet:isAnonymous>
+                        <a href="${pageContext.request.contextPath}/signin">Signin</a>
+                    </parakeet:isAnonymous>
+                    </div>
             </div>
 
             <br class="clear"/>
 
             <div id="guest-content" class="center">
                 <decorator:body />
-
-                <div id="footer-navigation">
-                    <parakeet:isAuthenticated>
-                        &nbsp;<strong class="highlight" style="font-family: roboto-slab-semibold !important">Signed in <a href="${pageContext.request.contextPath}/" class="href-dotted">My Profile</a></strong>&nbsp
-                    </parakeet:isAuthenticated>
-                    <parakeet:isAnonymous>
-                        &nbsp;<a href="${pageContext.request.contextPath}/signin" class="href-dotted">Signin</a>&nbsp;
-                    </parakeet:isAnonymous>
-                </div>
             </div>
 
         </div>

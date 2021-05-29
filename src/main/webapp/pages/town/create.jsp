@@ -10,9 +10,6 @@
     <label>Name</label>
     <input type="text" name="name" style="width:80%"/>
 
-    <label>Uri</label>
-    <input type="text" name="townUri" />
-
     <label>State</label>
     <select name="stateId" style="display: block">
         <c:forEach items="${states}" var="state">

@@ -65,7 +65,8 @@ public class OrganizationService {
         }
         if(!authService.isAdministrator() &&
                 !authService.hasRole(Spirit.SUPER_ROLE)){
-            return "[redirect]/";
+            data.put("message", "You do not have permission to perform this action.");
+            return "[redirect]/user/edit/" + authService.getUser().getId();
         }
         List<Town> towns = townRepo.getList();
         data.put("towns", towns);
@@ -76,9 +77,10 @@ public class OrganizationService {
         if(!authService.isAuthenticated()){
             return "[redirect]/";
         }
-        if(!authService.isAdministrator() &&
-                !authService.hasRole(Spirit.SUPER_ROLE)){
-            return "[redirect]/";
+        if(!authService.hasRole(Spirit.SUPER_ROLE) &&
+                    !authService.hasRole(Spirit.CHARITY_ROLE)){
+            data.put("message", "You do not have permission to perform this action.");
+            return "[redirect]/user/edit/" + authService.getUser().getId();
         }
 
         List<Organization> organizations = organizationRepo.getList();
@@ -93,7 +95,8 @@ public class OrganizationService {
         }
         if(!authService.isAdministrator() &&
                 !authService.hasRole(Spirit.SUPER_ROLE)){
-            return "[redirect]/";
+            data.put("message", "You do not have permission to perform this action.");
+            return "[redirect]/user/edit/" + authService.getUser().getId();
         }
 
         String name = req.getParameter("name");
@@ -120,8 +123,10 @@ public class OrganizationService {
         if(!authService.isAuthenticated()){
             return "[redirect]/";
         }
-        if(!authService.isAdministrator() &&
-                !authService.hasRole(Spirit.SUPER_ROLE)){
+        String permission = Spirit.ORGANIZATION_MAINTENANCE + id;
+        if((!authService.hasRole(Spirit.SUPER_ROLE) &&
+                !authService.hasRole(Spirit.CHARITY_ROLE)) ||
+                    !authService.hasPermission(permission)){
             data.put("message", "You do not have permission to this organization");
             return "[redirect]/ownership?id=" + id;
         }
@@ -139,8 +144,11 @@ public class OrganizationService {
         if(!authService.isAuthenticated()){
             return "[redirect]/";
         }
-        if(!authService.isAdministrator() &&
-                !authService.hasRole(Spirit.SUPER_ROLE)){
+        String permission = Spirit.ORGANIZATION_MAINTENANCE + id;
+        if((!authService.hasRole(Spirit.SUPER_ROLE) &&
+                !authService.hasRole(Spirit.CHARITY_ROLE)) ||
+                !authService.hasPermission(permission)){
+            data.put("message", "You do not have permission to this organization");
             return "[redirect]/";
         }
 

@@ -84,9 +84,9 @@ public class TownService {
         town.setName(name);
         town.setStateId(stateId);
 
-        townRepo.save(town);
+        Town savedTown = townRepo.save(town);
 
-        return "[redirect]/admin/towns";
+        return "[redirect]/admin/towns/edit/" + savedTown.getId();
     }
 
     public String getEdit(Long id, RequestData data) {

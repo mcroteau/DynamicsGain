@@ -262,6 +262,12 @@ input[type="submit"].button.yellow{
     border:solid 1px #fdfe01;
 }
 
+.go{
+    color:#fff;
+    background:#54afff;
+    border:solid 1px #54afff;
+}
+
 .button.sky,
 input[type="button"].button.sky,
 input[type="reset"].button.sky,
@@ -412,6 +418,7 @@ label{
 }
 
 .href-dotted,
+.href-dotted-pink,
 .href-dotted-black,
 .href-dotted-white{
     text-decoration: none !important;
@@ -419,8 +426,12 @@ label{
 }
 
 .href-dotted{
-    text-decoration: none !important;
     border-bottom:dotted 2px #428bca !important;
+}
+
+.href-dotted-pink{
+    color:#f540a6;
+    border-bottom:dotted 2px #f540a6 !important;
 }
 
 .href-dotted-black{
