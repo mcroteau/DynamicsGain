@@ -78,3 +78,17 @@ create table if not exists ownership_requests (
 	date_requested bigint,
 	approved boolean
 );
+
+create table products(
+	id bigint PRIMARY KEY AUTO_INCREMENT,
+    nickname character varying (255),
+	stripe_id text
+);
+
+create table prices(
+	id bigint PRIMARY KEY AUTO_INCREMENT,
+	stripe_id text,
+    amount decimal default 0.0,
+    nickname character varying (255),
+	product_id bigint NOT NULL REFERENCES products(id)
+);

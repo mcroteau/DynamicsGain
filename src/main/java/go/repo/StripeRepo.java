@@ -18,19 +18,19 @@ public class StripeRepo {
 
     public long getId() {
         String sql = "select max(id) from prices";
-        long id = q.getLong(sql, new Object[]{});
+        Long id = q.getLong(sql, new Object[]{});
         return id;
     }
 
     public long getProductId() {
         String sql = "select max(id) from products";
-        long id = q.getLong(sql, new Object[]{});
+        Long id = q.getLong(sql, new Object[]{});
         return id;
     }
 
     public long getPriceId() {
         String sql = "select max(id) from prices";
-        long id = q.getLong(sql, new Object[]{});
+        Long id = q.getLong(sql, new Object[]{});
         return id;
     }
 
@@ -69,9 +69,11 @@ public class StripeRepo {
     }
 
     public DynamicsProduct saveProduct(DynamicsProduct dynamicsProduct){
+        System.out.println("stripe repo : " + dynamicsProduct.getNickname() + " :: " + dynamicsProduct.getStripeId());
         String sql = "insert into products (nickname, stripe_id) values ('{}', '{}')";
         q.save(sql, new Object[] {
-                dynamicsProduct.getNickname(), dynamicsProduct.getStripeId()
+                dynamicsProduct.getNickname(),
+                dynamicsProduct.getStripeId()
         });
         Long id = getProductId();
         DynamicsProduct savedProduct = getProduct(id);
@@ -81,7 +83,10 @@ public class StripeRepo {
     public DynamicsPrice savePrice(DynamicsPrice dynamicsPrice){
         String sql = "insert into prices (amount, nickname, product_id, stripe_id) values ({}, '{}', {}, '{}')";
         q.save(sql, new Object[] {
-                dynamicsPrice.getAmount(), dynamicsPrice.getNickname(), dynamicsPrice.getProductId(), dynamicsPrice.getStripeId()
+                dynamicsPrice.getAmount(),
+                dynamicsPrice.getNickname(),
+                dynamicsPrice.getProductId(),
+                dynamicsPrice.getStripeId()
         });
         Long id = getPriceId();
         DynamicsPrice savedPrice = getPrice(id);

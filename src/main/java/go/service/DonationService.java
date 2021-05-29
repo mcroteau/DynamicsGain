@@ -216,7 +216,7 @@ public class DonationService {
 
                     Price price =  com.stripe.model.Price.retrieve(storedPrice.getStripeId());
                     if (price == null) {
-                        generateStripePrice(amountInCents, storedPrice, donation);
+                        generateStripePrice(amountInCents, storedPrice, donation, organization);
                         storedPrice = stripeRepo.getPrice(storedPrice.getId());
                     }
                     subscriptionSuccess = createSubscription(donation, storedPrice, customer, organization);
@@ -231,14 +231,22 @@ public class DonationService {
                     Map<String, Object> productParams = new HashMap<>();
                     productParams.put("name", dynamicsPrice.getNickname());
 
-                    com.stripe.model.Product stripeProduct = com.stripe.model.Product.create(productParams);
+                    com.stripe.model.Product stripeProduct = null;
+                    if(organization != null) {
+                        RequestOptions requestOptions = RequestOptions.builder().setStripeAccount(organization.getStripeAccountId()).build();
+                        stripeProduct = com.stripe.model.Product.create(productParams, requestOptions);
+                    }else{
+                        stripeProduct = com.stripe.model.Product.create(productParams);
+                    }
+
+                    System.out.println(dynamicsPrice.getNickname() + " ::: " + stripeProduct.getId());
 
                     DynamicsProduct dynamicsProduct = new DynamicsProduct();
                     dynamicsProduct.setNickname(dynamicsPrice.getNickname());
                     dynamicsProduct.setStripeId(stripeProduct.getId());
                     DynamicsProduct savedProduct = stripeRepo.saveProduct(dynamicsProduct);
 
-                    Price stripePrice = genStripeRecurringPrice(amountInCents, dynamicsPrice, stripeProduct);
+                    Price stripePrice = genStripeRecurringPrice(amountInCents, dynamicsPrice, stripeProduct, organization);
                     if (stripePrice == null) {
                         return donation;
                     }
@@ -301,12 +309,19 @@ public class DonationService {
         return donation;
     }
 
-    private Price generateStripePrice(Long amountInCents, DynamicsPrice storedPrice, Donation donation) throws StripeException {
+    private Price generateStripePrice(Long amountInCents, DynamicsPrice storedPrice, Donation donation, Organization organization) throws StripeException {
         DynamicsProduct dynamicsProduct = stripeRepo.getProduct(storedPrice.getProductId());
         Map<String, Object> productParams = new HashMap<>();
         productParams.put("name", storedPrice.getNickname());
 
-        com.stripe.model.Product stripeProduct = com.stripe.model.Product.create(productParams);
+        com.stripe.model.Product stripeProduct = null;
+        if(organization != null) {
+            RequestOptions requestOptions = RequestOptions.builder().setStripeAccount(organization.getStripeAccountId()).build();
+            stripeProduct = com.stripe.model.Product.create(productParams, requestOptions);
+        }else{
+            stripeProduct = com.stripe.model.Product.create(productParams);
+        }
+
 
         dynamicsProduct.setStripeId(stripeProduct.getId());
         stripeRepo.updateProduct(dynamicsProduct);
@@ -320,7 +335,13 @@ public class DonationService {
         priceParams.put("currency", "usd");
         priceParams.put("recurring", recurring);
 
-        Price stripePrice = Price.create(priceParams);
+        Price stripePrice = null;
+        if(organization != null) {
+            RequestOptions requestOptions = RequestOptions.builder().setStripeAccount(organization.getStripeAccountId()).build();
+            stripePrice = Price.create(priceParams, requestOptions);
+        }else{
+            stripePrice = Price.create(priceParams);
+        }
         storedPrice.setStripeId(stripePrice.getId());
         stripeRepo.updatePrice(storedPrice);
 
@@ -334,11 +355,11 @@ public class DonationService {
             Organization storedOrganization = organizationRepo.get(donationInput.getOrganizationId());
             organizationName = storedOrganization.getName();
         }
-        return "$" + donationInput.getAmount() + " " + reoccurring + " " +  organizationName;
+        return "\\$" + donationInput.getAmount() + " " + reoccurring + " " +  organizationName;
     }
 
 
-    private Price genStripeRecurringPrice(Long amountInCents, DynamicsPrice dynamicsPrice, Product stripeProduct) throws StripeException {
+    private Price genStripeRecurringPrice(Long amountInCents, DynamicsPrice dynamicsPrice, Product stripeProduct, Organization organization) throws StripeException {
         Map<String, Object> recurring = new HashMap<>();
         recurring.put("interval", dynamicsPrice.getFrequency());
 
@@ -348,7 +369,14 @@ public class DonationService {
         priceParams.put("currency", dynamicsPrice.getCurrency());
         priceParams.put("recurring", recurring);
 
-        Price stripePrice = Price.create(priceParams);
+        Price stripePrice = null;
+        if(organization != null) {
+            RequestOptions requestOptions = RequestOptions.builder().setStripeAccount(organization.getStripeAccountId()).build();
+            stripePrice = Price.create(priceParams, requestOptions);
+        }else{
+            stripePrice = Price.create(priceParams);
+        }
+
         return stripePrice;
     }
 

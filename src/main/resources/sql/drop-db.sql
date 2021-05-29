@@ -1,3 +1,5 @@
+drop table if exists prices;
+drop table if exists products;
 drop table if exists ownership_requests;
 drop table if exists user_roles;
 drop table if exists user_permissions;
