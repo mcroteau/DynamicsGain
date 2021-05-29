@@ -23,20 +23,16 @@
 		<c:forEach var="subscription" items="${subscriptions}">
 			<p><strong>${subscription.amountZero}
 			</strong> monthly to
-				<c:if test="${subscription.location != null}">
-					${subscription.location.name}
+				<c:if test="${subscription.organization != null}">
+					${subscription.organization.name}
 				</c:if>
-				<c:if test="${subscription.location == null}">
-					Spirit <strong>+Gain</strong>
+				<c:if test="${subscription.organization == null}">
+					Go <strong>+Spirit</strong>
 				</c:if>
 					${subscription.donationDate}
 				<c:if test="${!subscription.cancelled}">
 					<a href="javascript:" class="button beauty small cancel" class="button beauty small"
-					   data-subscription="${subscription.stripeId}"
-							<c:if test="${subscription.location != null}">
-								data-location="${subscription.location.id}"
-							</c:if>
-					>Cancel</a>
+					   data-subscription="${subscription.stripeId}">Cancel</a>
 				</c:if>
 				<c:if test="${subscription.cancelled}">
 					<strong class="yellow">Cancelled</strong>
@@ -50,10 +46,10 @@
 	<h3 style="margin-top:30px;">One-Time Donations</h3>
 	<c:forEach var="charge" items="${charges}">
 		<p><strong>${charge.amountZero}</strong> donated to
-			<c:if test="${charge.location != null}">
-				${charge.location.name}
+			<c:if test="${charge.organization != null}">
+				${charge.organization.name}
 			</c:if>
-			<c:if test="${charge.location == null}">
+			<c:if test="${charge.organization == null}">
 				Go <strong>+Spirit</strong>
 			</c:if>
 				${charge.donationDate}
@@ -63,7 +59,7 @@
 
 <c:if test="${charges.size() == 0 && subscriptions.size() == 0}">
 	<p>No current donations.</p>
-	<p><a href="/z/donate" class="href-dotted">Donate</a></p>
+	<p><a href="${pageContext.request.contextPath}/donate" class="href-dotted">Donate</a></p>
 </c:if>
 
 
@@ -73,9 +69,6 @@
 </c:if>
 
 
-<a href="${pageContext.request.contextPath}/user/edit_password/${user.id}" class="href-dotted" style="display:inline-block;margin-top:60px;">Update Password</a>
-
-
 
 <script>
 	$(document).ready(function(){
@@ -83,30 +76,13 @@
 
 		$cancel.click(function(){
 			var subscription = $(this).attr('data-subscription')
-			var location = $(this).attr('data-location')
-			console.log(location)
-			if(location != null){
-				console.log('location exists')
-				removeByLocation(location, subscription)
-			}
-			if(location == null){
-				remove(subscription)
-			}
+			remove(subscription)
 		})
 
 		var remove = function(subscription){
 			return $.ajax({
-				method: "Delete",
+				method: "post",
 				url : "${pageContext.request.contextPath}/donation/cancel/" + subscription,
-				success: success,
-				error : error
-			})
-		}
-
-		var removeByLocation = function(location, subscription){
-			return $.ajax({
-				method: "Delete",
-				url : "${pageContext.request.contextPath}/donation/cancel/" + location + "/" + subscription,
 				success: success,
 				error : error
 			})
@@ -117,7 +93,8 @@
 		}
 
 		var error = function(ex){
-			alert(ex.toString());
+			alert("Something went wrong, no worries, please contact us to resolve.")
+			console.log(ex)
 		}
 	});
 </script>

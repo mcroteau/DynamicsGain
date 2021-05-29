@@ -177,7 +177,7 @@
         <div id="make-donation-container" class="live" style="display:none;">
 
             <label>credit card information</label>
-            <input type="number" id="credit-card" name="credit-card" placeholder="4242424242424242" maxlength="16"/>
+            <input type="number" id="credit-card" name="credit-card" placeholder="12345678912345678" maxlength="16"/>
 
             <div class="cc-details">
                 <label>month</label>
@@ -199,7 +199,7 @@
             <label>Email
                 <parakeet:isAuthenticated><span class="highlight">Signed in</span></parakeet:isAuthenticated>
             </label>
-            <input type="text" id="email" value="<parakeet:username/>" placeholder="mail@dynamicsgain.org"/>
+            <input type="text" id="email" value="<parakeet:username/>" placeholder="mike@gospirit.xyz"/>
 
 
             <div style="text-align: center;">

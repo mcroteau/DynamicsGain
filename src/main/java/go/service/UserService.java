@@ -1,11 +1,14 @@
 package go.service;
 
+import com.stripe.Stripe;
 import eco.m1.annotate.Inject;
+import eco.m1.annotate.Prop;
 import eco.m1.annotate.Service;
 import eco.m1.data.RequestData;
 import go.Spirit;
-import go.model.Role;
-import go.model.User;
+import go.model.*;
+import go.repo.DonationRepo;
+import go.repo.OrganizationRepo;
 import go.repo.RoleRepo;
 import go.repo.UserRepo;
 import xyz.goioc.Parakeet;
@@ -13,17 +16,24 @@ import xyz.goioc.Parakeet;
 import javax.servlet.http.HttpServletRequest;
 import javax.swing.*;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 
 @Service
 public class UserService {
 
-    @Inject
-    RoleRepo roleRepo;
+    @Prop("stripe.apiKey")
+    String apiKey;
 
     @Inject
     UserRepo userRepo;
+
+    @Inject
+    DonationRepo donationRepo;
+
+    @Inject
+    OrganizationRepo organizationRepo;
 
     @Inject
     AuthService authService;
@@ -55,6 +65,63 @@ public class UserService {
         }
 
         User user = userRepo.get(id);
+        List<Donation> donations = donationRepo.getList(user.getId());
+        List<Charge> charges = new ArrayList<>();
+        List<Subscription> subscriptions = new ArrayList<>();
+
+        for(Donation donation: donations) {
+
+            Stripe.apiKey = apiKey;
+
+            Organization storedOrganization = null;
+            if(donation.getOrganizationId() != null) {
+                storedOrganization = organizationRepo.get(donation.getOrganizationId());
+            }
+
+            if(donation.getChargeId() != null &&
+                    !donation.getChargeId().equals("")) {
+                try{
+                    Charge charge = new Charge();
+                    charge.setAmount(donation.getAmount());
+                    charge.setId(donation.getId());
+                    charge.setStripeId(donation.getChargeId());
+                    charge.setDonationDate(donation.getPrettyDate());
+                    if(storedOrganization != null){
+                        charge.setOrganization(storedOrganization);
+                    }
+                    charges.add(charge);
+                }catch(Exception ex){
+                    ex.printStackTrace();
+                }
+            }
+
+            System.out.println("subscription : " + donation.getSubscriptionId());
+            
+            if(donation.getSubscriptionId() != null &&
+                    !donation.getSubscriptionId().equals("")) {
+                try {
+
+                    Subscription subscription = new Subscription();
+                    subscription.setAmount(donation.getAmount());
+                    subscription.setId(donation.getId());
+                    subscription.setStripeId(donation.getSubscriptionId());
+                    subscription.setDonationDate(donation.getPrettyDate());
+                    if(storedOrganization != null) {
+                        subscription.setOrganization(storedOrganization);
+                    }
+                    if(donation.isCancelled()){
+                        subscription.setCancelled(true);
+                    }
+                    subscriptions.add(subscription);
+
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+        }
+
+        data.put("charges", charges);
+        data.put("subscriptions", subscriptions);
         data.put("user", user);
 
         return "/pages/user/edit.jsp";

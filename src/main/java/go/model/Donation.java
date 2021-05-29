@@ -1,5 +1,7 @@
 package go.model;
 
+import go.Spirit;
+
 import java.math.BigDecimal;
 
 public class Donation {
@@ -121,4 +123,9 @@ public class Donation {
     public void setCancelled(boolean cancelled) {
         this.cancelled = cancelled;
     }
+
+    public String getPrettyDate() {
+        return Spirit.getPretty(donationDate);
+    }
+
 }

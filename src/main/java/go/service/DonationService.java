@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.stripe.Stripe;
 import com.stripe.exception.StripeException;
 import com.stripe.model.*;
+import com.stripe.model.Subscription;
 import com.stripe.net.RequestOptions;
 import com.stripe.param.SubscriptionCreateParams;
 import com.stripe.param.TokenCreateParams;
