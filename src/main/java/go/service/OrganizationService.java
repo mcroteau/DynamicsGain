@@ -277,7 +277,6 @@ public class OrganizationService {
         String orgPermission = Spirit.ORGANIZATION_MAINTENANCE + id;
         userRepo.savePermission(savedUser.getId(), orgPermission);
 
-
         data.put("message", "Successfully approved request.");
         return "[redirect]/admin/ownership/requests";
     }
@@ -316,6 +315,11 @@ public class OrganizationService {
 
             user.setStripeAccountId(account.getId());
             user.setCharity(true);
+
+            Organization organization = organizationRepo.get(user.getOrganizationId());
+            organization.setStripeAccountId(account.getId());
+            organizationRepo.update(organization);
+
             userRepo.update(user);
 
             PrintWriter pw = resp.getWriter();
