@@ -158,6 +158,24 @@ public class StartupService {
         }
 
         System.out.println("Organizations : " + organizationRepo.getCount());
+
+
+        String[] emails = {"croteau.mike+one@gmail.com",
+                "croteau.mike+dos@gmail.com",
+                "croteau.mike+three@gmail.com",};
+
+        int idx = 0;
+        for(String email : emails){
+            OwnershipRequest ownershipRequest = new OwnershipRequest();
+            ownershipRequest.setOrganizationId(new Long(1));
+            ownershipRequest.setEmail(email);
+            ownershipRequest.setPhone("9079878652");
+            ownershipRequest.setName("Mike " + idx);
+            idx++;
+            organizationRepo.saveRequest(ownershipRequest);
+        }
+
+        System.out.println("Requests : " + organizationRepo.getCountRequests());
     }
 
 

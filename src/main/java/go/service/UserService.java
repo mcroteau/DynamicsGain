@@ -50,8 +50,7 @@ public class UserService {
 
     public String getEditUser(Long id, RequestData data){
         String permission = getPermission(Long.toString(id));
-        if(!authService.isAdministrator() &&
-                !authService.hasPermission(permission)){
+        if(!authService.hasPermission(permission)){
             return "[redirect]/";
         }
 

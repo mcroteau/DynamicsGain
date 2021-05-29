@@ -27,6 +27,12 @@ public class OrganizationRepo {
         return count;
     }
 
+    public long getCountRequests() {
+        String sql = "select count(*) from ownership_requests";
+        Long count = q.getLong(sql, new Object[] { });
+        return count;
+    }
+
     public Organization get(long id){
         String sql = "select * from organizations where id = {}";
         Organization organization = (Organization) q.get(sql, new Object[]{ id }, Organization.class);

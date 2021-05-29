@@ -11,7 +11,9 @@ public class User {
 	long dateCreated;
 	String phone;
 
+	Boolean stripeActivated;
 	String stripeCustomerId;
+	String stripeAccountId;
 
 	public long getId() {
 		return id;
@@ -69,12 +71,28 @@ public class User {
 		this.phone = phone;
 	}
 
+	public Boolean getStripeActivated() {
+		return stripeActivated;
+	}
+
+	public void setStripeActivated(Boolean stripeActivated) {
+		this.stripeActivated = stripeActivated;
+	}
+
 	public String getStripeCustomerId() {
 		return stripeCustomerId;
 	}
 
 	public void setStripeCustomerId(String stripeCustomerId) {
 		this.stripeCustomerId = stripeCustomerId;
+	}
+
+	public String getStripeAccountId() {
+		return stripeAccountId;
+	}
+
+	public void setStripeAccountId(String stripeAccountId) {
+		this.stripeAccountId = stripeAccountId;
 	}
 }
 

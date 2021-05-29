@@ -4,6 +4,9 @@ create table if not exists users (
 	username character varying(254) NOT NULL,
 	password character varying(155) NOT NULL,
 	uuid character varying(155),
+	stripe_customer_id text,
+	stripe_account_id text,
+	stripe_activated boolean default false,
 	date_created bigint default 0
 );
 

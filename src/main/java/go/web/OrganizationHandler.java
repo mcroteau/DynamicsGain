@@ -99,4 +99,12 @@ public class OrganizationHandler {
         return organizationService.approveRequest(id, data);
     }
 
+    @Post("/admin/ownership/requests/activate/{{id}}")
+    public String activateAccount(HttpServletRequest req,
+                                HttpServletResponse resp,
+                                RequestData data,
+                                @Variable Long id){
+        return organizationService.activateAccount(id, data, req, resp);
+    }
+
 }

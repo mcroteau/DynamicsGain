@@ -235,11 +235,12 @@ public class UserRepo {
 
 
     public boolean update(User user) {
-		String sql = "update users set phone = '{}', username = '{}', password = '{}' where id = {}";
+		String sql = "update users set phone = '{}', username = '{}', password = '{}', stripe_account_id = '{}' where id = {}";
 		q.update(sql, new Object[]{
 				user.getPhone(),
 				user.getUsername(),
 				user.getPassword(),
+				user.getStripeAccountId(),
 				user.getId()
 		});
 		return true;

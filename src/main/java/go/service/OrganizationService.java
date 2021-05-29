@@ -16,13 +16,12 @@ import go.repo.RoleRepo;
 import go.repo.TownRepo;
 import go.repo.UserRepo;
 import go.support.Web;
-import org.apache.catalina.servlet4preview.http.HttpServletRequest;
-import org.springframework.beans.factory.annotation.Autowired;
 import xyz.goioc.Parakeet;
 
-import java.text.NumberFormat;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.PrintWriter;
 import java.util.List;
-import java.util.Locale;
 
 @Service
 public class OrganizationService {
@@ -271,9 +270,26 @@ public class OrganizationService {
         userRepo.saveUserRole(savedUser.getId(), Spirit.DONOR_ROLE);
         userRepo.saveUserRole(savedUser.getId(), Spirit.CHARITY_ROLE);
 
-        String permission = Spirit.ORGANIZATION_MAINTENANCE + id;
-        userRepo.savePermission(savedUser.getId(), permission);
+        String userPermission = Spirit.USER_MAINTENANCE + savedUser.getId();
+        userRepo.savePermission(savedUser.getId(), userPermission);
 
+        String orgPermission = Spirit.ORGANIZATION_MAINTENANCE + id;
+        userRepo.savePermission(savedUser.getId(), orgPermission);
+
+        data.put("message", "Successfully approved request.");
+        return "[redirect]/admin/ownership/requests";
+    }
+
+    public String activateAccount(Long id, RequestData data, HttpServletRequest req, HttpServletResponse resp) {
+        if(!authService.isAuthenticated()){
+            return "[redirect]/";
+        }
+        if(!authService.hasRole(Spirit.CHARITY_ROLE)){
+            data.put("message", "You do not have permission to access this organization");
+            return "[redirect]/";
+        }
+
+        User user = userRepo.get(id);
 
         AccountCreateParams accountParams =
                 AccountCreateParams.builder()
@@ -290,19 +306,26 @@ public class OrganizationService {
                     AccountLinkCreateParams.builder()
                             .setAccount(account.getId())
                             .setRefreshUrl("https://gospirit.xyz/reauth")
-                            .setReturnUrl("https://gospirit.xyz/stripe/success")
-                            .setType("account_onboarding")
+                            .setReturnUrl("https://gospirit.xyz/stripe/activation/success")
+                            .setType(AccountLinkCreateParams.Type.ACCOUNT_ONBOARDING)
                             .build();
-
 
             AccountLink accountLink = AccountLink.create(linkParams);
 
-        }catch(Exception ex){
+            user.setStripeAccountId(account.getId());
+            userRepo.update(user);
 
+            PrintWriter pw = resp.getWriter();
+            resp.sendRedirect(accountLink.getUrl());
+            pw.close();
+
+            return null;
+
+        }catch(Exception ex){
+            ex.printStackTrace();
+            data.put("message", "Something went wrong, will you contact us and let us know?");
+            return "[redirect]/";
         }
 
-        data.put("message", "Successfully approved request.");
-        return "[redirect]/admin/ownership/requests";
     }
-
 }
