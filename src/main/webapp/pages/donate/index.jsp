@@ -128,12 +128,15 @@
     <c:if test="${!inDonateMode}">
         <p class="yellow" style="display:inline-block">Contact to make a donation</p>
         <p>or</p>
-        <p>Let them know you believe in this idea and encourage them to use
-        claim their space on our site.</p>
+        <p>Let them know you believe in this idea and encourage them to
+        claim their organization on our site.</p>
 
-        <p class="left" style="margin-top:20px;">Are you someone who helps make decisions for <strong>${organization.name}</strong>?
+        <p class="left" style="margin-top:20px;">
+            <a href="${pageContext.request.contextPath}/ownership?id=${organization.id}" class="href-dotted">
+                Are you someone who helps make decisions for <strong>${organization.name}</strong>?</a>
+
             You can register with us, claim this organization and be part of the
-            movement. After registering and entering banking details, you will be
+            movement. After registering you will be
             able to receive donations on our site or at kiosks hopefully within
             your community.
             <a href="${pageContext.request.contextPath}/ownership?id=${organization.id}" class="href-dotted">Are you the owner of ${organization.name}?</a>

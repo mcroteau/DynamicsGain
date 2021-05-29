@@ -11,9 +11,10 @@
     <c:if test="${organization != null}">
         <h1 class="yellow">${organization.name}</h1>
     </c:if>
-    <h4>Take Ownership of this Organization</h4>
+    <h4>Request Ownership of this Organization</h4>
 
-    <p class="left" style="margin-bottom:10px;">Do you work for this organization? If not you may view organizations registered on this site and take ownership.</p>
+    <p class="left" style="margin-bottom:10px;">Do you work for this organization? If not you may
+        view organizations registered on this site and request ownership.</p>
 
     <h4>What happens after we claim ownership?</h4>
 
