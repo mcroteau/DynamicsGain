@@ -3,7 +3,7 @@
 
 <html>
 <head>
-    <title>Go +Spirit : <decorator:title default="A Movement to End Suffering of Homelessness"/></title>
+    <title>Go +Spirit : <decorator:title default="End Homelessness Movement"/></title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -37,7 +37,7 @@
             font-size: 47px;
             line-height: 1.0em;
         }
-        a .spirit{
+        .spirit{
             background: rgb(255,75,176);
             background: linear-gradient(101deg, rgba(255,75,176,1) 0%, rgba(255,75,176,1) 19%, rgba(253,254,3,1) 26%, rgba(44,244,0,1) 28%, rgba(44,244,0,1) 49%, rgba(84,175,255,1) 54%, rgba(84,175,255,1) 72%, rgba(0,0,0,1) 72%);
             -webkit-background-clip: text;
@@ -90,7 +90,7 @@
                 <div style="float:left">
                     <a href="${pageContext.request.contextPath}" class="gospirit">Go<span class="plus">+</span><br/>
                         <span class="spirit">Spirit</span></a>
-                    <p style="font-size: 16px;">A Homelessness Movement.</p>
+                    <p style="font-size: 16px;">End Homelessness Movement.</p>
                 </div>
                 <div style="float:right; text-align: right" id="guest-navigation">
                     <a href="${pageContext.request.contextPath}/">Home</a>

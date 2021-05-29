@@ -110,7 +110,7 @@
         <p style="white-space: pre-line; " class="left"><c:out value="${organization.description}" escapeXml="false" /></p>
 
         <c:if test="${inDonateMode}">
-            <p>You can make a one-time or a reoccurring donation that goes
+            <p>You can make a one-time or a recurring donation that goes
                 directly to ${organization.name}.</p>
             <p class="live">Make Donation<strong class="">+</strong></p>
         </c:if>

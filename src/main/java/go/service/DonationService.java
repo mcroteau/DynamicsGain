@@ -68,7 +68,9 @@ public class DonationService {
     public String organization(Long id, RequestData data) {
         Organization organization = organizationRepo.get(id);
         data.put("organization", organization);
-        data.put("inDonateMode", true);
+        if(organization.getStripeAccountId() != null) {
+            data.put("inDonateMode", true);
+        }
         return "/pages/donate/index.jsp";
     }
 
