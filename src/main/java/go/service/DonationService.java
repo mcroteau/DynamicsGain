@@ -120,7 +120,7 @@ public class DonationService {
 
         System.out.println("made it... clear");
 
-        smsService.support("Gaining Momentum ~ " + donationInput.getEmail());
+//        smsService.support("Go ~ " + donationInput.getEmail());
 
         try {
 

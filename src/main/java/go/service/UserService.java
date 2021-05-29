@@ -78,8 +78,7 @@ public class UserService {
                 storedOrganization = organizationRepo.get(donation.getOrganizationId());
             }
 
-            if(donation.getChargeId() != null &&
-                    !donation.getChargeId().equals("")) {
+            if(donation.getChargeId() != null) {
                 try{
                     Charge charge = new Charge();
                     charge.setAmount(donation.getAmount());
@@ -96,9 +95,8 @@ public class UserService {
             }
 
             System.out.println("subscription : " + donation.getSubscriptionId());
-            
-            if(donation.getSubscriptionId() != null &&
-                    !donation.getSubscriptionId().equals("")) {
+
+            if(donation.getSubscriptionId() != null) {
                 try {
 
                     Subscription subscription = new Subscription();

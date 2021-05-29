@@ -181,12 +181,12 @@
 
             <div class="cc-details">
                 <label>month</label>
-                <input type="number" id="exp-month"name="exp-month" placeholder="09" maxlength="2"/>
+                <input type="number" id="exp-month"name="exp-month" placeholder="12" maxlength="2"/>
             </div>
 
             <div class="cc-details">
                 <label>year</label>
-                <input type="number" id="exp-year" name="exp-year" placeholder="2027" maxlength="4"/>
+                <input type="number" id="exp-year" name="exp-year" placeholder="2029" maxlength="4"/>
             </div>
 
             <div class="cc-details">
