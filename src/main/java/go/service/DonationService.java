@@ -65,8 +65,8 @@ public class DonationService {
 
     public String organization(Long id, RequestData data) {
         Organization organization = organizationRepo.get(id);
-
         data.put("organization", organization);
+        data.put("inDonateMode", true);
         return "/pages/donate/index.jsp";
     }
 
@@ -124,7 +124,7 @@ public class DonationService {
 
             Organization organization = null;
             if(donationInput.getOrganizationId() != null &&
-                    donationInput.getOrganization() != 0){
+                    donationInput.getOrganizationId() != 0){
                 organization = organizationRepo.get(donationInput.getOrganizationId());
             }
 
@@ -183,7 +183,7 @@ public class DonationService {
             Long amountInCents = donationInput.getAmount().multiply(new BigDecimal(100)).longValue();
             System.out.println("amount -> " + amountInCents);
 
-            String nickname = getDescription(donationInput);
+            String nickname = getDescription(donationInput, organization);
             System.out.println("nickname " + nickname);
 
             Boolean chargeSuccess = false;
@@ -307,14 +307,14 @@ public class DonationService {
         return stripePrice;
     }
 
-    private String getDescription(DonationInput donationInput){
+    private String getDescription(DonationInput donationInput, Organization organization){
         String reoccurring = donationInput.isRecurring() ? "Month" : "";
-        String organization = "";
-        if(donationInput.getOrganizationId() != null){
+        String organizationName = "";
+        if(organization != null){
             Organization storedOrganization = organizationRepo.get(donationInput.getOrganizationId());
-            organization = storedOrganization.getName();
+            organizationName = storedOrganization.getName();
         }
-        return "$" + donationInput.getAmount() + " " + reoccurring + " " +  organization;
+        return "$" + donationInput.getAmount() + " " + reoccurring + " " +  organizationName;
     }
 
 
