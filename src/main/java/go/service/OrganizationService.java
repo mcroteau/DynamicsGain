@@ -306,7 +306,7 @@ public class OrganizationService {
                     AccountLinkCreateParams.builder()
                             .setAccount(account.getId())
                             .setRefreshUrl("https://gospirit.xyz/reauth")
-                            .setReturnUrl("https://gospirit.xyz/stripe/activation/success")
+                            .setReturnUrl("https://gospirit.xyz/stripe/return")
                             .setType(AccountLinkCreateParams.Type.ACCOUNT_ONBOARDING)
                             .build();
 
@@ -319,7 +319,7 @@ public class OrganizationService {
             resp.sendRedirect(accountLink.getUrl());
             pw.close();
 
-            return null;
+            return "";
 
         }catch(Exception ex){
             ex.printStackTrace();
