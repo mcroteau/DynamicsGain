@@ -100,4 +100,25 @@ public class OrganizationRepo {
         });
         return true;
     }
+
+    public List<OwnershipRequest> getRequests() {
+        String sql = "select * from ownership_requests";
+        List<OwnershipRequest> reqs = (ArrayList) q.getList(sql, new Object[]{ }, OwnershipRequest.class);
+        return reqs;
+    }
+
+    public OwnershipRequest getRequest(Long id) {
+        String sql = "select * from ownership_requests where id = {}";
+        OwnershipRequest req = (OwnershipRequest) q.get(sql, new Object[]{ id }, OwnershipRequest.class);
+        return req;
+    }
+
+    public boolean updateRequest(OwnershipRequest req) {
+        String sql = "update ownership_requests set approved = {} where id = {}";
+        q.update(sql, new Object[] {
+                req.getApproved(),
+                req.getId()
+        });
+        return true;
+    }
 }

@@ -16,7 +16,7 @@
     <br/>
     <p id="welcome-text">
         <strong class="yellow" style="line-height: 1.3em;font-size:131px;">${count}</strong><br/> <span>Homeless <span class="header-information"> in
-            <strong class="highlight" style="font-size:89px;">${state.name}</strong></span></span>
+            <strong class="highlight" style="font-size:42px;">${state.name}</strong></span></span>
     </p>
 
     <p class="open-text left">Go +Spirit is a non profit designed with

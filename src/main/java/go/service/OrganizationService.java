@@ -1,16 +1,24 @@
 package go.service;
 
+import com.stripe.Stripe;
+import com.stripe.model.Account;
+import com.stripe.model.AccountLink;
+import com.stripe.param.AccountCreateParams;
+import com.stripe.param.AccountLinkCreateParams;
 import eco.m1.annotate.Inject;
+import eco.m1.annotate.Prop;
 import eco.m1.annotate.Service;
 import eco.m1.data.RequestData;
 import go.Spirit;
-import go.model.Organization;
-import go.model.Town;
+import go.model.*;
 import go.repo.OrganizationRepo;
+import go.repo.RoleRepo;
 import go.repo.TownRepo;
 import go.repo.UserRepo;
+import go.support.Web;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import xyz.goioc.Parakeet;
 
 import java.text.NumberFormat;
 import java.util.List;
@@ -19,8 +27,14 @@ import java.util.Locale;
 @Service
 public class OrganizationService {
 
+    @Prop("stripe.apiKey")
+    String apiKey;
+
     @Inject
     UserRepo userRepo;
+
+    @Inject
+    RoleRepo roleRepo;
 
     @Inject
     TownRepo townRepo;
@@ -109,7 +123,8 @@ public class OrganizationService {
         }
         if(!authService.isAdministrator() &&
                 !authService.hasRole(Spirit.SUPER_ROLE)){
-            return "[redirect]/";
+            data.put("message", "You do not have permission to this organization");
+            return "[redirect]/ownership?id=" + id;
         }
 
         List<Town> towns = townRepo.getList();
@@ -177,6 +192,117 @@ public class OrganizationService {
         data.put("message", "Successfully deleted organization.");
 
         return "[redirect]/admin/organizations";
+    }
+
+
+    public String takeOwnership(HttpServletRequest req, RequestData data) {
+        if(req.getParameter("id") != null &&
+                !req.getParameter("id").equals("")) {
+            Long id = Long.parseLong(req.getParameter("id"));
+            Organization organization = organizationRepo.get(id);
+            data.put("organization", organization);
+        }
+        List<Organization> organizations = organizationRepo.getList();
+        data.put("organizations", organizations);
+        return "/pages/basic/ownership.jsp";
+    }
+
+    public String ownership(HttpServletRequest req, RequestData data) {
+        OwnershipRequest ownershipRequest = (OwnershipRequest) Web.hydrate(req, OwnershipRequest.class);
+        if(ownershipRequest.getName() == null ||
+                ownershipRequest.getName().equals("")){
+            data.put("message", "Please enter a contact name");
+            return "[redirect]/ownership";
+        }
+        if(!Spirit.isValidMailbox(ownershipRequest.getEmail())){
+            data.put("message", "Please enter a valid email address");
+            return "[redirect]/ownership";
+        }
+        if(ownershipRequest.getPhone() == null ||
+                ownershipRequest.getPhone().equals("")){
+            data.put("message", "Please enter a contact phone");
+            return "[redirect]/ownership";
+        }
+
+        ownershipRequest.setDateRequested(Spirit.getDate());
+        organizationRepo.saveRequest(ownershipRequest);
+
+        data.put("message", "Successfully sent request");
+        data.put("requested", true);
+
+        return "[redirect]/ownership";
+    }
+
+    public String requests(HttpServletRequest req, RequestData data) {
+        if(!authService.isAuthenticated()){
+            return "[redirect]/";
+        }
+        if(!authService.isAdministrator() &&
+                !authService.hasRole(Spirit.SUPER_ROLE)){
+            return "[redirect]/";
+        }
+
+        List<OwnershipRequest> reqs = organizationRepo.getRequests();
+        data.put("reqs", reqs);
+        return "/pages/organization/requests.jsp";
+    }
+
+    public String approveRequest(Long id, RequestData data) {
+        if(!authService.isAuthenticated()){
+            return "[redirect]/";
+        }
+        if(!authService.isAdministrator() &&
+                !authService.hasRole(Spirit.SUPER_ROLE)){
+            return "[redirect]/";
+        }
+
+        OwnershipRequest req = organizationRepo.getRequest(id);
+        req.setApproved(true);
+        organizationRepo.updateRequest(req);
+
+
+        User user = new User();
+        String dirty = Parakeet.dirty("bluebird");
+        user.setPassword(dirty);
+        user.setUsername(req.getEmail());
+        user.setPhone(req.getPhone());
+        User savedUser = userRepo.save(user);
+
+        userRepo.saveUserRole(savedUser.getId(), Spirit.DONOR_ROLE);
+        userRepo.saveUserRole(savedUser.getId(), Spirit.CHARITY_ROLE);
+
+        String permission = Spirit.ORGANIZATION_MAINTENANCE + id;
+        userRepo.savePermission(savedUser.getId(), permission);
+
+
+        AccountCreateParams accountParams =
+                AccountCreateParams.builder()
+                        .setType(AccountCreateParams.Type.STANDARD)
+                        .build();
+
+        try {
+
+            Stripe.apiKey = apiKey;
+
+            Account account = Account.create(accountParams);
+
+            AccountLinkCreateParams linkParams =
+                    AccountLinkCreateParams.builder()
+                            .setAccount(account.getId())
+                            .setRefreshUrl("https://gospirit.xyz/reauth")
+                            .setReturnUrl("https://gospirit.xyz/stripe/success")
+                            .setType("account_onboarding")
+                            .build();
+
+
+            AccountLink accountLink = AccountLink.create(linkParams);
+
+        }catch(Exception ex){
+
+        }
+
+        data.put("message", "Successfully approved request.");
+        return "[redirect]/admin/ownership/requests";
     }
 
 }

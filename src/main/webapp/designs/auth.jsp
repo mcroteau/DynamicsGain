@@ -114,6 +114,7 @@
     <div id="header-wrapper">
         <div id="header-navigation">
             <a href="${pageContext.request.contextPath}/home" class="href-dotted">Home</a>&nbsp;&nbsp;
+            <a href="${pageContext.request.contextPath}/admin/ownership/requests" class="href-dotted">Requests</a>&nbsp;&nbsp;
             <a href="${pageContext.request.contextPath}/admin/organizations" class="href-dotted">Organizations</a>&nbsp;&nbsp;
             <a href="${pageContext.request.contextPath}/admin/towns" class="href-dotted">Towns</a>&nbsp;&nbsp;
         </div>

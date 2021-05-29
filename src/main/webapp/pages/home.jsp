@@ -1,10 +1,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<h4>Homelessness Counts</h4>
+<span class="yellow" style="font-weight: 900; font-size:73px;">${count}</span>
+<br/><span class="yellow highlight">Homeless</span>
 
-<div style="position:relative">
-    <div id="map" style="position: relative; width: 690px; height: 370px;"></div>
-</div>
+<div id="map" style="margin:0px auto; width: 690px; height: 370px;"></div>
 
 <p>* = data has yet to be entered.</p>
 

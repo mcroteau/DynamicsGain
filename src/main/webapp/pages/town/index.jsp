@@ -13,10 +13,10 @@
     <br/>
     <p id="welcome-text">
         <strong class="yellow" style="line-height: 1.3em;font-size:131px;">${town.countZero}</strong><br/> <span>Homeless <span class="header-information"> in
-            <strong class="highlight" style="font-size:89px;">${town.name}</strong></span></span>
+            <strong class="highlight" style="font-size:42px;">${town.name}</strong></span></span>
     </p>
 
-    <p class="open-text left">Go +Spirit is a non profit designed with
+    <p class="open-text left">Go <strong>+Spirit</strong> is a non profit designed with
         the sole purpose of removing barriers that prevent people from
         giving time, money and resources to those in need!</p>
 

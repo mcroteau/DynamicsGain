@@ -70,4 +70,33 @@ public class OrganizationHandler {
         return organizationService.delete(id, data);
     }
 
+    @Get("/ownership")
+    public String takeOwnership(HttpServletRequest req,
+                                HttpServletResponse resp,
+                                RequestData data){
+        return organizationService.takeOwnership(req, data);
+    }
+
+    @Post("/ownership")
+    public String ownership(HttpServletRequest req,
+                            HttpServletResponse resp,
+                            RequestData data){
+        return organizationService.ownership(req, data);
+    }
+
+    @Get("/admin/ownership/requests")
+    public String requests(HttpServletRequest req,
+                           HttpServletResponse resp,
+                           RequestData data){
+        return organizationService.requests(req, data);
+    }
+
+    @Post("/admin/ownership/requests/approve/{{id}}")
+    public String approveRequest(HttpServletRequest req,
+                           HttpServletResponse resp,
+                           RequestData data,
+                           @Variable Long id){
+        return organizationService.approveRequest(id, data);
+    }
+
 }

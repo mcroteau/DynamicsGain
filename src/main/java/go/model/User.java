@@ -11,7 +11,7 @@ public class User {
 	long dateCreated;
 	String phone;
 
-	String stripeUserId;
+	String stripeCustomerId;
 
 	public long getId() {
 		return id;
@@ -69,12 +69,12 @@ public class User {
 		this.phone = phone;
 	}
 
-	public String getStripeUserId() {
-		return stripeUserId;
+	public String getStripeCustomerId() {
+		return stripeCustomerId;
 	}
 
-	public void setStripeUserId(String stripeUserId) {
-		this.stripeUserId = stripeUserId;
+	public void setStripeCustomerId(String stripeCustomerId) {
+		this.stripeCustomerId = stripeCustomerId;
 	}
 }
 

@@ -17,5 +17,6 @@
         <pattern>*/users/edit*</pattern>
         <pattern>*/admin/towns*</pattern>
         <pattern>*/admin/organizations*</pattern>
+        <pattern>*/admin/ownership/requests*</pattern>
     </decorator>
 </decorators>

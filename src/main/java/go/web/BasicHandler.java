@@ -81,18 +81,4 @@ public class BasicHandler {
         return "/pages/basic/privacy.jsp";
     }
 
-    @Get("/ownership")
-    public String takeOwnership(HttpServletRequest req,
-                         HttpServletResponse resp,
-                         RequestData data){
-        return basicService.takeOwnership(req, data);
-    }
-
-    @Post("/ownership")
-    public String ownership(HttpServletRequest req,
-                         HttpServletResponse resp,
-                         RequestData data){
-        return basicService.ownership(req, data);
-    }
-
 }

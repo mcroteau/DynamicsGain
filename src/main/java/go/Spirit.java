@@ -33,6 +33,7 @@ public class Spirit {
 	public static final String GO_FUTURES = "success";
 
 	public static final String USER_MAINTENANCE = "users:";
+	public static final String ORGANIZATION_MAINTENANCE = "organizations:";
 
 	public static final String SUPER_ROLE   = "SUPER_ROLE";
 	public static final String DONOR_ROLE   = "DONOR_ROLE";

@@ -152,42 +152,4 @@ public class BasicService {
         return "/pages/basic/organizations.jsp";
     }
 
-    public String takeOwnership(HttpServletRequest req, RequestData data) {
-        if(req.getParameter("id") != null &&
-                !req.getParameter("id").equals("")) {
-            Long id = Long.parseLong(req.getParameter("id"));
-            Organization organization = organizationRepo.get(id);
-            data.put("organization", organization);
-        }
-        List<Organization> organizations = organizationRepo.getList();
-        data.put("organizations", organizations);
-        return "/pages/basic/ownership.jsp";
-    }
-
-    public String ownership(HttpServletRequest req, RequestData data) {
-        OwnershipRequest ownershipRequest = (OwnershipRequest) Web.hydrate(req, OwnershipRequest.class);
-        if(ownershipRequest.getName() == null ||
-                ownershipRequest.getName().equals("")){
-            data.put("message", "Please enter a contact name");
-            return "[redirect]/ownership";
-        }
-        if(!Spirit.isValidMailbox(ownershipRequest.getEmail())){
-            data.put("message", "Please enter a valid email address");
-            return "[redirect]/ownership";
-        }
-        if(ownershipRequest.getPhone() == null ||
-                ownershipRequest.getPhone().equals("")){
-            data.put("message", "Please enter a contact phone");
-            return "[redirect]/ownership";
-        }
-
-        ownershipRequest.setDateRequested(Spirit.getDate());
-        organizationRepo.saveRequest(ownershipRequest);
-
-        data.put("message", "Successfully sent request");
-        data.put("requested", true);
-
-        return "[redirect]/ownership";
-    }
-
 }
