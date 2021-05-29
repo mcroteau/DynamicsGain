@@ -389,7 +389,7 @@
                         "cvc" : $cvc.val().replace(/ /g,''),
                         "email" : $email.val().replace(/ /g,''),
                         "recurring" : recurring,
-                        "organization" : $organizationId.val() != '' ? $organizationId.val().replace(/ /g,'') : 0
+                        "organizationId" : $organizationId.val() != '' ? $organizationId.val().replace(/ /g,'') : 0
                     };
                 }
 

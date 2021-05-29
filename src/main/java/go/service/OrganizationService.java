@@ -259,13 +259,14 @@ public class OrganizationService {
         req.setApproved(true);
         organizationRepo.updateRequest(req);
 
-
         User user = new User();
         String dirty = Parakeet.dirty("bluebird");
         user.setPassword(dirty);
         user.setUsername(req.getEmail());
         user.setPhone(req.getPhone());
+        user.setOrganizationId(id);
         User savedUser = userRepo.save(user);
+
 
         userRepo.saveUserRole(savedUser.getId(), Spirit.DONOR_ROLE);
         userRepo.saveUserRole(savedUser.getId(), Spirit.CHARITY_ROLE);
@@ -275,6 +276,7 @@ public class OrganizationService {
 
         String orgPermission = Spirit.ORGANIZATION_MAINTENANCE + id;
         userRepo.savePermission(savedUser.getId(), orgPermission);
+
 
         data.put("message", "Successfully approved request.");
         return "[redirect]/admin/ownership/requests";
@@ -313,6 +315,7 @@ public class OrganizationService {
             AccountLink accountLink = AccountLink.create(linkParams);
 
             user.setStripeAccountId(account.getId());
+            user.setCharity(true);
             userRepo.update(user);
 
             PrintWriter pw = resp.getWriter();

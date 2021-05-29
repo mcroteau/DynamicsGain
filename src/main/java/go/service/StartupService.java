@@ -154,7 +154,9 @@ public class StartupService {
             organization.setUri(organizationUris[n]);
             organization.setTownId(town.getId());
             organization.setDescription("Helping at-risk and homeless families with children in Clark County achieve sustainable housing and independence through a compassionate, community-based response.");
-            organizationRepo.save(organization);
+            Organization savedOrganization = organizationRepo.save(organization);
+            savedOrganization.setStripeAccountId("acct_1IwHYyCGAv7rFLov");
+            organizationRepo.update(savedOrganization);
         }
 
         System.out.println("Organizations : " + organizationRepo.getCount());

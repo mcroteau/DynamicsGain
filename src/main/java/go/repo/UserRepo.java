@@ -62,12 +62,13 @@ public class UserRepo {
 	}
 
 	public User save(User user) {
-		String sql = "insert into users (phone, username, password, date_created) values ('{}', '{}', '{}', {})";
+		String sql = "insert into users (phone, username, password, date_created, organization_id) values ('{}', '{}', '{}', {}, {})";
 		q.save(sql, new Object[]{
 				user.getPhone(),
 				user.getUsername(),
 				user.getPassword(),
-				user.getDateCreated()
+				user.getDateCreated(),
+				user.getOrganizationId()
 		});
 
 		String savedSql = "select * from users order by id desc limit 1 ";
@@ -235,12 +236,13 @@ public class UserRepo {
 
 
     public boolean update(User user) {
-		String sql = "update users set phone = '{}', username = '{}', password = '{}', stripe_account_id = '{}' where id = {}";
+		String sql = "update users set phone = '{}', username = '{}', password = '{}', stripe_account_id = '{}', charity = {} where id = {}";
 		q.update(sql, new Object[]{
 				user.getPhone(),
 				user.getUsername(),
 				user.getPassword(),
 				user.getStripeAccountId(),
+				user.isCharity(),
 				user.getId()
 		});
 		return true;

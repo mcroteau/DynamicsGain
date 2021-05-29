@@ -71,7 +71,7 @@ public class OrganizationRepo {
     }
 
     public boolean update(Organization organization) {
-        String sql = "update organizations set name = '{}', description= '{}', uri = '{}', latitude = '{}', longitude = '{}', town_id = {} where id = {}";
+        String sql = "update organizations set name = '{}', description= '{}', uri = '{}', latitude = '{}', longitude = '{}', town_id = {}, stripe_account_id = '{}' where id = {}";
         q.update(sql, new Object[] {
                 organization.getName(),
                 organization.getDescription(),
@@ -79,6 +79,7 @@ public class OrganizationRepo {
                 organization.getLatitude(),
                 organization.getLongitude(),
                 organization.getTownId(),
+                organization.getStripeAccountId(),
                 organization.getId()
         });
         return true;

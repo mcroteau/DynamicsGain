@@ -8,6 +8,7 @@ public class Organization {
     Long townId;
     String latitude;
     String longitude;
+    String stripeAccountId;
 
     public Long getId() {
         return id;
@@ -63,5 +64,13 @@ public class Organization {
 
     public void setLongitude(String longitude) {
         this.longitude = longitude;
+    }
+
+    public String getStripeAccountId() {
+        return stripeAccountId;
+    }
+
+    public void setStripeAccountId(String stripeAccountId) {
+        this.stripeAccountId = stripeAccountId;
     }
 }

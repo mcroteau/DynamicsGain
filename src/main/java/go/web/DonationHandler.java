@@ -46,7 +46,6 @@ public class DonationHandler {
     public String make(HttpServletRequest req,
                          HttpServletResponse resp,
                          RequestData data){
-        System.out.println("here..");
         return gson.toJson(donationService.make(data, req));
     }
 
@@ -59,15 +58,15 @@ public class DonationHandler {
         return donationService.cancel(subscriptionId);
     }
 
-    @Json
-    @Post(value="/donation/cancel/{{locationId}}/{{subscriptionId}}")
-    public String cancel(HttpServletRequest req,
-                         HttpServletResponse resp,
-                         RequestData data,
-                         @Variable Long locationId,
-                         @Variable String subscriptionId){
-        return donationService.cancel(locationId, subscriptionId);
-    }
+//    @Json
+//    @Post(value="/donation/cancel/{{locationId}}/{{subscriptionId}}")
+//    public String cancel(HttpServletRequest req,
+//                         HttpServletResponse resp,
+//                         RequestData data,
+//                         @Variable Long locationId,
+//                         @Variable String subscriptionId){
+//        return donationService.cancel(subscriptionId);
+//    }
 
     @Get(value="/donation/momentum")
     public String momentum(HttpServletRequest req,
