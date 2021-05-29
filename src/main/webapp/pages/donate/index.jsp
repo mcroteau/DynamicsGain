@@ -66,12 +66,14 @@
             background: #00a1ff;
             border:solid 3px #8fd6ff;
             border:solid 3px #eeef07;
-            background: #2234A3;
+            background: #2234A3
             border:dashed 3px #fdfe01;
             border:dashed 3px #2234A3;
             background: #fdfe01;
             background: #f540a6;
             border:solid 3px #ff7bc5;
+            border:solid 3px #5f70cc;
+            background:#3F4EAC;
             font-weight: 900;
         }
         .light.active:hover{
@@ -203,7 +205,7 @@
 
 
             <div style="text-align: center;">
-                <a href="javascript:" id="donate-button" class="button super beauty amount" style="box-shadow:none !important;text-transform:none;border:solid 3px #ff7bc5">Donate</a>
+                <a href="javascript:" id="donate-button" class="button super purple amount" style="box-shadow:none !important;text-transform:none;border:solid 3px #5f70cc">Donate</a>
                 <p id="contribution-type" class="information">One Time Donation</p>
             </div>
 
