@@ -75,9 +75,15 @@ public class DonationRepo {
     }
 
     public boolean update(Donation donation) {
-        String sql = "update donations set amount = {}, processed = {}, charge_id = '{}', subscription_id = '{}', cancelled = {} where id = ?";
+        System.out.println(
+                        donation.getProcessed() + " :: " +
+                        donation.getChargeId() + " :: " +
+                        donation.getSubscriptionId() + " :: " +
+                        donation.isCancelled() + " :: " +
+                        donation.getId());
+
+        String sql = "update donations set processed = {}, charge_id = '{}', subscription_id = '{}', cancelled = {} where id = {}";
         q.update(sql, new Object[]{
-                donation.getAmount(),
                 donation.getProcessed(),
                 donation.getChargeId(),
                 donation.getSubscriptionId(),

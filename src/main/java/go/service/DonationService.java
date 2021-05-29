@@ -117,11 +117,6 @@ public class DonationService {
             return donation;
         }
 
-        if(donationInput.getOrganization() != null &&
-                donationInput.getOrganizationId() == null){
-            donationInput.setOrganizationId(donationInput.getOrganization());
-        }
-
         System.out.println("made it... clear");
 
         smsService.support("Gaining Momentum ~ " + donationInput.getEmail());
@@ -132,6 +127,12 @@ public class DonationService {
             if(donationInput.getOrganizationId() != null &&
                     donationInput.getOrganizationId() != 0){
                 organization = organizationRepo.get(donationInput.getOrganizationId());
+            }
+
+            if(donationInput.getOrganizationId() != null &&
+                    donationInput.getOrganizationId() == 0){
+                donationInput.setOrganizationId(null);
+                donation.setOrganizationId(null);
             }
 
             Stripe.apiKey = apiKey;
@@ -295,7 +296,6 @@ public class DonationService {
                     donation.setOrganization(organization);
                 }
 
-                donation.setAmount(donationInput.getAmount());
                 donation.setUser(user);
                 donation.setProcessed(true);
                 donation.setStatus("Successfully processed donation!");
