@@ -231,8 +231,8 @@ input[type="submit"].button.small{
 input[type="button"].beauty,
 input[type="reset"].beauty,
 input[type="submit"].beauty{
-    background:#f540a6;
-    border:solid 1px #f540a6;
+    background:#ff68bb;
+    border:solid 1px #ff68bb;
 }
 
 .button.pepe,
@@ -430,8 +430,8 @@ label{
 }
 
 .href-dotted-pink{
-    color:#f540a6;
-    border-bottom:dotted 2px #f540a6 !important;
+    color:#ff68bb;
+    border-bottom:dotted 2px #ff68bb !important;
 }
 
 .href-dotted-black{

@@ -37,8 +37,7 @@
 	</c:if>
 
 	<c:if test="${acceptedCharges.size() == 0 && acceptedSubscriptions.size() == 0}">
-		<p class="yellow">No current donations.</p>
-		<p><a href="${pageContext.request.contextPath}/donate" class="href-dotted">Donate</a></p>
+		<p class="yellow">No current contributions.</p>
 	</c:if>
 </c:if>
 
@@ -93,7 +92,7 @@
 </c:if>
 
 <c:if test="${charges.size() == 0 && subscriptions.size() == 0}">
-	<p class="yellow">No current donations yet.</p>
+	<p class="yellow">No donations yet.</p>
 	<p><a href="${pageContext.request.contextPath}/donate" class="href-dotted">Donate</a></p>
 </c:if>
 
@@ -105,7 +104,7 @@
 
 
 
-<c:if test="${user.charity}">
+<c:if test="${user.charity && !user.activated}">
 	<img src="${pageContext.request.contextPath}/assets/media/stripe.png" style="width:150px;"/>
 	<p>If you have done this already, you don't need to do this again.
 		You will be redirected to Stripe to complete the activation process.</p>
