@@ -6,13 +6,48 @@
 
 <h1>Your Profile</h1>
 
+
 <c:if test="${user.charity}">
-	<img src="${pageContext.request.contextPath}/assets/media/stripe.png" style="width:150px;"/>
-	<p>You will be redirect to Stripe to complete the activation process.</p>
-	<form action="${pageContext.request.contextPath}/admin/ownership/requests/activate/${user.id}" method="post">
-		<input type="submit" value="Activate Account" class="button">
-	</form>
+	<h2 style="margin-top:30px;">Accepted Contributions</h2>
+	<p>Below are your the contributions your organization has accepted thus far.</p>
+
+	<c:if test="${acceptedSubscriptions.size() > 0}">
+		<div id="subscription-details">
+			<h3>Subscriptions</h3>
+
+			<c:forEach var="subscription" items="${acceptedSubscriptions}">
+				<p><strong>${subscription.amountZero}
+				</strong> monthly
+						${subscription.donationDate} by ${subscription.email}
+					<c:if test="${subscription.cancelled}">
+						<strong class="yellow">Cancelled</strong>
+					</c:if>
+				</p>
+			</c:forEach>
+		</div>
+	</c:if>
+
+	<c:if test="${acceptedCharges.size() > 0}">
+		<h3 style="margin-top:30px;">One-Time Donations</h3>
+		<c:forEach var="charge" items="${acceptedCharges}">
+			<p><strong>${charge.amountZero}</strong> donated
+					${charge.donationDate} by ${charge.email}
+			</p>
+		</c:forEach>
+	</c:if>
+
+	<c:if test="${acceptedCharges.size() == 0 && acceptedSubscriptions.size() == 0}">
+		<p class="yellow">No current donations.</p>
+		<p><a href="${pageContext.request.contextPath}/donate" class="href-dotted">Donate</a></p>
+	</c:if>
 </c:if>
+
+
+
+
+
+
+<h2 style="margin-top:90px;">Your Contributions</h2>
 
 <p>Below are your contribution details.</p>
 
@@ -58,7 +93,7 @@
 </c:if>
 
 <c:if test="${charges.size() == 0 && subscriptions.size() == 0}">
-	<p>No current donations.</p>
+	<p class="yellow">No current donations yet.</p>
 	<p><a href="${pageContext.request.contextPath}/donate" class="href-dotted">Donate</a></p>
 </c:if>
 
@@ -66,6 +101,17 @@
 <c:if test="${charges.size() > 0 || subscriptions.size() > 0}">
 	<p>Thank you for being a contributor.<br/>
 		Contact us any time if you have questions.</p>
+</c:if>
+
+
+
+<c:if test="${user.charity}">
+	<img src="${pageContext.request.contextPath}/assets/media/stripe.png" style="width:150px;"/>
+	<p>If you have done this already, you don't need to do this again.
+		You will be redirected to Stripe to complete the activation process.</p>
+	<form action="${pageContext.request.contextPath}/admin/ownership/requests/activate/${user.id}" method="post">
+		<input type="submit" value="Activate Account" class="button">
+	</form>
 </c:if>
 
 

@@ -62,14 +62,15 @@ public class UserRepo {
 	}
 
 	public User save(User user) {
-		String sql = "insert into users (phone, username, password, date_created, organization_id, charity) values ('{}', '{}', '{}', {}, {}, {})";
+		String sql = "insert into users (phone, username, password, date_created, organization_id, charity, stripe_account_id) values ('{}', '{}', '{}', {}, {}, {}, '{}')";
 		q.save(sql, new Object[]{
 				user.getPhone(),
 				user.getUsername(),
 				user.getPassword(),
 				user.getDateCreated(),
 				user.getOrganizationId(),
-				user.isCharity()
+				user.isCharity(),
+				user.getStripeAccountId()
 		});
 
 		String savedSql = "select * from users order by id desc limit 1 ";

@@ -162,11 +162,23 @@ public class StartupService {
             }
         }
 
+        User user = new User();
+        user.setCharity(true);
+        user.setOrganizationId(new Long(2));
+        user.setUsername("croteau.mike+q@gmail.com");
+        user.setStripeAccountId("acct_1IwHYyCGAv7rFLov");
+        user.setPassword(Parakeet.dirty("bluebird"));
+        user.setDateCreated(Spirit.getDate());
+        User savedUser = userRepo.save(user);
+
+        userRepo.saveUserRole(savedUser.getId(), Spirit.CHARITY_ROLE);
+        userRepo.savePermission(savedUser.getId(), Spirit.USER_MAINTENANCE + savedUser.getId());
+
+
         System.out.println("Organizations : " + organizationRepo.getCount());
 
 
         String[] emails = {"croteau.mike+one@gmail.com",
-                "croteau.mike+dos@gmail.com",
                 "croteau.mike+three@gmail.com",};
 
         int idx = 0;

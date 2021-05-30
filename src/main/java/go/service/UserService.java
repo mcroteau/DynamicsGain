@@ -65,13 +65,53 @@ public class UserService {
         }
 
         User user = userRepo.get(id);
+        List<Donation> acceptedDonations = donationRepo.getListOrganization(user.getOrganizationId());
+        List<Charge> acceptedCharges = new ArrayList<>();
+        List<Subscription> acceptedSubscriptions = new ArrayList<>();
+        for(Donation donation: acceptedDonations) {
+
+            Organization storedOrganization = organizationRepo.get(donation.getOrganizationId());
+
+            if(donation.getChargeId() != null &&
+                    !donation.getChargeId().equals("null")) {
+                Charge charge = new Charge();
+                charge.setAmount(donation.getAmount());
+                charge.setId(donation.getId());
+                charge.setStripeId(donation.getChargeId());
+                charge.setDonationDate(donation.getPrettyDate());
+                charge.setOrganization(storedOrganization);
+                User donationUser = userRepo.get(donation.getUserId());
+                charge.setEmail(donationUser.getUsername());
+                acceptedCharges.add(charge);
+            }
+
+            if(donation.getSubscriptionId() != null &&
+                    !donation.getSubscriptionId().equals("null")) {
+
+                Subscription subscription = new Subscription();
+                subscription.setAmount(donation.getAmount());
+                subscription.setId(donation.getId());
+                subscription.setStripeId(donation.getSubscriptionId());
+                subscription.setDonationDate(donation.getPrettyDate());
+                subscription.setOrganization(storedOrganization);
+                User donationUser = userRepo.get(donation.getUserId());
+                subscription.setEmail(donationUser.getUsername());
+                if(donation.isCancelled()){
+                    subscription.setCancelled(true);
+                }
+                acceptedSubscriptions.add(subscription);
+            }
+        }
+
+
+
+
+
         List<Donation> donations = donationRepo.getList(user.getId());
         List<Charge> charges = new ArrayList<>();
         List<Subscription> subscriptions = new ArrayList<>();
 
         for(Donation donation: donations) {
-
-            Stripe.apiKey = apiKey;
 
             Organization storedOrganization = null;
             if(donation.getOrganizationId() != null) {
@@ -91,11 +131,9 @@ public class UserService {
                 charges.add(charge);
             }
 
-            System.out.println("subscription : '" + donation.getSubscriptionId() + "'");
 
             if(donation.getSubscriptionId() != null &&
                     !donation.getSubscriptionId().equals("null")) {
-                System.out.println("subscription 2 : " + donation.getSubscriptionId());
 
                 Subscription subscription = new Subscription();
                 subscription.setAmount(donation.getAmount());
@@ -115,6 +153,8 @@ public class UserService {
 
         data.put("charges", charges);
         data.put("subscriptions", subscriptions);
+        data.put("acceptedCharges", acceptedCharges);
+        data.put("acceptedSubscriptions", acceptedSubscriptions);
         data.put("user", user);
 
         return "/pages/user/edit.jsp";

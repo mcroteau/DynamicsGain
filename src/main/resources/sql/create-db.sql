@@ -3,11 +3,12 @@ create table if not exists users (
 	phone character varying(40) NOT NULL,
 	username character varying(254) NOT NULL,
 	password character varying(155) NOT NULL,
-	uuid character varying(155),
+	uuid character varying(154),
 	stripe_customer_id text,
 	organization_id bigint,
 	stripe_account_id text,
 	charity boolean default false,
+	activated boolean default false,
 	date_created bigint default 0
 );
 

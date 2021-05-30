@@ -12,6 +12,7 @@ public class Subscription {
     Organization organization;
     boolean cancelled;
     String donationDate;
+    String email;
 
     public Long getId() {
         return id;
@@ -63,6 +64,14 @@ public class Subscription {
 
     public void setDonationDate(String donationDate) {
         this.donationDate = donationDate;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }
 

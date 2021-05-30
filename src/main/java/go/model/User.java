@@ -12,6 +12,7 @@ public class User {
 	String phone;
 
 	boolean charity;
+	boolean activated;
 	String stripeCustomerId;
 	Long organizationId;
 	String stripeAccountId;
@@ -70,6 +71,14 @@ public class User {
 
 	public void setPhone(String phone) {
 		this.phone = phone;
+	}
+
+	public boolean isActivated() {
+		return activated;
+	}
+
+	public void setActivated(boolean activated) {
+		this.activated = activated;
 	}
 
 	public boolean isCharity() {

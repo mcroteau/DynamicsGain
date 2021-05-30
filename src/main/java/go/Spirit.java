@@ -40,7 +40,7 @@ public class Spirit {
 	public static final String CHARITY_ROLE = "CHARITY_ROLE";
 
 	public static final String SUPER_USERNAME = "croteau.mike@gmail.com";
-	public static final String SUPER_PASSWORD = "password";
+	public static final String SUPER_PASSWORD = "mikecroteau";
 
 	public static final String DATE_FORMAT  = "yyyyMMddHHmm";
 	public static final String DATE_PRETTY  = "HH:mmaa dd MMM";

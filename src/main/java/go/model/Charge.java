@@ -10,6 +10,7 @@ public class Charge {
     BigDecimal amount;
     Organization organization;
     String donationDate;
+    String email;
 
     public Long getId() {
         return id;
@@ -53,5 +54,13 @@ public class Charge {
 
     public void setDonationDate(String donationDate) {
         this.donationDate = donationDate;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }
