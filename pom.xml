@@ -108,7 +108,12 @@
 		<dependency>
 			<groupId>xyz.goioc</groupId>
 			<artifactId>parakeet</artifactId>
-			<version>0.8</version>
+			<version>0.9</version>
+		</dependency>
+		<dependency>
+			<groupId>com.github.dfabulich</groupId>
+			<artifactId>sitemapgen4j</artifactId>
+			<version>1.0.2</version>
 		</dependency>
 	</dependencies>
 	

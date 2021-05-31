@@ -31,8 +31,8 @@ public class TownService {
     @Inject
     AuthService authService;
 
-//    @Inject
-//    SitemapService sitemapService;
+    @Inject
+    SitemapService sitemapService;
 
     public String index(String uri, RequestData data) {
         Town town = townRepo.get(uri);
@@ -140,12 +140,12 @@ public class TownService {
         townRepo.update(town);
 
 
-//        try {
-//              List<Town> towns = townRepo.getList();
-//              sitemapService.writeTowns(towns);
-//        }catch(Exception ex){
-//            ex.printStackTrace();
-//        }
+        try {
+              List<Town> towns = townRepo.getList();
+              sitemapService.writeTowns(towns, req.getServletContext());
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
 
         data.put("message", "Successfully updated town");
         return "[redirect]/admin/towns/edit/" + town.getId();

@@ -50,8 +50,8 @@ public class OrganizationService {
     @Inject
     MailService mailService;
 
-//    @Inject
-//    SitemapService sitemapService;
+    @Inject
+    SitemapService sitemapService;
 
     public String index(String uri, RequestData data) {
         Organization organization = organizationRepo.get(uri);
@@ -124,8 +124,7 @@ public class OrganizationService {
             return "[redirect]/";
         }
         String permission = Spirit.ORGANIZATION_MAINTENANCE + id;
-        if((!authService.hasRole(Spirit.SUPER_ROLE) &&
-                !authService.hasRole(Spirit.CHARITY_ROLE)) ||
+        if((!authService.hasRole(Spirit.SUPER_ROLE)) &&
                     !authService.hasPermission(permission)){
             data.put("message", "You do not have permission to this organization");
             return "[redirect]/ownership?id=" + id;
@@ -145,8 +144,7 @@ public class OrganizationService {
             return "[redirect]/";
         }
         String permission = Spirit.ORGANIZATION_MAINTENANCE + id;
-        if((!authService.hasRole(Spirit.SUPER_ROLE) &&
-                !authService.hasRole(Spirit.CHARITY_ROLE)) ||
+        if((!authService.hasRole(Spirit.SUPER_ROLE)) &&
                 !authService.hasPermission(permission)){
             data.put("message", "You do not have permission to this organization");
             return "[redirect]/";
@@ -173,12 +171,12 @@ public class OrganizationService {
         organization.setLatitude(latitude);
         organization.setLongitude(longitude);
 
-//        List<Organization> organizations = organizationRepo.getList();
-//        try {
-//            sitemapService.writeOrganizations(organizations);
-//        }catch(Exception ex){
-//            ex.printStackTrace();
-//        }
+        List<Organization> organizations = organizationRepo.getList();
+        try {
+            sitemapService.writeOrganizations(organizations, req.getServletContext());
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
 
         organizationRepo.update(organization);
 

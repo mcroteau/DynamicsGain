@@ -15,16 +15,14 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Type;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -46,6 +44,12 @@ public class Spirit {
 	public static final String DATE_PRETTY  = "HH:mmaa dd MMM";
 
 
+	public static String getSitemapDate(){
+		Calendar cal = Calendar.getInstance();
+		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		String date = df.format(cal.getTime());
+		return date;
+	}
 
 	public static boolean isValidMailbox(String str){
 		EmailValidator validator = EmailValidator.getInstance();
