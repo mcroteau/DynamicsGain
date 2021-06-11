@@ -8,6 +8,7 @@ public class OwnershipRequest {
     String phone;
     Long dateRequested;
     Boolean approved;
+    Organization organization;
 
     public Long getId() {
         return id;
@@ -63,5 +64,13 @@ public class OwnershipRequest {
 
     public void setApproved(Boolean approved) {
         this.approved = approved;
+    }
+
+    public Organization getOrganization() {
+        return organization;
+    }
+
+    public void setOrganization(Organization organization) {
+        this.organization = organization;
     }
 }

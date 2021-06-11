@@ -252,6 +252,10 @@ public class OrganizationService {
         }
 
         List<OwnershipRequest> reqs = organizationRepo.getRequests();
+        for(OwnershipRequest request: reqs){
+            Organization organization = organizationRepo.get(request.getOrganizationId());
+            request.setOrganization(organization);
+        }
         data.put("reqs", reqs);
         return "/pages/organization/requests.jsp";
     }

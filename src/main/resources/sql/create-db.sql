@@ -77,7 +77,8 @@ create table if not exists ownership_requests (
 	email character varying (254),
 	phone character varying (254),
 	date_requested bigint,
-	approved boolean
+	approved boolean,
+	organization_id bigint REFERENCES organizations(id)
 );
 
 create table products(

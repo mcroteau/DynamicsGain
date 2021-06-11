@@ -20,6 +20,7 @@
         <c:forEach var="req" items="${reqs}">
             <tr>
                 <td class="left">${req.name}</td>
+                <td class="center">${req.organization.name}</td>
                 <td class="center">${req.email}</td>
                 <td class="center">${req.phone}</td>
                 <td class="right">
