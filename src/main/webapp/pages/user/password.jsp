@@ -15,7 +15,7 @@
 		<input type="hidden" name="id" value="${user.id}"/>
 
 		<div class="form-group">
-		  	<label for="password">Password</label>
+		  	<label for="password" class="left">Password</label>
 		  	<input type="text" name="password" id="password" placeholder="******" value="">
 		</div>
 		

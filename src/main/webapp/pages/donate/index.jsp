@@ -70,10 +70,12 @@
             border:dashed 3px #fdfe01;
             border:dashed 3px #2234A3;
             background: #fdfe01;
-            background: #f540a6;
-            border:solid 3px #ff7bc5;
             border:solid 3px #5f70cc;
             background:#3F4EAC;
+            border:solid 3px #797979;
+            background: #000;
+            background: #f540a6;
+            border:solid 3px #ff7bc5;
             font-weight: 900;
         }
         .light.active:hover{

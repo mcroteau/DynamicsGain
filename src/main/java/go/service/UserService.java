@@ -38,6 +38,9 @@ public class UserService {
     @Inject
     AuthService authService;
 
+    @Inject
+    MailService mailService;
+
 
     private String getPermission(String id){
         return Spirit.USER_MAINTENANCE + id;
@@ -298,13 +301,14 @@ public class UserService {
             String[] split = url.toString().split(req.getContextPath());
             String httpSection = split[0];
 
-            String resetUrl = httpSection + req.getContextPath() + "/user/confirm?";
+            String resetUrl = httpSection + req.getContextPath() + "/users/confirm?";
             String params = "username=" + URLEncoder.encode(user.getUsername(), "utf-8") + "&uuid=" + resetUuid;
             resetUrl += params;
 
             String body = "<p>Reset password</p>" +
                     "<p><a href=\"" + resetUrl + "\">" + resetUrl + "</a></p>";
 
+            mailService.send(user.getUsername(), "Dynamics +Gain : Password Reset", body);
 
         }catch(Exception e){
             e.printStackTrace();

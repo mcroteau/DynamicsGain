@@ -17,7 +17,7 @@
 
 	<h1>Reset Password</h1>
 
-	<form action="${pageContext.request.contextPath}/user/reset/${user.id}" modelAttribute="user" method="post" class="pure-form pure-form-stacked">
+	<form action="${pageContext.request.contextPath}/users/reset/${user.id}" modelAttribute="user" method="post" class="pure-form pure-form-stacked">
 
 		<input type="hidden" name="id" value="${user.id}"/>
 
@@ -27,7 +27,7 @@
 
         <br/>
 		<div class="form-group">
-		  	<label for="password">New Password</label>
+		  	<label for="password" class="left">New Password</label>
 		  	<input type="text" name="password" class="form-control" id="password" placeholder="Password" value="">
 		</div>
 

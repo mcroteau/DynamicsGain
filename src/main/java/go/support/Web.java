@@ -1,13 +1,15 @@
 package go.support;
 
-import com.google.gson.Gson;
-
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Field;
 import java.lang.reflect.Type;
 import java.math.BigDecimal;
-import java.util.stream.Collectors;
 
+
+/**
+ * Class for hydrating a
+ * Java object given a request.
+ */
 public class Web {
 
     public static Object hydrate(HttpServletRequest req, Class clazz){

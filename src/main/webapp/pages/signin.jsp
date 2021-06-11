@@ -32,8 +32,8 @@
     </form>
 
     <div id="signup-container" style="text-align: center;margin:21px auto 30px auto">
-        <a href="${pageContext.request.contextPath}/signup" class="href-dotted">Sign Up!</a>&nbsp;&nbsp;
-        <a href="${pageContext.request.contextPath}/user/reset" class="href-dotted">Forgot Password</a>&nbsp;&nbsp;
+<%--        <a href="${pageContext.request.contextPath}/signup" class="href-dotted">Sign Up!</a>&nbsp;&nbsp;--%>
+        <a href="${pageContext.request.contextPath}/users/reset" class="href-dotted">Forgot Password</a>&nbsp;&nbsp;
     </div>
 
 </div>

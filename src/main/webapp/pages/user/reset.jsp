@@ -15,7 +15,7 @@
         <fieldset>
 
             <br/>
-            <label for="username">Username</label>
+            <label for="username" class="left">Username</label>
             <input id="username" type="email" placeholder="Email" name="username" style="width:100%;">
 
             <br/>
