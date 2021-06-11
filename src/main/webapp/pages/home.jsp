@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<p>Please Help!</p>
+<p class="highlight yellow">Please Help!</p><br/>
 <a href="${pageContext.request.contextPath}/organizations" style="text-decoration: none">
     <span class="go" style="font-weight: 900; font-size:131px;">${count}</span></a>
 <br/><span class="yellow highlight">Homeless reported in our database</span>
@@ -9,14 +9,14 @@
 
 <p>* = data has yet to be entered.</p>
 
-<p>Go <strong>+Spirit</strong> is an organization that attempts to remove barriers
-    for those wishing to help others that are suffering from homelessness. </p>
+<p>Dynamics <strong>+Gain</strong> is an organization that attempts to remove barriers
+    for those wishing to help others that are suffering from homelessness.</p>
 
 <h4>Homelessness by</h4>
 <h1>State</h1>
 <ul>
     <c:forEach items="${states}" var="state">
-        <li><a href="${pageContext.request.contextPath}/states/${state.name}" class="href-dotted-pink" style="line-height: 1.3em;">${state.name} ${state.countZero}</a></li>
+        <li><a href="${pageContext.request.contextPath}/states/${state.name}" class="href-dotted" style="line-height: 1.3em;">${state.name} ${state.countZero}</a></li>
     </c:forEach>
 </ul>
 

@@ -19,7 +19,7 @@
             <strong class="highlight" style="font-size:42px;">${state.name}</strong></span></span>
     </p>
 
-    <p class="open-text left">Go +Spirit is a non profit designed with
+    <p class="open-text left">Dynamics +Gain is a non profit designed with
         the sole purpose of removing barriers that prevent people from
         giving time, money and resources to those in need!</p>
 
@@ -38,7 +38,7 @@
 
     <p>or</p>
 
-    <p>Give to Go <strong>+Spirit</strong></p>
+    <p>Give to Dynamics <strong>+Gain</strong></p>
 
     <div style="margin:10px auto 70px auto;">
         <a href="${pageContext.request.contextPath}/donate" class="button beauty small center">Give +</a>

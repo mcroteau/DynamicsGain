@@ -61,7 +61,7 @@
 					${subscription.organization.name}
 				</c:if>
 				<c:if test="${subscription.organization == null}">
-					Go <strong>+Spirit</strong>
+					Dynamics <strong>+Gain</strong>
 				</c:if>
 					${subscription.donationDate}
 				<c:if test="${!subscription.cancelled}">
@@ -84,7 +84,7 @@
 				${charge.organization.name}
 			</c:if>
 			<c:if test="${charge.organization == null}">
-				Go <strong>+Spirit</strong>
+				Dynamics <strong>+Gain</strong>
 			</c:if>
 				${charge.donationDate}
 		</p>

@@ -1,27 +1,28 @@
 <html>
 <head>
-    <title>About Go +Spirit</title>
+    <title>About Dynamics +Gain</title>
 </head>
 <body>
 
     <h1>About</h1>
 
-    <p class="left">Go +Spirit was founded by me, Mike.
-    Yeah, I admit it, I've been homeless. You
+    <p class="left">Dynamics +Gain was founded by me, Mike.
+        Im the sole developer of Dynamics +Gain.
+    I admit it, I've been homeless. You
     know what the worst part about it is, most people
     don't give a poop. That's where we come in.
     We are aware of the problem of
     disparity and offer a portal for you to donate.
     In addition, we find a whole bunch of
     people who care and allow you to give them money as well.
-    Go +Spirit is a gateway to all the
+    Dynamics +Gain is a gateway to all the
     organizations we can find that act on the
     behalf of others and allow you to invest in
         them!</p>
 
     <h3 style="margin-top:20px;">How does it work?</h3>
     <p class="left">100% of your donation goes toward the organization you select
-    or to Go <strong>+Spirit</strong>.
+    or to Dynamics <strong>+Gain</strong>.
         The organization has signed up and
     has gone through the registration process.</p>
 

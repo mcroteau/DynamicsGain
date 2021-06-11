@@ -3,7 +3,7 @@
 
 <html>
 <head>
-    <title>Go +Spirit : <decorator:title default="End Homelessness Movement"/></title>
+    <title>Dynamics +Gain : <decorator:title default="End Homelessness Movement"/></title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -38,12 +38,13 @@
             line-height: 1.0em;
         }
         .spirit{
-            background: rgb(255,75,176);
-            background: linear-gradient(101deg, rgba(255,75,176,1) 0%, rgba(255,75,176,1) 19%, rgba(253,254,3,1) 26%, rgba(44,244,0,1) 28%, rgba(44,244,0,1) 49%, rgba(84,175,255,1) 54%, rgba(84,175,255,1) 72%, rgba(0,0,0,1) 72%);
-            -webkit-background-clip: text;
-            -moz-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            -moz-text-fill-color: transparent;
+            /*background: rgb(255,75,176);*/
+            color: rgb(84,175,255);
+            /*background: linear-gradient(101deg, rgba(255,107,185,1) 0%, rgb(255, 107, 185) 19%, rgba(253,254,3,1) 26%, rgba(44,244,0,1) 28%, rgba(44,244,0,1) 49%, rgba(84,175,255,1) 54%, rgba(84,175,255,1) 72%, rgba(0,0,0,1) 72%);*/
+            /*-webkit-background-clip: text;*/
+            /*-moz-background-clip: text;*/
+            /*-webkit-text-fill-color: transparent;*/
+            /*-moz-text-fill-color: transparent;*/
         }
         .signature{
             background: rgb(255,75,176);
@@ -88,8 +89,10 @@
 
             <div id="header">
                 <div style="float:left">
-                    <a href="${pageContext.request.contextPath}" class="gospirit">Go<span class="plus">+</span><br/>
-                        <span class="spirit">Spirit</span></a>
+                    <a href="${pageContext.request.contextPath}" class="gospirit">Dynamics<span class="plus"></span><br/>
+                        <span class="spirit">Gain+</span></a>
+<%--                    <a href="${pageContext.request.contextPath}" class="gospirit">Go<span class="plus">+</span><br/>--%>
+<%--                        <span class="spirit">Spirit</span></a>--%>
                     <p style="font-size: 16px;">End Homelessness Movement.</p>
                 </div>
                 <div style="float:left;">

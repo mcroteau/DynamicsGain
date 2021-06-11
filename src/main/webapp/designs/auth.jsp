@@ -5,7 +5,7 @@
 
 <html>
 <head>
-    <title><decorator:title default="Go +Spirit : Activity Management"/></title>
+    <title><decorator:title default="Dynamics +Gain : Activity Management"/></title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
 

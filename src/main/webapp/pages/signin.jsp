@@ -16,12 +16,12 @@
     <form action="${pageContext.request.contextPath}/authenticate" method="post" >
 
         <div class="form-group">
-            <label for="username">Username</label>
+            <label for="username" class="left">Username</label>
             <input type="text" name="username" class="form-control" id="username" placeholder=""  value=""  style="width:100%;">
         </div>
 
         <div class="form-group">
-            <label for="password">Password</label>
+            <label for="password" class="left">Password</label>
             <input type="password" name="password" class="form-control" id="password" style="width:100%;" value=""  placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;">
         </div>
 

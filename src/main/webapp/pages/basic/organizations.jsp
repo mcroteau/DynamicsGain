@@ -35,7 +35,7 @@
 
     <p>or</p>
 
-    <p>Give to Go <strong>+Spirit</strong></p>
+    <p>Give to Dynamics <strong>+Gain</strong></p>
 
     <div style="margin-bottom:70px;">
         <a href="${pageContext.request.contextPath}/donate" class="button light small">Give Now +</a>

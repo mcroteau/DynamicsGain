@@ -31,7 +31,7 @@
 
         <c:if test="${!requested}">
 
-            <h3>Claim Ownership Form</h3>
+            <h3>Ownership Form</h3>
 
             <p class="left" style="margin-bottom:30px;">Feel free to give us your contact details so we may
                 begin verifying your affiliation with this organization.</p>
@@ -42,13 +42,13 @@
                     <input type="hidden" name="organizationId" value="${organization.id}"/>
 
                     <label>Contact Name</label>
-                    <input type="email" placeholder="Mike Croteau" name="name" style="width:80%;">
+                    <input type="email" placeholder="" name="name" style="width:80%;">
 
                     <label>Contact Email</label>
-                    <input type="email" placeholder="mike@gospirit.xyz" name="email" style="width:100%;">
+                    <input type="email" placeholder="" name="email" style="width:100%;">
 
                     <label>Contact Direct Number</label>
-                    <input type="text" placeholder="(907) 987-8652" name="phone" style="width:60%;">
+                    <input type="text" placeholder="" name="phone" style="width:60%;">
 
                 </fieldset>
             </form>
