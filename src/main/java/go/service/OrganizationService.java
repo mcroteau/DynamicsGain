@@ -232,8 +232,12 @@ public class OrganizationService {
         ownershipRequest.setDateRequested(Spirit.getDate());
         organizationRepo.saveRequest(ownershipRequest);
 
+        Organization organization = organizationRepo.get(ownershipRequest.getOrganizationId());
+
         data.put("message", "Successfully sent request");
         data.put("requested", true);
+
+        mailService.send("mike@dynamicsgain.org", "Dynamics +Gain : Ownership Request", "<h2>" + organization.getName() + "</h2>");
 
         return "[redirect]/ownership";
     }
