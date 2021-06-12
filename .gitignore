@@ -34,6 +34,7 @@ build/
 .vscode/
 
 ### Project ###
+*app.props
 *dev.props
 *prod.props
 *checklist.md
