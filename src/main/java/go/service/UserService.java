@@ -1,6 +1,5 @@
 package go.service;
 
-import com.stripe.Stripe;
 import eco.m1.annotate.Inject;
 import eco.m1.annotate.Prop;
 import eco.m1.annotate.Service;
@@ -9,12 +8,10 @@ import go.Spirit;
 import go.model.*;
 import go.repo.DonationRepo;
 import go.repo.OrganizationRepo;
-import go.repo.RoleRepo;
 import go.repo.UserRepo;
 import xyz.goioc.Parakeet;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.swing.*;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Enumeration;
@@ -308,7 +305,7 @@ public class UserService {
             String body = "<p>Reset password</p>" +
                     "<p><a href=\"" + resetUrl + "\">" + resetUrl + "</a></p>";
 
-            mailService.send(user.getUsername(), "Dynamics +Gain : Password Reset", body);
+            mailService.send(user.getUsername(), "Spirit +Gain : Password Reset", body);
 
         }catch(Exception e){
             e.printStackTrace();
