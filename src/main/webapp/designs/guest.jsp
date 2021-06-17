@@ -89,7 +89,7 @@
 
             <div id="header">
                 <div style="float:left">
-                    <a href="${pageContext.request.contextPath}" class="gospirit">Dynamics<span class="plus"></span><br/>
+                    <a href="${pageContext.request.contextPath}/" class="gospirit">Dynamics<span class="plus"></span><br/>
                         <span class="spirit">Gain+</span></a>
 <%--                    <a href="${pageContext.request.contextPath}" class="gospirit">Go<span class="plus">+</span><br/>--%>
 <%--                        <span class="spirit">Spirit</span></a>--%>

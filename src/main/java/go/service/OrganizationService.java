@@ -319,8 +319,8 @@ public class OrganizationService {
             AccountLinkCreateParams linkParams =
                     AccountLinkCreateParams.builder()
                             .setAccount(account.getId())
-                            .setRefreshUrl("https://dynamicsgain.org/a/reauth")
-                            .setReturnUrl("https://dynamicsgain.org/a/stripe/onboarding")
+                            .setRefreshUrl("https://dynamicsgain.org/reauth")
+                            .setReturnUrl("https://dynamicsgain.org/stripe/onboarding")
                             .setType(AccountLinkCreateParams.Type.ACCOUNT_ONBOARDING)
                             .build();
 

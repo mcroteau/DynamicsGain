@@ -13,7 +13,7 @@ import java.util.List;
 @Service
 public class SitemapService {
 
-    public static final String BASE = "https://www.gospirit.xyz/a/";
+    public static final String BASE = "https://www.dynamicsgain.xyz/";
     public static final String TOWNS_SITEMAP = "/sitemaps/towns/";
     public static final String ORGANIZATIONS_SITEMAP = "/sitemaps/organizations/";
 
