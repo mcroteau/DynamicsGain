@@ -26,7 +26,7 @@ public class TomcatServer {
         tomcat.getHost().setAppBase(baseDir);
         tomcat.enableNaming();
 
-        StandardContext ctx = (StandardContext) tomcat.addWebapp("/", new File(webappDirLocation).getAbsolutePath());
+        StandardContext ctx = (StandardContext) tomcat.addWebapp("", new File(webappDirLocation).getAbsolutePath());
         ctx.setJarScanner(new StandardJarScanner());
 
         ClassLoader classLoader = Spirit.class.getClassLoader();
