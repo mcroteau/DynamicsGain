@@ -133,12 +133,10 @@ public class TownService {
         String townUri = req.getParameter("townUri");
         Long stateId = Long.parseLong(req.getParameter("stateId"));
         Long count = Long.parseLong(req.getParameter("count"));
-        Long population = Long.parseLong(req.getParameter("population"));
 
         town.setName(name);
         town.setStateId(stateId);
         town.setCount(count);
-        town.setPopulation(population);
         town.setTownUri(townUri);
 
         townRepo.update(town);
