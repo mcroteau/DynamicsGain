@@ -123,5 +123,14 @@
     </div>
 </div>
 
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-EF5QWVVWFK"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-EF5QWVVWFK');
+</script>
+
 </body>
 </html>

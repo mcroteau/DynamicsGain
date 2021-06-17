@@ -18,7 +18,7 @@ public class StartupListener implements ServletContextListener {
 
             ServletContext context = event.getServletContext();
 
-            String[] resources = new String[]{ "assets" };
+            String[] resources = new String[]{ "assets", "sitemaps" };
             String[] propertiesFiles = new String[]{"app.props"};
 
             M1 m1 = new M1.Injector()
