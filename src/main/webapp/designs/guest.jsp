@@ -15,8 +15,8 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/packages/grid.css?v=<%=System.currentTimeMillis()%>">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/default.css?v=<%=System.currentTimeMillis()%>">
 
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.min.js"></script>
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.9/topojson.min.js"></script>
+    <script src="${pageContext.request.contextPath}/assets/js/packages/d3.min.js"></script>
+    <script src="${pageContext.request.contextPath}/assets/js/packages/topo.min.js"></script>
 
     <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/packages/jquery.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/packages/data.maps.js"></script>
