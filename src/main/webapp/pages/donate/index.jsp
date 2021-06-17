@@ -202,7 +202,7 @@
             <label>Email
                 <parakeet:isAuthenticated><span class="highlight">Signed in</span></parakeet:isAuthenticated>
             </label>
-            <input type="text" id="email" value="<parakeet:username/>" placeholder="mike@gospirit.xyz"/>
+            <input type="text" id="email" value="<parakeet:username/>" placeholder="mike@dynamicsgain.org"/>
 
 
             <div style="text-align: center;">

@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import eco.m1.annotate.Inject;
 import eco.m1.annotate.Service;
 import eco.m1.data.RequestData;
+import go.Spirit;
 import go.model.Organization;
 import go.model.State;
 import go.model.Town;
@@ -50,19 +51,30 @@ public class BasicService {
         Map<String, String> map = new HashMap<>();
         List<State> states = stateRepo.getList();
         long total = 0;
+        long totalPopulation = 0;
         for(State state : states){
             List<Town> towns = townRepo.getList(state.getId());
-            Long sum = new Long(0);
+            Long sum = Long.valueOf(0);
+            Long sumPopulation = Long.valueOf(0);
             for(Town town: towns){
                 sum += town.getCount();
+                sumPopulation += town.getPopulation();
+
                 state.setCountZero(NumberFormat.getInstance(Locale.US).format(sum));
+                double percent = Spirit.round((town.getCount().doubleValue() / town.getPopulation().doubleValue()) * 100, 3);
+                state.setPercent(percent);
             }
             total += sum;
+            totalPopulation += sumPopulation;
         }
 
         String count = NumberFormat.getInstance(Locale.US).format(total);
+        String countPopulation = NumberFormat.getInstance(Locale.US).format(totalPopulation);
+        double percent = Spirit.round(Double.valueOf(total) / Double.valueOf(totalPopulation) * 100, 3);
 
         data.put("count", count);
+        data.put("countPopulation", countPopulation);
+        data.put("percent", percent);
         data.put("states", states);
 
         return "/pages/home.jsp";
@@ -74,7 +86,7 @@ public class BasicService {
 
         for(State state : states){
             List<Town> towns = townRepo.getList(state.getId());
-            Long sum = new Long(0);
+            Long sum = Long.valueOf(0);
             for(Town town: towns){
                 sum += town.getCount();
             }

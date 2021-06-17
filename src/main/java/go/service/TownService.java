@@ -39,8 +39,10 @@ public class TownService {
         List<Organization> organizations = organizationRepo.getList(town.getId());
 
         String count = NumberFormat.getInstance(Locale.US).format(town.getCount());
+        double percent = (town.getCount().doubleValue() / town.getPopulation().doubleValue()) * 100;
 
         data.put("count", count);
+        data.put("percent", Spirit.round(percent, 1));
         data.put("town", town);
         data.put("organizations", organizations);
 
@@ -131,10 +133,12 @@ public class TownService {
         String townUri = req.getParameter("townUri");
         Long stateId = Long.parseLong(req.getParameter("stateId"));
         Long count = Long.parseLong(req.getParameter("count"));
+        Long population = Long.parseLong(req.getParameter("population"));
 
         town.setName(name);
         town.setStateId(stateId);
         town.setCount(count);
+        town.setPopulation(population);
         town.setTownUri(townUri);
 
         townRepo.update(town);

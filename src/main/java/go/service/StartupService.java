@@ -128,6 +128,12 @@ public class StartupService {
                         new Long(3472),
                         new Long( 142) };
 
+        Long[] populations = { new Long(3967000),
+                new Long(724305),
+                new Long(684379),
+                new Long(454279),
+                new Long( 16574) };
+
         String[] townNames = towns[0];
         String[] stateNames = towns[1];
         for(int z = 0; z < townNames.length; z++){
@@ -136,6 +142,7 @@ public class StartupService {
             town.setName(townNames[z]);
             town.setStateId(state.getId());
             town.setCount(counts[z]);
+            town.setPopulation(populations[z]);
             town.setTownUri(uris[z]);
             townRepo.save(town);
         }

@@ -10,6 +10,7 @@ public class State {
     Long nationId;
     Long count;
     String countZero;
+    Double percent;
 
     public Long getId() {
         return id;
@@ -59,4 +60,11 @@ public class State {
         return countZero;
     }
 
+    public Double getPercent() {
+        return percent;
+    }
+
+    public void setPercent(Double percent) {
+        this.percent = percent;
+    }
 }

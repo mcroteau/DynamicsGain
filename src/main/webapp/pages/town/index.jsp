@@ -9,7 +9,7 @@
         <div class="notify">${message}</div>
     </c:if>
 
-    <p style="font-size:17px;">Please help!</p>
+    <p class="yellow highlight" style="font-size:17px;">Please help!</p>
     <br/>
     <p id="welcome-text">
         <strong class="yellow" style="line-height: 1.3em;font-size:131px;">${town.countZero}</strong><br/> <span>Homeless <span class="header-information"> in

@@ -22,7 +22,6 @@ public class TownHandler {
                         HttpServletResponse resp,
                         RequestData data,
                         @Variable String uri){
-        System.out.println("uri " + uri);
         return townService.index(uri, data);
     }
 

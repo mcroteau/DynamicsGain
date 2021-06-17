@@ -10,6 +10,8 @@ public class Town {
     String townUri;
     Long count;
     Long stateId;
+    Long population;
+    Double percent;
 
     List<Organization> organizations;
 
@@ -65,4 +67,19 @@ public class Town {
         return NumberFormat.getInstance(Locale.US).format(count);
     }
 
+    public Long getPopulation() {
+        return population;
+    }
+
+    public void setPopulation(Long population) {
+        this.population = population;
+    }
+
+    public Double getPercent() {
+        return percent;
+    }
+
+    public void setPercent(Double percent) {
+        this.percent = percent;
+    }
 }

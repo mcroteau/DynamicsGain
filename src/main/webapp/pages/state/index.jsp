@@ -12,12 +12,15 @@
         <div class="notify">${message}</div>
     </c:if>
 
-    <p style="font-size:17px;">Please help!</p>
+    <p class="yellow highlight" style="font-size:17px;">Please help!</p>
     <br/>
-    <p id="welcome-text">
-        <strong class="yellow" style="line-height: 1.3em;font-size:131px;">${count}</strong><br/> <span>Homeless <span class="header-information"> in
+
+
+    <div id="welcome-text">
+        <strong class="yellow" style="line-height: 1.3em;font-size:131px;">${count}</strong><br/>
+        <span>Homeless <span class="header-information"> in
             <strong class="highlight" style="font-size:42px;">${state.name}</strong></span></span>
-    </p>
+    </div>
 
     <p class="open-text left">Dynamics +Gain is a non profit designed with
         the sole purpose of removing barriers that prevent people from
