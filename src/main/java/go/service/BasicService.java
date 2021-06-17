@@ -48,24 +48,18 @@ public class BasicService {
     }
 
     public String home(RequestData data){
-        Map<String, String> map = new HashMap<>();
+
         List<State> states = stateRepo.getList();
         long total = 0;
-        long totalPopulation = 0;
+
         for(State state : states){
             List<Town> towns = townRepo.getList(state.getId());
             Long sum = Long.valueOf(0);
-            Long sumPopulation = Long.valueOf(0);
             for(Town town: towns){
                 sum += town.getCount();
-                sumPopulation += town.getPopulation();
-
                 state.setCountZero(NumberFormat.getInstance(Locale.US).format(sum));
-                double percent = Spirit.round((town.getCount().doubleValue() / town.getPopulation().doubleValue()) * 100, 3);
-                state.setPercent(percent);
             }
             total += sum;
-            totalPopulation += sumPopulation;
         }
 
         String count = NumberFormat.getInstance(Locale.US).format(total);
