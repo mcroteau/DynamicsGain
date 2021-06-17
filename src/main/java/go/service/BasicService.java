@@ -69,12 +69,7 @@ public class BasicService {
         }
 
         String count = NumberFormat.getInstance(Locale.US).format(total);
-        String countPopulation = NumberFormat.getInstance(Locale.US).format(totalPopulation);
-        double percent = Spirit.round(Double.valueOf(total) / Double.valueOf(totalPopulation) * 100, 3);
-
         data.put("count", count);
-        data.put("countPopulation", countPopulation);
-        data.put("percent", percent);
         data.put("states", states);
 
         return "/pages/home.jsp";
