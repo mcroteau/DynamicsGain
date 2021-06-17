@@ -110,7 +110,6 @@ public class StartupService {
         System.out.println("Nations : " + nationRepo.getCount());
         System.out.println("States : " + stateRepo.getCount());
 
-        createMockData();
     }
 
 
