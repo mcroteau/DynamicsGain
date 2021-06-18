@@ -138,7 +138,7 @@
 					<programs>
 						<program>
 							<mainClass>go.support.TomcatServer</mainClass>
-							<name>Server</name>
+							<name>run</name>
 						</program>
 					</programs>
 				</configuration>
