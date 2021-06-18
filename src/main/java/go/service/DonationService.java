@@ -66,8 +66,7 @@ public class DonationService {
     public String organization(Long id, RequestData data) {
         Organization organization = organizationRepo.get(id);
         data.put("organization", organization);
-        if(organization.getStripeAccountId() != null ||
-                !organization.getStripeAccountId().equals("")) {
+        if(organization.getStripeAccountId() != null) {
             System.out.println("get stripe id: " + organization.getStripeAccountId());
             data.put("inDonateMode", true);
         }
