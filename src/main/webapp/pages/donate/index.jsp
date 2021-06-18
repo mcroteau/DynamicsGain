@@ -170,8 +170,6 @@
             <a href="javascript:" class="option button sky active" id="fiver" data-amount="5">$5</a>&nbsp;
             <a href="javascript:" class="option button sky" data-amount="15">$15</a>&nbsp;
             <a href="javascript:" class="option button sky" data-amount="30">$30</a>&nbsp;
-    <%--        <a href="javascript:" class="option button sky" data-amount="40">$40</a>&nbsp;--%>
-    <%--        <br/><br/>--%>
             <input type="text" class="option button" id="custom" placeholder="Other Amount" style="width:150px;" data-amount="0"/>
         </div>
 
