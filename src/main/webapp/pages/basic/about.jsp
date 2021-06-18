@@ -8,7 +8,7 @@
 
     <p class="left">Dynamics +Gain was founded by me, Mike.
         Im the sole developer of Dynamics +Gain.
-    I admit it, I've been homeless. You
+    I've been without once in my life. You
     know what the worst part about it is, most people
     don't give a poop. That's where we come in.
     We are aware of the problem of
