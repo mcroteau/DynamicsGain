@@ -605,15 +605,13 @@ select{
     float:right
 }
 
-
-body.obey{}
-
 body{
     background: #eff4f4;
     background: #e7f1f1;
     background: #fff;
     /*background: #00ffff;*/
 }
+
 #header-wrapper{}
 p,
 div,

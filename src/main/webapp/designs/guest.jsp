@@ -66,6 +66,9 @@
             color:#000;
             font-family: Roboto;
             font-weight:700;
+            font-size:21px;
+            line-height:1.5em;
+
         }
         #footer-navigation{
             margin:30px 0px 200px 0px;

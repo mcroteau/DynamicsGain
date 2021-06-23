@@ -47,6 +47,8 @@ public class StartupService {
 
     public void init() throws Exception {
 
+        runCreateScript();
+
         Parakeet.perch(spiritAccessor);
 
         Role superRole = roleRepo.find(Spirit.SUPER_ROLE);
@@ -217,6 +219,7 @@ public class StartupService {
 
     public void shutdown() throws Exception{
         System.out.println("shutdown...");
+        runDropScript();
     }
 
     private void runDropScript() throws Exception {
