@@ -28,7 +28,7 @@
                         </ul>
                     </c:if>
                     <c:if test="${state.towns.size() == 0}">
-                        <p>No towns. <a href="${pageContext.request.contextPath}/admin/towns/create" class="href-dotted">+ New Town</a></p>
+                        <p><a href="${pageContext.request.contextPath}/admin/towns/create" class="href-dotted">+ New Town</a></p>
                     </c:if>
                 </td>
             </tr>

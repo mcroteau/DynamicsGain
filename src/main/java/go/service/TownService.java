@@ -162,6 +162,11 @@ public class TownService {
         }
 
         List<Town> towns = townRepo.getList();
+        for(Town town: towns){
+            List<Organization> organizations = organizationRepo.getList(town.getId());
+            town.setOrganizations(organizations);
+        }
+
         data.put("towns", towns);
 
         return "/pages/town/list.jsp";
