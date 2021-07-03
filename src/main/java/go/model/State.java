@@ -1,6 +1,7 @@
 package go.model;
 
 import java.text.NumberFormat;
+import java.util.List;
 import java.util.Locale;
 
 public class State {
@@ -11,6 +12,7 @@ public class State {
     Long count;
     String countZero;
     Double percent;
+    List<Town> towns;
 
     public Long getId() {
         return id;
@@ -66,5 +68,13 @@ public class State {
 
     public void setPercent(Double percent) {
         this.percent = percent;
+    }
+
+    public List<Town> getTowns() {
+        return towns;
+    }
+
+    public void setTowns(List<Town> towns) {
+        this.towns = towns;
     }
 }

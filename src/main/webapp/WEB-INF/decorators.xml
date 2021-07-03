@@ -19,6 +19,7 @@
     <decorator name="auth" page="auth.jsp">
         <pattern>*/users/edit*</pattern>
         <pattern>*/admin/towns*</pattern>
+        <pattern>*/admin/states*</pattern>
         <pattern>*/admin/organizations*</pattern>
         <pattern>*/admin/ownership/requests*</pattern>
     </decorator>

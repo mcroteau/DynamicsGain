@@ -10,6 +10,7 @@ import go.model.State;
 import go.model.Town;
 import go.repo.StateRepo;
 import go.repo.TownRepo;
+import go.service.StateService;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 
 import javax.servlet.http.HttpServletResponse;
@@ -23,33 +24,22 @@ import java.util.Locale;
 public class StateHandler {
 
     @Inject
-    StateRepo stateRepo;
+    StateService stateService;
 
-    @Inject
-    TownRepo townRepo;
 
-    @Get(value="/states/{{uri}}")
+    @Get("/admin/states")
+    public String list(HttpServletRequest req,
+                         HttpServletResponse resp,
+                         RequestData reqData){
+        return stateService.list(reqData);
+    }
+
+    @Get("/states/{{uri}}")
     public String index(HttpServletRequest req,
                         HttpServletResponse resp,
                         RequestData data,
                         @Variable String uri) throws Exception {
-
-        String decodedUri = URLDecoder.decode(uri, StandardCharsets.UTF_8.toString());
-
-        State state = stateRepo.get(decodedUri);
-        List<Town> towns = townRepo.getList(state.getId());
-
-        Long sum = new Long(0);
-        for(Town town : towns){
-            sum += town.getCount();
-        }
-        String count = NumberFormat.getInstance(Locale.US).format(sum);
-
-        data.put("count", count);
-        data.put("state", state);
-        data.put("towns", towns);
-
-        return "/pages/state/index.jsp";
+        return stateService.index(uri, data);
     }
 
 }
