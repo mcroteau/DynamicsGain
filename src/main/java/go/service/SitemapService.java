@@ -13,7 +13,7 @@ import java.util.List;
 @Service
 public class SitemapService {
 
-    public static final String BASE = "https://www.dynamicsgain.xyz/";
+    public static final String BASE = "https://www.dynamicsgain.org/";
     public static final String TOWNS_SITEMAP = "/sitemaps/towns/";
     public static final String ORGANIZATIONS_SITEMAP = "/sitemaps/organizations/";
 
@@ -23,8 +23,8 @@ public class SitemapService {
         for (Organization organization: organizations) {
             String url = HttpUrl.parse(BASE)
                     .newBuilder()
-                    .addPathSegment("organizations")
-                    .addPathSegment(organization.getUri())
+                    .addPathSegment("donate")
+                    .addPathSegment(String.valueOf(organization.getId()))
                     .build()
                     .toString();
             wsg.addUrl(url);
