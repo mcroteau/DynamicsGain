@@ -23,7 +23,7 @@
     <p class="left">Select an organization to get more information or to donate to them.</p>
 
 
-    <h3>Organizations &amp; Shelters</h3>
+    <h3>Homeless Shelters &amp; Organizations in ${town.name}</h3>
     <table style="width:100%; text-align: center">
         <c:forEach var="organizations" items="${organizations}">
             <tr>
