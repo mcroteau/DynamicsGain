@@ -22,6 +22,7 @@ public class StartupListener implements ServletContextListener {
             String[] propertiesFiles = new String[]{"app.props"};
 
             M1 m1 = new M1.Injector()
+                    .asEmbedded(true)
                     .withPropertyFiles(propertiesFiles)
                     .withWebEnabled(true)
                     .withContext(context)
