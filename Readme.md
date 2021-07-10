@@ -1,17 +1,15 @@
-﻿![](http://goioc.xyz/gospirit.png)
+﻿#Dynamics +Gain
+End homelessness movement
 
-Let's end pain.
+
+Dynamics +Gain was founded by me, Mike. Im the sole developer of Dynamics +Gain. I've been without once in my life. You know what the worst part about it is, most people don't give a poop. That's where we come in. We are aware of the problem of disparity and offer a portal for you to donate. In addition, we find a whole bunch of people who care and allow you to give them money as well. Dynamics +Gain is a gateway to all the organizations we can find that act on the behalf of others and allow you to invest in them!
+
+## How does it work?
+100% of your donation goes toward the organization you select or to Dynamics +Gain. The organization has signed up and has gone through the registration process.
+
+## What is the Goal?
+Aside from the obvious one, abolishing homelessness we hope to provide gateways or kiosks everywhere in your community allowing people to be informed of the problem and contribute on the spot. So in essence, information and power to help.
 
 
-<p>Since 1865, we been actively striving to understand and fulfill the needs of the most vulnerable members of our community in Baton Rouge and the surrounding areas.</p>
-
-<p>Inspired by Gospel values, the Society of St. Vincent de Paul, a Catholic lay organization, leads women and men to join together to grow spiritually by offering person-to-person service to the needy and suffering in the tradition of its founder, Blessed Frederic Ozanam, and patron, St. Vincent de Paul.</p>
-
-<p>
-<a href="https://svdpbr.org/">www.svdpbr.org</a><br/><br/>
-
-MAILING ADDRESS: P.O. BOX 127, BATON ROUGE, LA 70821
-PHYSICAL ADDRESS: 220 ST. VINCENT DE PAUL DR., BATON ROUGE, LA 70802
-<br/>
-<br/>
-225-383-7837</p>
+Thank you.
+Mike Croteau
